@@ -28,6 +28,9 @@
 1. Spatial Data Science for Sustainable Development [[링크]](https://sustainability-gis.readthedocs.io/en/latest/index.html#)  
 
 ## 4. 스터디 저장소  
-&emsp;영한번역자료 및 스터디발표자료 공유 및 저장 수단  
-1. 깃헙(GitHub) : 처음에 사용하기 어려울 수 있음  
-2. 노션(Notion) : 간편한 UI. PC/모바일로 사용 가능  
+- 영한번역자료 및 스터디발표자료 공유 및 저장 수단  
+    1. 깃헙(GitHub) : 처음에 사용하기 어려울 수 있음  
+    2. 노션(Notion) : 간편한 UI. PC/모바일로 사용 가능  
+- 번역자료는 책의 형태로 온라인 상에 배포 (한 명이 담당, *각 멤버 기여한 부분 표시*)  
+    - GitHub Page & Jupyter Book 활용 예정 [[예시 링크]](https://github.com/Kwan-Gu/jupyter-book-test)  
+    - 번역자료는 주피터노트북(.ipynb) 또는 마크다운(.md) 포맷으로 제작 가능. **주피터노트북 추천(∵ 파이썬 코드실행 多)!**  
