@@ -24,11 +24,16 @@
 ### 개념  
 1. **Automating GIS Processes** [[링크]](https://autogis-site.readthedocs.io/en/latest/#)  
 2. **Spatial Analytics** [[링크]](https://spatial-analytics.readthedocs.io/en/latest/index.html)  
+3. Geospatial Analysis 6th Edition [[링크]](https://www.spatialanalysisonline.com/HTML/index.html)  
+    - 온라인 무료. 오프라인 유료  
+4. Applied Geospatial Data Science with Python [[링크]](https://www.amazon.com/Applied-Geospatial-Data-Science-Python-ebook/dp/B0BJ7GPXMG)  
+    - 온라인/오프리인 유료  
+
 ### 활용  
 1. Spatial Data Science for Sustainable Development [[링크]](https://sustainability-gis.readthedocs.io/en/latest/index.html#)  
 
 ## 4. 스터디 저장소  
-- 영한번역자료 및 스터디발표자료 공유 및 저장 수단  
+- 영한번역자료 및 스터디발표자료 공유 및 저장 수단 (*무료*)  
     1. 깃헙(GitHub) : 처음에 사용하기 어려울 수 있음  
     2. 노션(Notion) : 간편한 UI. PC/모바일로 사용 가능  
 - 번역자료는 책의 형태로 온라인 상에 배포 (한 명이 담당, *각 멤버 기여한 부분 표시*)  
