@@ -21,14 +21,15 @@
 ## 3. 스터디 자료  
 ### 파이썬 기초  
 1. Geo-Python [[링크]](https://geo-python-site.readthedocs.io/en/latest/#)  
-### 개념  
+### 이론  
+1. Geospatial Analysis 6th Edition [[링크]](https://www.spatialanalysisonline.com/HTML/index.html)  
+    - 온라인 무료. 오프라인 유료  
+2. Applied Geospatial Data Science with Python [[링크]](https://www.amazon.com/Applied-Geospatial-Data-Science-Python-ebook/dp/B0BJ7GPXMG)  
+    - 온라인/오프리인 유료  
+### 실습 (파이썬으로 공간분석)  
 1. **Automating GIS Processes** [[링크]](https://autogis-site.readthedocs.io/en/latest/#)  
 2. **Spatial Analytics** [[링크]](https://spatial-analytics.readthedocs.io/en/latest/index.html)  
-3. Geospatial Analysis 6th Edition [[링크]](https://www.spatialanalysisonline.com/HTML/index.html)  
-    - 온라인 무료. 오프라인 유료  
-4. Applied Geospatial Data Science with Python [[링크]](https://www.amazon.com/Applied-Geospatial-Data-Science-Python-ebook/dp/B0BJ7GPXMG)  
-    - 온라인/오프리인 유료  
-
+3. **PyGIS** [[링크]](https://pygis.io/docs/a_intro.html)  
 ### 활용  
 1. Spatial Data Science for Sustainable Development [[링크]](https://sustainability-gis.readthedocs.io/en/latest/index.html#)  
 
