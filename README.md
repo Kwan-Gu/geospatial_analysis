@@ -33,7 +33,7 @@
 1. Spatial Data Science for Sustainable Development [[링크]](https://sustainability-gis.readthedocs.io/en/latest/index.html#)  
 
 ## 4. 스터디 저장소  
-- 영한번역자료 및 스터디발표자료 공유 및 저장 수단 (*무료*)  
+- 영한번역자료 및 스터디발표자료, 공지 공유 및 저장 수단 (*무료*)  
     1. 깃헙(GitHub) : 처음에 사용하기 어려울 수 있음  
     2. 노션(Notion) : 간편한 UI. PC/모바일로 사용 가능  
 - 번역자료는 책의 형태로 온라인 상에 배포 (한 명이 담당, *각 멤버 기여한 부분 표시*)  
