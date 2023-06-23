@@ -14,8 +14,7 @@
     - 네트워크 분석  
 - 바람직한 프로그래밍 방법(Good programming practices)
 
----
 
-## 목차  
+[목차]
 ```{tableofcontents}
 ```
