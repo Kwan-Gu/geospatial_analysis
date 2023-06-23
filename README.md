@@ -28,6 +28,19 @@ Here is my figure caption!
 ```
 ````
 
+## 댓글 기능 추가
+````md
+```{raw} html
+<script src="https://utteranc.es/client.js"
+        repo="Kwan-Gu/geospatial_analysis"
+        issue-term="pathname"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+```
+````
+
 ## 배포 과정
 ### 1. 빌드
 ```commandline
