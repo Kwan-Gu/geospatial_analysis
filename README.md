@@ -1,5 +1,7 @@
 # 공간분석 스터디
 
+&emsp;공간분석 스터디에서 《Automating GIS Processes》를 번역한 자료 《공간정보 분석 Ⅰ》 입니다.
+
 ## 파일 설명
 - Configuration file : _config.yml  
 - Table of contents file : _toc.yml  
