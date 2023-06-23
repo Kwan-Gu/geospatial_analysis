@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>0.2. 파이썬과 패키지 설치 &#8212; 공간정보 분석 Ⅰ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/0. 서론/0.2. 파이썬과 패키지 설치';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="0.3. 파이썬 GIS 환경 생성" href="0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html" />
+    <link rel="prev" title="0.1. JupyterLab 분석 환경" href="0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.0.%20%EC%84%9C%EB%A1%A0.html">0. 서론</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">0.1. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">0.2. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">0.3. 파이썬 GIS 환경 생성</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Kwan-Gu/geospatial_analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/0. 서론/0.2. 파이썬과 패키지 설치.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/0. 서론/0.2. 파이썬과 패키지 설치.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>0.2. 파이썬과 패키지 설치</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">목차</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniconda-conda">Miniconda 또는 Conda 설치</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#microsoft-windows">윈도우 (Microsoft Windows)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#macos">MacOS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">리눅스 (Linux)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#redhat-redhat-fedora-centos-rockylinux">RedHat 및 RedHat 기반 배포 (Fedora, CentOS, RockyLinux)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#arch-arch-manjaro-garuda-endeavour">Arch 및 Arch 기반 배포 (Manjaro, Garuda, Endeavour)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#debian-debian-ubuntu-mint-pop-os">Debian 및 Debian 기반 배포 (Ubuntu, Mint, Pop!_OS)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conda">Conda를 이용한 파이썬 패키지 설치</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda-install">conda install 사용하기</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab">JupyterLab 설치</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>0.2. 파이썬과 패키지 설치<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="id2">
+<h2>목차<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><span class="xref myst">Miniconda 또는 Conda 설치</span></p>
+<ol class="arabic simple">
+<li><p><span class="xref myst">윈도우 (Microsoft Windows)</span></p></li>
+<li><p><span class="xref myst">MacOS</span></p></li>
+<li><p><span class="xref myst">리눅스 (Linux)</span></p></li>
+</ol>
+</li>
+<li><p><span class="xref myst">Conda를 이용한 파이썬 패키지 설치</span></p>
+<ol class="arabic simple">
+<li><p><span class="xref myst">conda install 사용하기</span></p></li>
+</ol>
+</li>
+<li><p><span class="xref myst">JupyterLab 설치</span></p></li>
+</ol>
+<hr class="docutils" />
+<p> 여러분의 컴퓨터에서 파이썬 스크립트를 작성하고 프로그램을 실행하려면 Python을 설치해야 하며, GIS 데이터셋 처리를 위한 패키지도 설치해야 합니다. 이 장에서는 <strong>Python 및 Python 패키지를 설치</strong>하는 방법을 다룹니다. 여기서는 <a class="reference external" href="https://docs.conda.io/en/latest/">conda</a> 패키지 관리 시스템을 사용하며, 아래에서 다양한 운영 체제(OS)에 대한 설치 방법을 찾을 수 있습니다.</p>
+</section>
+<section id="miniconda-conda">
+<h2>Miniconda 또는 Conda 설치<a class="headerlink" href="#miniconda-conda" title="Permalink to this heading">#</a></h2>
+<section id="microsoft-windows">
+<h3>윈도우 (Microsoft Windows)<a class="headerlink" href="#microsoft-windows" title="Permalink to this heading">#</a></h3>
+<p> <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#windows-installers">Miniconda 다운로드 페이지</a>에서 최신 패키지를 다운로드합니다. 일반적인 경우, 64비트 Windows용 버전을 다운로드 합니다. 다운로드가 완료되면 다운로드한 설치 프로그램 파일을 두 번 클릭하여 설치를 시작합니다. 설치 단계를 따라 기본 설정을 사용하셔도 됩니다. 설치가 완료되면 [시작] 메뉴에 새로 추가된 <i>Anaconda Prompt (miniconda3)</i>를 클릭합니다.</p>
+<figure style="text-align:center;">
+    <img src="./img/anaconda-prompt.png" width="30%">
+    <figcaption style="text-align:center;">Anaconda Prompt (miniconda3)</figcaption>
+</figure><p> 명령창이 열리면 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code> 명령을 입력하고 엔터키를 눌러 실행합니다. 성공적으로 설치되었다면 새로 설치된 conda 버전이 프린트 됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">user</span><span class="o">&gt;</span> <span class="n">conda</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">conda</span> <span class="mf">4.12.0</span>
+</pre></div>
+</div>
+</section>
+<section id="macos">
+<h3>MacOS<a class="headerlink" href="#macos" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>★ 주의</strong></p>
+<p> <em>Conda</em>가 MacOS 사용자에게 제공하는 두 가지 설치 방법 중 하나는 <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">|</span> <span class="pre">sh</span></code> 명령어를 이용하는 것입니다. 하지만 이 방법은 문제를 야기할 수 있습니다. <a class="reference external" href="https://0x46.net/thoughts/2019/04/27/piping-curl-to-shell/">여기</a>에서 문제가 될 수 있는 이유에 대해 자세히 알아볼 수 있습니다. 여기에서는 공식적으로 지원되는 또 다른 방법에 대해 설명합니다.</p>
+</div></blockquote>
+<p> <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#macos-installers">Miniconda 다운로드 페이지</a>에서 최신 설치 패키지를 다운로드합니다. 사용 가능한 최신 Python 버전을 선택하고, <u><em>bash</em>로 끝나는 버전이 아닌</u> <strong>pkg</strong>로 끝나는 버전을 선택합니다. 여러분 컴퓨터에 맞는 x86 또는 M1 중 선택해야 합니다. 여러분의 컴퓨터가 x86 또는 M1 중 확실하지 않다면, 확인 방법은 <a class="reference external" href="https://support.apple.com/ko-kr/HT201260">Apple 지원 페이지</a>를 참조하길 바랍니다.</p>
+<p> 다운로드가 완료되면 설치 프로그램 파일을 두 번 클릭하여 설치를 시작합니다. 설치 단계를 따라 기본 설정을 사용하셔도 됩니다. 설치가 완료되면 Applications &gt; Utilities &gt; <em>터미널(Terminal)</em> 창을 열고, <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code> 명령을 입력한 다음 <em>Return</em> 키를 눌러 실행합니다. 성공적으로 설치되었다면 새로 설치된 conda 버전이 프린트 됩니다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@MacBook-Pro<span class="w"> </span>~<span class="w"> </span>%<span class="w"> </span>conda<span class="w"> </span>--version
+conda<span class="w"> </span><span class="m">4</span>.12.0
+</pre></div>
+</div>
+</section>
+<section id="linux">
+<h3>리눅스 (Linux)<a class="headerlink" href="#linux" title="Permalink to this heading">#</a></h3>
+<section id="redhat-redhat-fedora-centos-rockylinux">
+<h4>RedHat 및 RedHat 기반 배포 (Fedora, CentOS, RockyLinux)<a class="headerlink" href="#redhat-redhat-fedora-centos-rockylinux" title="Permalink to this heading">#</a></h4>
+<p> <code class="docutils literal notranslate"><span class="pre">dnf</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">yum</span></code>을 사용하여 <code class="docutils literal notranslate"><span class="pre">conda</span></code> 패키지를 설치합니다.</p>
+</section>
+<section id="arch-arch-manjaro-garuda-endeavour">
+<h4>Arch 및 Arch 기반 배포 (Manjaro, Garuda, Endeavour)<a class="headerlink" href="#arch-arch-manjaro-garuda-endeavour" title="Permalink to this heading">#</a></h4>
+<p> <code class="docutils literal notranslate"><span class="pre">pacman</span></code>을 사용하여 <code class="docutils literal notranslate"><span class="pre">python-conda</span></code>를 설치합니다.</p>
+</section>
+<section id="debian-debian-ubuntu-mint-pop-os">
+<h4>Debian 및 Debian 기반 배포 (Ubuntu, Mint, Pop!_OS)<a class="headerlink" href="#debian-debian-ubuntu-mint-pop-os" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#linux-installers">Miniconda의 다운로드 페이지</a>에서 설치 스크립트를 다운로드합니다. 최신 Python 버전 및 여러분 컴퓨터에 맞는 버전을 선택합니다.</p></li>
+</ol>
+<div class="highlight-Shell notranslate"><div class="highlight"><pre><span></span>user@ubuntu:~#<span class="w"> </span>curl<span class="w"> </span>-LO<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-pyXX_X.YY.Z-Linux-x86_64.sh
+<span class="w">  </span>%<span class="w"> </span>Total<span class="w">    </span>%<span class="w"> </span>Received<span class="w"> </span>%<span class="w"> </span>Xferd<span class="w">  </span>Average<span class="w"> </span>Speed<span class="w">   </span>Time<span class="w">    </span>Time<span class="w">     </span>Time<span class="w">  </span>Current
+<span class="w">                                 </span>Dload<span class="w">  </span>Upload<span class="w">   </span>Total<span class="w">   </span>Spent<span class="w">    </span>Left<span class="w">  </span>Speed
+<span class="m">100</span><span class="w"> </span><span class="m">73</span>.0M<span class="w">  </span><span class="m">100</span><span class="w"> </span><span class="m">73</span>.0M<span class="w">    </span><span class="m">0</span><span class="w">     </span><span class="m">0</span><span class="w">  </span><span class="m">70</span>.3M<span class="w">      </span><span class="m">0</span><span class="w">  </span><span class="m">0</span>:00:01<span class="w">  </span><span class="m">0</span>:00:01<span class="w"> </span>--:--:--<span class="w"> </span><span class="m">70</span>.4M
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><code class="docutils literal notranslate"><span class="pre">sha256sum</span> <span class="pre">Miniconda_파일명</span></code>을 입력해 프린트된 checksum hash와 다운로드 페이지에 있는 SHA256 hash를 비교하여 확인합니다.</p></li>
+</ol>
+<div class="highlight-Shell notranslate"><div class="highlight"><pre><span></span>user@ubuntu:~#<span class="w"> </span>sha256sum<span class="w"> </span>Miniconda3-pyXX_X.YY.Z-Linux-x86_64.sh
+78f39f9bae971ec1ae7969f0516017f2413f17796670f7040725dd83fcff5689<span class="w">  </span>Miniconda3-pyXX_X.YY.Z-Linux-x86_64.sh
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>텍스트 에디터에서 파일을 열어 실행할 스크립트를 확인합니다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh</span> <span class="pre">Miniconda_파일명</span></code>을 입력해 설치 스크립트를 실행합니다.</p></li>
+</ol>
+<div class="highlight-Shell notranslate"><div class="highlight"><pre><span></span>user@ubuntu:~#<span class="w"> </span>sh<span class="w"> </span>Miniconda3-pyXX_X.YY.Z-Linux-x86_64.sh
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="conda">
+<h2>Conda를 이용한 파이썬 패키지 설치<a class="headerlink" href="#conda" title="Permalink to this heading">#</a></h2>
+<p> Conda에는 새 패키지 설치와 같은 기본 사항을 소개하는 <a class="reference external" href="https://docs.conda.io/projects/conda/en/stable/">사용자 가이드</a>가 있습니다.</p>
+<section id="conda-install">
+<h3>conda install 사용하기<a class="headerlink" href="#conda-install" title="Permalink to this heading">#</a></h3>
+<p> <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/commands/install.html"><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code></a>을 사용하여 새 패키지를 설치할 수 있습니다. 패키지 설치를 위한 기본 명령어는 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">package-name</span></code> 입니다. 대부분의 경우 파라미터 <code class="docutils literal notranslate"><span class="pre">-c</span></code>를 사용하여 패키지가 다운로드되는 conda 채널(channel)도 지정할 수 있습니다.</p>
+<p> <strong><a class="reference external" href="https://anaconda.org/conda-forge/">conda-forge</a> 채널에서 <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>를 설치</strong>하려면 다음 명령을 실행합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pandas</span>
+</pre></div>
+</div>
+<p> Conda는 패키지 설치 시 함께 설치해야만 하는 다른 패키지가 있다면 자동으로 설치합니다. 또한 설치된 모든 패키지의 버전이 서로 호환되는지 확인하고, 필요하면 패키지를 자동으로 업데이트하거나 다운그레이드합니다. 패키지 설치 및 관리 방법에 대한 자세한 내용은 <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#installing-packages">conda 공식 문서</a>를 참조하세요.</p>
+<p> <strong>비슷한 방법으로 다른 패키지도 설치</strong>할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">matplotlib</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">geopandas</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>★노트</strong></p>
+<p> <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html">Conda 채널</a>은 패키지가 저장되는 원격 로케이션 입니다. 이 과정에서는 <a class="reference external" href="https://conda-forge.org/#about">conda-forge</a> 채널에서 대부분의 패키지를 다운로드합니다. 가능하면 항상 동일한 채널(이 책에서는 conda-forge 채널)에서 패키지를 설치하는 것이 바람직합니다.</p>
+<p>  새 패키지를 설치할 때 오류 메시지가 뜨는 경우 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">list</span></code> 명령을 사용하여 기존 패키지의 버전과 채널을 확인한 후, 설치를 다시 시도하는 것이 좋습니다.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="jupyterlab">
+<h2>JupyterLab 설치<a class="headerlink" href="#jupyterlab" title="Permalink to this heading">#</a></h2>
+<p> 이 책에서는 JupyterLab을 브라우저 기반 통합 개발 환경(Integrated Development Environment; IDE)으로 사용합니다. JupyterLab은 다른 패키지를 설치할 때처럼 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code> 명령을 사용하여 설치할 수 있습니다. 설치 관련 옵션 및 자세한 내용은 <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html">JupyterLab 설치 가이드</a>를 살펴보세요.</p>
+<p> <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> 채널에서 <strong>JupyterLab과 JupyterLab Git 확장 툴을 설치</strong>합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">jupyterlab</span> <span class="n">jupyterlab</span><span class="o">-</span><span class="n">git</span>
+</pre></div>
+</div>
+<p> 설치가 완료되면 다음 명령을 실행하여 JupyterLab을 시작합니다(<code class="docutils literal notranslate"><span class="pre">jupyter</span></code>와 <code class="docutils literal notranslate"><span class="pre">lab</span></code> 사이 공백에 주의하세요!). 그러면 새 브라우저 창이나 탭에서 JupyterLab이 열립니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">lab</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\0. 서론"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">0.1. JupyterLab 분석 환경</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">0.3. 파이썬 GIS 환경 생성</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">목차</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniconda-conda">Miniconda 또는 Conda 설치</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#microsoft-windows">윈도우 (Microsoft Windows)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#macos">MacOS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">리눅스 (Linux)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#redhat-redhat-fedora-centos-rockylinux">RedHat 및 RedHat 기반 배포 (Fedora, CentOS, RockyLinux)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#arch-arch-manjaro-garuda-endeavour">Arch 및 Arch 기반 배포 (Manjaro, Garuda, Endeavour)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#debian-debian-ubuntu-mint-pop-os">Debian 및 Debian 기반 배포 (Ubuntu, Mint, Pop!_OS)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conda">Conda를 이용한 파이썬 패키지 설치</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda-install">conda install 사용하기</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab">JupyterLab 설치</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 백관구, 이정택, 강수정
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

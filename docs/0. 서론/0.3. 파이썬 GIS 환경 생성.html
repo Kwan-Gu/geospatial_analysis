@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>0.3. 파이썬 GIS 환경 생성 &#8212; 공간정보 분석 Ⅰ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/0. 서론/0.3. 파이썬 GIS 환경 생성';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="0.2. 파이썬과 패키지 설치" href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.0.%20%EC%84%9C%EB%A1%A0.html">0. 서론</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">0.1. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">0.2. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">0.3. 파이썬 GIS 환경 생성</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Kwan-Gu/geospatial_analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/0. 서론/0.3. 파이썬 GIS 환경 생성.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/0. 서론/0.3. 파이썬 GIS 환경 생성.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>0.3. 파이썬 GIS 환경 생성</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목차</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environments">파이썬 환경 (Environments)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda-1">Conda 환경 생성 : 방법 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda-2">Conda 환경 생성 : 방법 2</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gis">
+<h1>0.3. 파이썬 GIS 환경 생성<a class="headerlink" href="#gis" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="id1">
+<h2>목차<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><span class="xref myst">파이썬 환경 (Environments)</span></p>
+<ol class="arabic simple">
+<li><p><span class="xref myst">Conda 환경 생성 : 방법 1</span></p></li>
+<li><p><span class="xref myst">Conda 환경 생성 : 방법 2</span></p></li>
+</ol>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="environments">
+<h2>파이썬 환경 (Environments)<a class="headerlink" href="#environments" title="Permalink to this heading">#</a></h2>
+<p> 윈도우(Windows)에서는 패키지 간의 종속성과 외부 라이브러리에 대한 종속성을 관리하기 어렵기 때문에 Python 패키지 설치가 까다로울 수 있습니다. 가끔씩 특정 툴에는 이전 버전의 패키지 또는 Python 버전이 필요할 수도 있습니다. 앞에서 언급했듯이 가능한한 하나의 소스(예. 동일한 conda 채널)에서 패키지를 설치하는 것도 좋은 방법입니다.</p>
+<p> 그러기 위해 서로 다른 Python 프로젝트에 필요한 패키지를 분리하여 관리할 수 있는 방법이 있습니다. 바로 Python 환경(environments)입니다.</p>
+<p> 일반적으로 <strong>Python 환경</strong>은 특정 작업 또는 버전에 필요한 Python 인터프리터(interpreter), Python 패키지, 기본 라이브러리와 같은 모든 툴을 설치하는 별도의 로컬 설치 공간입니다. Python에는 <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a> 모듈 및 <a class="reference external" href="https://virtualenv.pypa.io/en/latest/">virtualenv</a> 패키지처럼 파이썬 환경 관리를 위해 기본적으로 제공하는 공식 도구가 있습니다. 그러나 앞선 도구들을 사용해 설치할 경우, GIS 패키지가 외부 라이브러리에 의존하기 때문에 Windows에서는 제대로 작동하지 않을 수 있습니다. 따라서, <code class="docutils literal notranslate"><span class="pre">conda</span></code>를 사용하여 Python 환경을 관리하는 것을 추천드립니다.</p>
+<p> 또한 이 책에서는 <code class="docutils literal notranslate"><span class="pre">conda</span></code>를 사용하여 Python 패키지를 설치하고 관리합니다. 이 책에서 필요한 모든 툴이 포함된 Python 환경을 만드는 방법은 아래에서 소개합니다.</p>
+<section id="conda-1">
+<h3>Conda 환경 생성 : 방법 1<a class="headerlink" href="#conda-1" title="Permalink to this heading">#</a></h3>
+<p> Conda 공식 문서에는 <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">conda 환경을 만들고 관리하는 방법</a>에 대해 상세하게 설명된 페이지가 있습니다. Conda 환경을 만들려면 3 단계가 필요합니다.</p>
+<ol class="arabic simple">
+<li><p>환경 생성</p></li>
+<li><p>환경 활성화</p></li>
+<li><p>활성화된 환경에 패키지 설치</p></li>
+</ol>
+<p> 아래의 명령은 Anaconda 또는 Miniconda가 설치된 여러 운영 체제에서 작동합니다.</p>
+<p> <strong>환경을 만들고 이름을 지정</strong>합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">autogis</span>
+</pre></div>
+</div>
+<p> 새로 만든 <strong>환경을 활성화</strong>합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">autogis</span>
+</pre></div>
+</div>
+<p> 환경이 활성화 되면, 명령 프롬프트 내 줄 시작 부분에 활성화된 환경 이름이 표시되어야 합니다. 확인 후 활성화된 환경에 패키지를 설치합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">jupyterlab</span> <span class="n">jupyterlab</span><span class="o">-</span><span class="n">git</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">geopandas</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">matplotlib</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">geojson</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">folium</span>
+</pre></div>
+</div>
+<p> 필요한 모든 패키지를 설치한 후 <code class="docutils literal notranslate"><span class="pre">autogis</span></code> conda 환경에 연결된 로컬 JupyterLab에서 작업할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">lab</span>
+</pre></div>
+</div>
+</section>
+<section id="conda-2">
+<h3>Conda 환경 생성 : 방법 2<a class="headerlink" href="#conda-2" title="Permalink to this heading">#</a></h3>
+<p> 사전 정의된 구성(configuration) 파일을 기반으로 conda 환경을 생성하는 것도 가능합니다. conda 환경에 대한 요구 사항은 YAML 파일(파일 확장자 .yaml 또는 .yml)에 conda 환경에 대한 사항들을 작성합니다.</p>
+<p> 구성(Configuration) 파일은 다음과 같이 작성할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span> <span class="n">autogis</span>
+
+<span class="n">channels</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
+
+<span class="n">dependencies</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.10</span>
+
+    <span class="o">-</span> <span class="n">myst</span><span class="o">-</span><span class="n">nb</span>
+    <span class="o">-</span> <span class="n">sphinx</span>
+    <span class="o">-</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">book</span><span class="o">-</span><span class="n">theme</span>
+    
+    <span class="o">-</span> <span class="n">jupyterlab</span>
+    <span class="o">-</span> <span class="n">jupyterlab</span><span class="o">-</span><span class="n">git</span>
+    
+    <span class="o">-</span> <span class="n">bokeh</span>
+    <span class="o">-</span> <span class="n">folium</span>
+    <span class="o">-</span> <span class="n">geojson</span>
+    <span class="o">-</span> <span class="n">geopandas</span>
+    <span class="o">-</span> <span class="n">geopy</span>
+    <span class="o">-</span> <span class="n">matplotlib</span>
+    <span class="o">-</span> <span class="n">osmnx</span>
+    <span class="o">-</span> <span class="n">pyrosm</span>
+    <span class="o">-</span> <span class="n">r5py</span>
+</pre></div>
+</div>
+<p> 구성(Configuration) 파일을 작성한 후, 해당 폴더로 이동하고 다음 명령을 실행하여 파일에 지정된 사양에 따라 새로운 conda 환경을 만듭니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p> 패키지 간의 종속성을 해결하고 필요한 패키지를 설치하는 데 오랜 시간이 걸릴 수 있습니다. 설치가 완료되면 새로운 GIS 패키지 환경을 사용할 수 있습니다. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span></code>를 사용하여 활성화합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">autogis</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\0. 서론"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">0.2. 파이썬과 패키지 설치</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목차</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environments">파이썬 환경 (Environments)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda-1">Conda 환경 생성 : 방법 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda-2">Conda 환경 생성 : 방법 2</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 백관구, 이정택, 강수정
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
