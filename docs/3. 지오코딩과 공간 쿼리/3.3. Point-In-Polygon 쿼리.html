@@ -366,14 +366,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="k">as</span> <span class="nn">geom</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># 점 개체 생성</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">point1</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="mf">24.952242</span><span class="p">,</span> <span class="mf">60.1696017</span><span class="p">)</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;shapely&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POINT (24.952242 60.1696017)
+POINT (24.976567 60.16125)
+POLYGON ((24.950899 60.169158, 24.953492 60.169158, 24.95351 60.170104, 24.950958 60.16999, 24.950899 60.169158))
 </pre></div>
 </div>
 </div>
@@ -448,81 +443,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">NOTEBOOK_PATH</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">DATA_DIRECTORY</span> <span class="o">=</span> <span class="n">NOTEBOOK_PATH</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>ADM_SECT_C</th>
-      <th>SGG_NM</th>
-      <th>SGG_OID</th>
-      <th>COL_ADM_SE</th>
-      <th>GID</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>11740</td>
-      <td>강동구</td>
-      <td>NaN</td>
-      <td>11740</td>
-      <td>125</td>
-      <td>POLYGON ((971595.075 1952405.815, 971596.036 1...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>11710</td>
-      <td>송파구</td>
-      <td>NaN</td>
-      <td>11710</td>
-      <td>126</td>
-      <td>POLYGON ((965821.957 1949386.153, 965816.737 1...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>11680</td>
-      <td>강남구</td>
-      <td>NaN</td>
-      <td>11680</td>
-      <td>127</td>
-      <td>POLYGON ((959331.597 1948602.068, 959342.021 1...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>11650</td>
-      <td>서초구</td>
-      <td>NaN</td>
-      <td>11650</td>
-      <td>128</td>
-      <td>POLYGON ((956982.039 1947144.037, 956982.518 1...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>11620</td>
-      <td>관악구</td>
-      <td>NaN</td>
-      <td>11620</td>
-      <td>129</td>
-      <td>POLYGON ((949438.997 1944127.713, 949456.647 1...</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;geopandas&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

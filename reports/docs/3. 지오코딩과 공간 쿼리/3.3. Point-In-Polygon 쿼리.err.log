@@ -15,31 +15,26 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import shapely.geometry as geom
+import pathlib
+import geopandas as gpd
 
-# 점 개체 생성
-point1 = geom.Point(24.952242, 60.1696017)
-point2 = geom.Point(24.976567, 60.1612500)
+NOTEBOOK_PATH = pathlib.Path().resolve()
+DATA_DIRECTORY = NOTEBOOK_PATH / "data"
 
-# 다각형 개체 생성
-polygon = geom.Polygon([(24.950899, 60.169158),
-                        (24.953492, 60.169158),
-                        (24.953510, 60.170104),
-                        (24.950958, 60.169990)
-                       ])
-
-print(point1)
-print(point2)
-print(polygon)
+city_districts = gpd.read_file(DATA_DIRECTORY / "LARD_ADM_SECT_SGG_서울" / "LARD_ADM_SECT_SGG_11.shp",
+                               encoding="cp949"
+                              )
+city_districts.head()
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [1;32mIn[1], line 1[0m
-[1;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mshapely[39;00m[38;5;21;01m.[39;00m[38;5;21;01mgeometry[39;00m [38;5;28;01mas[39;00m [38;5;21;01mgeom[39;00m
-[0;32m      3[0m [38;5;66;03m# 점 개체 생성[39;00m
-[0;32m      4[0m point1 [38;5;241m=[39m geom[38;5;241m.[39mPoint([38;5;241m24.952242[39m, [38;5;241m60.1696017[39m)
+Cell [1;32mIn[6], line 2[0m
+[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpathlib[39;00m
+[1;32m----> 2[0m [38;5;28;01mimport[39;00m [38;5;21;01mgeopandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mgpd[39;00m
+[0;32m      4[0m NOTEBOOK_PATH [38;5;241m=[39m pathlib[38;5;241m.[39mPath()[38;5;241m.[39mresolve()
+[0;32m      5[0m DATA_DIRECTORY [38;5;241m=[39m NOTEBOOK_PATH [38;5;241m/[39m [38;5;124m"[39m[38;5;124mdata[39m[38;5;124m"[39m
 
-[1;31mModuleNotFoundError[0m: No module named 'shapely'
+[1;31mModuleNotFoundError[0m: No module named 'geopandas'
 
