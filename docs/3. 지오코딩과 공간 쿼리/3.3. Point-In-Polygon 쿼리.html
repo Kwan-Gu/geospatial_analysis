@@ -443,18 +443,81 @@ POLYGON ((24.950899 60.169158, 24.953492 60.169158, 24.95351 60.170104, 24.95095
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pathlib</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">NOTEBOOK_PATH</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">DATA_DIRECTORY</span> <span class="o">=</span> <span class="n">NOTEBOOK_PATH</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;geopandas&#39;
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADM_SECT_C</th>
+      <th>SGG_NM</th>
+      <th>SGG_OID</th>
+      <th>COL_ADM_SE</th>
+      <th>GID</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>11740</td>
+      <td>강동구</td>
+      <td>NaN</td>
+      <td>11740</td>
+      <td>125</td>
+      <td>POLYGON ((971595.075 1952405.815, 971596.036 1...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>11710</td>
+      <td>송파구</td>
+      <td>NaN</td>
+      <td>11710</td>
+      <td>126</td>
+      <td>POLYGON ((965821.957 1949386.153, 965816.737 1...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>11680</td>
+      <td>강남구</td>
+      <td>NaN</td>
+      <td>11680</td>
+      <td>127</td>
+      <td>POLYGON ((959331.597 1948602.068, 959342.021 1...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11650</td>
+      <td>서초구</td>
+      <td>NaN</td>
+      <td>11650</td>
+      <td>128</td>
+      <td>POLYGON ((956982.039 1947144.037, 956982.518 1...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11620</td>
+      <td>관악구</td>
+      <td>NaN</td>
+      <td>11620</td>
+      <td>129</td>
+      <td>POLYGON ((949438.997 1944127.713, 949456.647 1...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -463,10 +526,43 @@ POLYGON ((24.950899 60.169158, 24.953492 60.169158, 24.95351 60.170104, 24.95095
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">File ~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:664,</span> in <span class="ni">plot_dataframe</span><span class="nt">(df, column, cmap, color, ax, cax, categorical, legend, scheme, k, vmin, vmax, markersize, figsize, legend_kwds, categories, classification_kwds, missing_kwds, aspect, **style_kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">663</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">664</span>     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">    </span><span class="mi">665</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">city_districts</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="nn">File ~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:969,</span> in <span class="ni">GeoplotAccessor.__call__</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">967</span> <span class="n">kind</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;kind&quot;</span><span class="p">,</span> <span class="s2">&quot;geo&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">968</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;geo&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">969</span>     <span class="k">return</span> <span class="n">plot_dataframe</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">970</span> <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pandas_kinds</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">971</span>     <span class="c1"># Access pandas plots</span>
+<span class="g g-Whitespace">    </span><span class="mi">972</span>     <span class="k">return</span> <span class="n">PlotAccessor</span><span class="p">(</span><span class="n">data</span><span class="p">)(</span><span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:666,</span> in <span class="ni">plot_dataframe</span><span class="nt">(df, column, cmap, color, ax, cax, categorical, legend, scheme, k, vmin, vmax, markersize, figsize, legend_kwds, categories, classification_kwds, missing_kwds, aspect, **style_kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">664</span>     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">    </span><span class="mi">665</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">666</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">667</span>         <span class="s2">&quot;The matplotlib package is required for plotting in geopandas. &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="s2">&quot;You can install it using &#39;conda install -c conda-forge matplotlib&#39; or &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="s2">&quot;&#39;pip install matplotlib&#39;.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">670</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">672</span> <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">673</span>     <span class="k">if</span> <span class="n">cax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="ne">ImportError</span>: The matplotlib package is required for plotting in geopandas. You can install it using &#39;conda install -c conda-forge matplotlib&#39; or &#39;pip install matplotlib&#39;.
 </pre></div>
 </div>
-<img alt="../../_images/bb48c74d1f5edc499b5c29f98ff248b28399f49ebd105341daa1539e463f853a.png" src="../../_images/bb48c74d1f5edc499b5c29f98ff248b28399f49ebd105341daa1539e463f853a.png" />
 </div>
 </div>
 <div class="cell docutils container">

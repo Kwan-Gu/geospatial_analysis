@@ -15,26 +15,43 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import pathlib
-import geopandas as gpd
-
-NOTEBOOK_PATH = pathlib.Path().resolve()
-DATA_DIRECTORY = NOTEBOOK_PATH / "data"
-
-city_districts = gpd.read_file(DATA_DIRECTORY / "LARD_ADM_SECT_SGG_서울" / "LARD_ADM_SECT_SGG_11.shp",
-                               encoding="cp949"
-                              )
-city_districts.head()
+city_districts.plot()
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [1;32mIn[6], line 2[0m
-[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpathlib[39;00m
-[1;32m----> 2[0m [38;5;28;01mimport[39;00m [38;5;21;01mgeopandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mgpd[39;00m
-[0;32m      4[0m NOTEBOOK_PATH [38;5;241m=[39m pathlib[38;5;241m.[39mPath()[38;5;241m.[39mresolve()
-[0;32m      5[0m DATA_DIRECTORY [38;5;241m=[39m NOTEBOOK_PATH [38;5;241m/[39m [38;5;124m"[39m[38;5;124mdata[39m[38;5;124m"[39m
+File [1;32m~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:664[0m, in [0;36mplot_dataframe[1;34m(df, column, cmap, color, ax, cax, categorical, legend, scheme, k, vmin, vmax, markersize, figsize, legend_kwds, categories, classification_kwds, missing_kwds, aspect, **style_kwds)[0m
+[0;32m    663[0m [38;5;28;01mtry[39;00m:
+[1;32m--> 664[0m     [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[0;32m    665[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m:
 
-[1;31mModuleNotFoundError[0m: No module named 'geopandas'
+[1;31mModuleNotFoundError[0m: No module named 'matplotlib'
+
+During handling of the above exception, another exception occurred:
+
+[1;31mImportError[0m                               Traceback (most recent call last)
+Cell [1;32mIn[7], line 1[0m
+[1;32m----> 1[0m [43mcity_districts[49m[38;5;241;43m.[39;49m[43mplot[49m[43m([49m[43m)[49m
+
+File [1;32m~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:969[0m, in [0;36mGeoplotAccessor.__call__[1;34m(self, *args, **kwargs)[0m
+[0;32m    967[0m kind [38;5;241m=[39m kwargs[38;5;241m.[39mpop([38;5;124m"[39m[38;5;124mkind[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mgeo[39m[38;5;124m"[39m)
+[0;32m    968[0m [38;5;28;01mif[39;00m kind [38;5;241m==[39m [38;5;124m"[39m[38;5;124mgeo[39m[38;5;124m"[39m:
+[1;32m--> 969[0m     [38;5;28;01mreturn[39;00m plot_dataframe(data, [38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m    970[0m [38;5;28;01mif[39;00m kind [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39m_pandas_kinds:
+[0;32m    971[0m     [38;5;66;03m# Access pandas plots[39;00m
+[0;32m    972[0m     [38;5;28;01mreturn[39;00m PlotAccessor(data)(kind[38;5;241m=[39mkind, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+
+File [1;32m~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:666[0m, in [0;36mplot_dataframe[1;34m(df, column, cmap, color, ax, cax, categorical, legend, scheme, k, vmin, vmax, markersize, figsize, legend_kwds, categories, classification_kwds, missing_kwds, aspect, **style_kwds)[0m
+[0;32m    664[0m     [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[0;32m    665[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m:
+[1;32m--> 666[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m(
+[0;32m    667[0m         [38;5;124m"[39m[38;5;124mThe matplotlib package is required for plotting in geopandas. [39m[38;5;124m"[39m
+[0;32m    668[0m         [38;5;124m"[39m[38;5;124mYou can install it using [39m[38;5;124m'[39m[38;5;124mconda install -c conda-forge matplotlib[39m[38;5;124m'[39m[38;5;124m or [39m[38;5;124m"[39m
+[0;32m    669[0m         [38;5;124m"[39m[38;5;124m'[39m[38;5;124mpip install matplotlib[39m[38;5;124m'[39m[38;5;124m.[39m[38;5;124m"[39m
+[0;32m    670[0m     )
+[0;32m    672[0m [38;5;28;01mif[39;00m ax [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[0;32m    673[0m     [38;5;28;01mif[39;00m cax [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+
+[1;31mImportError[0m: The matplotlib package is required for plotting in geopandas. You can install it using 'conda install -c conda-forge matplotlib' or 'pip install matplotlib'.
 
