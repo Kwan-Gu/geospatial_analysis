@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2. JupyterLab 분석 환경 &#8212; 공간정보 분석 Ⅰ</title>
+    <title>2. 지오코딩 (Geocoding) &#8212; 공간정보 분석 Ⅰ</title>
   
   
   
@@ -95,11 +95,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/0. 서론/0.1. JupyterLab 분석 환경';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/3. 지오코딩과 공간 쿼리/3.1. 지오코딩';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3. 파이썬과 패키지 설치" href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html" />
-    <link rel="prev" title="1. 개요" href="0.0.%20%EA%B0%9C%EC%9A%94.html" />
+    <link rel="next" title="3. PIP (Point-In-Polygon) 쿼리" href="3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html" />
+    <link rel="prev" title="1. 개요" href="3.0.%20%EA%B0%9C%EC%9A%94.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,17 +183,17 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. JupyterLab 분석 환경</a></li>
-<li class="toctree-l1"><a class="reference internal" href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
-<li class="toctree-l1"><a class="reference internal" href="0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">2. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">지오코딩(Geocoding)과 공간 쿼리</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">2. 지오코딩 (Geocoding)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html">3. PIP (Point-In-Polygon) 쿼리</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 지오코딩 (Geocoding)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html">3. PIP (Point-In-Polygon) 쿼리</a></li>
 </ul>
 
     </div>
@@ -237,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/0. 서론/0.1. JupyterLab 분석 환경.html&body=Your%20issue%20content%20here." target="_blank"
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/3. 지오코딩과 공간 쿼리/3.1. 지오코딩.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button"
    title="Open an issue"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -295,7 +295,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>JupyterLab 분석 환경</h1>
+    <h1>지오코딩 (Geocoding)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -309,23 +309,31 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="jupyterlab">
-<h1><span class="section-number">2. </span>JupyterLab 분석 환경<a class="headerlink" href="#jupyterlab" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="geocoding">
+<h1><span class="section-number">2. </span>지오코딩 (Geocoding)<a class="headerlink" href="#geocoding" title="Permalink to this heading">#</a></h1>
 <hr class="docutils" />
-<p> 이 책에서 여러분은 웹 브라우저 기반의 개발 환경인 주피터랩(JupyterLab)을 사용합니다. <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html">주피터랩</a>은 데이터 과학을 위한 오픈소스 웹 기반 통합 개발 인터페이스(Integrated Development Interface; IDE) 입니다. 이 인터페이스는 파일 브라우저, 터미널, 텍스트 에디터를 포함한 여러 요소로 구성되며 다양한 플러그인을 사용하여 기능을 확장할 수 있습니다.</p>
-<figure class="align-default" id="id1">
-<a class="reference internal image-reference" href="../../_images/jupyterlab-launcher.png"><img alt="../../_images/jupyterlab-launcher.png" src="../../_images/jupyterlab-launcher.png" style="height: 500px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text"><i>주피터랩(JupyterLab)</i> 시작 화면</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p> <i>주피터랩(JupyterLab)</i>의 핵심에는 <b>주피터 노트북(Jupyter Notebook)</b>이라는 개념이 있습니다. 주피터 노트북(파일 확장자: .ipynb)은 코드와 함께 리치 텍스트(서식 있는 텍스트), 그림, 표를 작성할 수 있는 문서 형식입니다. 이 형식은 재현가능한 데이터 과학 워크플로(reproducible data science workflow)를 대화형(interactive)으로 문서화하는 데 적합합니다. 참고로, 이 책도 주피터 노트북을 사용해 작성했습니다. <strong>이 책에서는 JupyterLab의 Jupyter Notebook을 기본 프로그래밍 환경으로 사용합니다.</strong></p>
-<figure class="align-default" id="id2">
-<a class="reference internal image-reference" href="../../_images/jupyterlab-example-notebook.png"><img alt="../../_images/jupyterlab-example-notebook.png" src="../../_images/jupyterlab-example-notebook.png" style="height: 500px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text"><i>주피터랩(JupyterLab)</i>에서 연 노트북(notebook) 화면</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
+<p> 지오코딩은 장소 이름(예. 서울시청)이나 주소(예. 대한민국 서울특별시 중구 세종대로 110 서울특별시청)를 좌표로 변환하는 프로세스입니다. 이 단원에서는 <a class="reference external" href="https://geopandas.org/en/stable/">Geopandas</a>와 <a class="reference external" href="https://geopy.readthedocs.io/en/stable/">geopy</a> 라이브러리를 사용하여 지오코딩하는 방법을 배우겠습니다.</p>
+<p> Geopy와 다른 지오코딩 라이브러리(예. <a class="reference external" href="https://geocoder.readthedocs.io/">geocoder 라이브러리</a>)를 사용하면 웹 서비스를 사용하여 전 세계의 주소, 도시, 국가 및 랜드마크의 좌표를 쉽게 얻을 수 있습니다. 이러한 웹 서비스를 지오코더(geocoder)라고 합니다. 실제로 지오코더는 API(응용 프로그래밍 인터페이스; Application) 서비스인 경우가 많으며, 이 API를 통해 요청(장소 이름 또는 주소)을 보내면 응답(좌표)을 받을 수 있습니다.</p>
+<p> Geopy는 다음과 같은 지오코더를 제공합니다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm">ESRI ArcGIS</a></p></li>
+<li><p><a class="reference external" href="https://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding">Baidu Maps</a></p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/bingmaps/rest-services/locations/?redirectedfrom=MSDN">Bing</a></p></li>
+<li><p><s>GeocodeFarm</s></p></li>
+<li><p><a class="reference external" href="http://www.geonames.org/export/geonames-search.html">GeoNames</a></p></li>
+<li><p><a class="reference external" href="https://developers.google.com/maps/documentation/geocoding?hl=ko">Google Geocoding API (V3)</a></p></li>
+<li><p><a class="reference external" href="https://developer.here.com/documentation/geocoder/dev_guide/topics/quick-start.html">HERE</a></p></li>
+<li><p><s>IGN France</s></p></li>
+<li><p><a class="reference external" href="https://developer.mapquest.com/">Mapquest</a></p></li>
+<li><p><a class="reference external" href="https://opencagedata.com/api">OpenCage</a></p></li>
+<li><p><a class="reference external" href="https://nominatim.org/">Open Street Map Nominatim</a></p></li>
+<li><p><a class="reference external" href="https://developer.what3words.com/public-api/docsv2#overview">What3words</a></p></li>
+<li><p><a class="reference external" href="https://yandex.com/dev/geocode/doc/en/">Yandex</a></p></li>
+</ul>
+<p> Python을 통해 위의 지오코더를 이용하는 방법은 <a class="reference external" href="https://geopy.readthedocs.io/en/stable/">geopy 공식 문서</a>를 확인하시길 바랍니다.</p>
+<p> 여러분이 사용할 수 있는 지오코더의 종류가 다양한만큼 지오코딩의 결과물은 각 지오코더가 기반하고 있는 데이터의 종류에 따라 다를 수 있습니다. 예를 들어, 일부 주소는 OpenStreetMap에는 존재하지만 Google 지도에는 없을 수 있습니다. 이러한 경우 OpenStreetMap 데이터에 기반한 Nominatim 지오코더를 사용하여 지오코딩할 수 있지만, Google Geocoding API로는 지오코딩 하지 못합니다.</p>
+<p> 일부 지오코더의 경우 API 결과에 액세스하려면 <b>API 키(key)</b>가 필요할 수 있습니다. API 키는 일반적으로 지오코딩 서비스를 제공하는 웹 홈페이지에서 회원가입을 통해 등록하면 얻을 수 있습니다. 그리고 무료로 제공되는 지오코딩 API 서비스는 사용 <strong>속도 제한</strong>이 있는 경우가 있습니다. 짧은 시간에 너무 많은 요청을 시도하는 경우(예를 들어, 많은 수의 주소를 짧은 시간동안 지오코딩하는 경우), 지오코딩 서비스에서 오류를 발생시킬 수 있습니다. <a class="reference external" href="https://geopy.readthedocs.io/en/stable/#usage-with-pandas">geopy 공식 문서</a>을 통해 geopy에서 API 속도 제한에 대응하기 위해 어떤 대안을 사용하는지 확인할 수 있습니다. 또는 지오코딩 서비스에 대한 비용(유료)을 지불한다면 속도 제한 없이 또는 더 많은 양의 API 요청을 할 수 있습니다.</p>
+<p> 이 책에서는 비교적 적은 수의 주소만 지오코딩을 하기 때문에, Nominatim 지오코더를 사용하도록 하겠습니다. Nominatim 지오코더는 1초당 요청 1개로 속도가 제한됩니다. <a class="reference external" href="https://operations.osmfoundation.org/policies/nominatim/">여기</a>에서 Nominatim 사용 정책에 대한 자세한 내용을 읽을 수 있습니다. 참고로, Nominatim은 적은 수의 주소만 지오코딩할 경우 서비스를 사용하기 위한 API 키가 필요하지 않습니다.</p>
 <hr class="docutils" />
 <script src="https://utteranc.es/client.js"
         repo="Kwan-Gu/geospatial_analysis"
@@ -348,7 +356,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./docs\0. 서론"
+            path: "./docs\3. 지오코딩과 공간 쿼리"
         },
         predefinedOutput: true
     }
@@ -367,7 +375,7 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="0.0.%20%EA%B0%9C%EC%9A%94.html"
+       href="3.0.%20%EA%B0%9C%EC%9A%94.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -376,11 +384,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html"
+       href="3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>파이썬과 패키지 설치</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>PIP (Point-In-Polygon) 쿼리</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

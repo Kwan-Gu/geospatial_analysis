@@ -1,0 +1,1126 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>3. PIP (Point-In-Polygon) 쿼리 &#8212; 공간정보 분석 Ⅰ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "Kwan-Gu/geospatial_analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/3. 지오코딩과 공간 쿼리/3.3. Point-In-Polygon 쿼리';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="2. 지오코딩 (Geocoding)" href="3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">2. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">지오코딩(Geocoding)과 공간 쿼리</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">2. 지오코딩 (Geocoding)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. PIP (Point-In-Polygon) 쿼리</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/3. 지오코딩과 공간 쿼리/3.3. Point-In-Polygon 쿼리.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PIP (Point-In-Polygon) 쿼리</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ray-casting-algorithm">3.1. 레이 캐스팅 알고리즘 (Ray Casting Algorithm)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shapely-pip">3.2. Shapely에서 PIP 쿼리 사용하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geopandas-geodataframe-pip">3.3. Geopandas.GeoDataFrame에서 PIP 쿼리 사용하기</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pip-point-in-polygon">
+<h1><span class="section-number">3. </span>PIP (Point-In-Polygon) 쿼리<a class="headerlink" href="#pip-point-in-polygon" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<p> 점(point)이 영역 내부 또는 외부에 있는지, 또는 선(line)이 다른 선 또는 다각형과 교차(intersect)하는지 판단하는 PIP (Point-In-Polygon) 쿼리는 다양한 공간 연산 중 빈번하게 사용됩니다. 특히 두 개의 공간 데이터셋 간의 공간 조인(spatial join)은 PIP 쿼리를 응용한 대표적인 사례입니다.</p>
+<blockquote>
+<div><p><strong>※ 참고</strong></p>
+<p> PIP 및 도형 연산(geometric operation)에 대한 자세한 내용은 Smith, Goodchild &amp; Longley가 집필한 <a class="reference external" href="https://www.spatialanalysisonline.com/HTML/index.html">Geospatial Analysis 6판</a>의 4.2장에 정리되어 있습니다.</p>
+</div></blockquote>
+<section id="ray-casting-algorithm">
+<h2><span class="section-number">3.1. </span>레이 캐스팅 알고리즘 (Ray Casting Algorithm)<a class="headerlink" href="#ray-casting-algorithm" title="Permalink to this heading">#</a></h2>
+<p> 점이 다각형 내부에 위치하는지 계산하기 위해 사용되는 알고리즘 중 대표적으로 <a class="reference external" href="https://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm">레이 캐스팅 알고리즘(Ray Casting Algorithm)</a>이 있습니다. 이 알고리즘을 구현하기 위해 직접 함수를 만들지 않아도, <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#binary-predicates">Shapely 라이브러리</a>를 사용하여 PIP 쿼리 외에도 기하학적 개체들 간의 다양한 연산을 수행할 수 있습니다.</p>
+</section>
+<section id="shapely-pip">
+<h2><span class="section-number">3.2. </span>Shapely에서 PIP 쿼리 사용하기<a class="headerlink" href="#shapely-pip" title="Permalink to this heading">#</a></h2>
+<p> Shapely에서 PIP를 수행하는 두 가지 방법이 있습니다:</p>
+<ol class="arabic simple">
+<li><p>점이 다각형 내부에 있는지 확인하는 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.within">within()</a> 함수를 사용</p></li>
+<li><p>다각형이 점을 포함하고 있는지 확인하는 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.contains">contains()</a> 함수를 사용</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p> 여기에서는 PIP 쿼리에 대해서만 다루고 있지만, Shapely의 LineString 또는 다각형(Polygon) 개체가 다른 다각형(Polygon) 내부에 있는지 확인하는 것도 동일한 방법으로 가능합니다.</p>
+</div>
+<p> 먼저 두 개의 점 개체 <code class="docutils literal notranslate"><span class="pre">point1</span></code>와 <code class="docutils literal notranslate"><span class="pre">point2</span></code>를 만들어줍니다. 그리고 다각형 개체 <code class="docutils literal notranslate"><span class="pre">polygon</span></code>도 생성합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="k">as</span> <span class="nn">geom</span>
+
+<span class="c1"># 점 개체 생성</span>
+<span class="n">point1</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="mf">24.952242</span><span class="p">,</span> <span class="mf">60.1696017</span><span class="p">)</span>
+<span class="n">point2</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="mf">24.976567</span><span class="p">,</span> <span class="mf">60.1612500</span><span class="p">)</span>
+
+<span class="c1"># 다각형 개체 생성</span>
+<span class="n">polygon</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">Polygon</span><span class="p">([(</span><span class="mf">24.950899</span><span class="p">,</span> <span class="mf">60.169158</span><span class="p">),</span>
+                        <span class="p">(</span><span class="mf">24.953492</span><span class="p">,</span> <span class="mf">60.169158</span><span class="p">),</span>
+                        <span class="p">(</span><span class="mf">24.953510</span><span class="p">,</span> <span class="mf">60.170104</span><span class="p">),</span>
+                        <span class="p">(</span><span class="mf">24.950958</span><span class="p">,</span> <span class="mf">60.169990</span><span class="p">)</span>
+                       <span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">point1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">point2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">polygon</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="k">as</span> <span class="nn">geom</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># 점 개체 생성</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">point1</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="mf">24.952242</span><span class="p">,</span> <span class="mf">60.1696017</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;shapely&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p> 두 점이 다각형 내부에 있는지 <code class="docutils literal notranslate"><span class="pre">within()</span></code> 함수를 사용하여 확인해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point1</span><span class="o">.</span><span class="n">within</span><span class="p">(</span><span class="n">polygon</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point2</span><span class="o">.</span><span class="n">within</span><span class="p">(</span><span class="n">polygon</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<p> 첫 번째 점 <code class="docutils literal notranslate"><span class="pre">point1</span></code>은 다각형 내부(<code class="docutils literal notranslate"><span class="pre">True</span></code>)에 있지만, 두 번째 점 <code class="docutils literal notranslate"><span class="pre">point2</span></code>는 다각형 외부(<code class="docutils literal notranslate"><span class="pre">False</span></code>)에 있습니다. 이번에는 점이 다각형 내부에 있는지 확인하는 대신, 반대로 다각형이 점을 포함하는지 여부를 <code class="docutils literal notranslate"><span class="pre">contains()</span></code> 함수를 사용하여 확인해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">polygon</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">point1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">polygon</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">point2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="geopandas-geodataframe-pip">
+<h2><span class="section-number">3.3. </span>Geopandas.GeoDataFrame에서 PIP 쿼리 사용하기<a class="headerlink" href="#geopandas-geodataframe-pip" title="Permalink to this heading">#</a></h2>
+<p> 아래 예시는 지오코딩을 통해 얻은 주소 중 어느 지점이 서울의 특정 구역 내에 있는지 탐색합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="n">NOTEBOOK_PATH</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">DATA_DIRECTORY</span> <span class="o">=</span> <span class="n">NOTEBOOK_PATH</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
+
+<span class="n">city_districts</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="s2">&quot;LARD_ADM_SECT_SGG_서울&quot;</span> <span class="o">/</span> <span class="s2">&quot;LARD_ADM_SECT_SGG_11.shp&quot;</span><span class="p">,</span>
+                               <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;cp949&quot;</span>
+                              <span class="p">)</span>
+<span class="n">city_districts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADM_SECT_C</th>
+      <th>SGG_NM</th>
+      <th>SGG_OID</th>
+      <th>COL_ADM_SE</th>
+      <th>GID</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>11740</td>
+      <td>강동구</td>
+      <td>NaN</td>
+      <td>11740</td>
+      <td>125</td>
+      <td>POLYGON ((971595.075 1952405.815, 971596.036 1...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>11710</td>
+      <td>송파구</td>
+      <td>NaN</td>
+      <td>11710</td>
+      <td>126</td>
+      <td>POLYGON ((965821.957 1949386.153, 965816.737 1...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>11680</td>
+      <td>강남구</td>
+      <td>NaN</td>
+      <td>11680</td>
+      <td>127</td>
+      <td>POLYGON ((959331.597 1948602.068, 959342.021 1...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11650</td>
+      <td>서초구</td>
+      <td>NaN</td>
+      <td>11650</td>
+      <td>128</td>
+      <td>POLYGON ((956982.039 1947144.037, 956982.518 1...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11620</td>
+      <td>관악구</td>
+      <td>NaN</td>
+      <td>11620</td>
+      <td>129</td>
+      <td>POLYGON ((949438.997 1944127.713, 949456.647 1...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">city_districts</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../../_images/bb48c74d1f5edc499b5c29f98ff248b28399f49ebd105341daa1539e463f853a.png" src="../../_images/bb48c74d1f5edc499b5c29f98ff248b28399f49ebd105341daa1539e463f853a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">city_districts</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Projected CRS: EPSG:5179&gt;
+Name: Korea 2000 / Unified CS
+Axis Info [cartesian]:
+- X[north]: Northing (metre)
+- Y[east]: Easting (metre)
+Area of Use:
+- name: Korea, Republic of (South Korea)
+- bounds: (122.71, 28.6, 134.28, 40.27)
+Coordinate Operation:
+- name: Korea Unified Belt
+- method: Transverse Mercator
+Datum: Geocentric datum of Korea
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+<p> 서울특별시 은평구 내에 있는 지점을 찾고자 합니다. 이 구역에 대한 별도의 데이터셋를 얻고, 주소 데이터를 로드하고, 은평구와 모든 지점을 하나의 지도에 표시하는 다중 레이어 맵을 시각화 해보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ep_district</span> <span class="o">=</span> <span class="n">city_districts</span><span class="p">[</span><span class="n">city_districts</span><span class="o">.</span><span class="n">SGG_NM</span> <span class="o">==</span> <span class="s2">&quot;은평구&quot;</span><span class="p">]</span>
+<span class="n">ep_district</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADM_SECT_C</th>
+      <th>SGG_NM</th>
+      <th>SGG_OID</th>
+      <th>COL_ADM_SE</th>
+      <th>GID</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>13</th>
+      <td>11380</td>
+      <td>은평구</td>
+      <td>NaN</td>
+      <td>11380</td>
+      <td>138</td>
+      <td>POLYGON ((951637.438 1961851.784, 951649.915 1...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">addresses</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="s2">&quot;addresses.gpkg&quot;</span><span class="p">)</span>
+<span class="n">addresses</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>지점</th>
+      <th>지점주소</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>서울특별시아동학대예방센터, 광평로34길, 06352, 광평로34길, 서울, 대한민국</td>
+      <td>400</td>
+      <td>서울특별시 강남구 일원동 580</td>
+      <td>POINT (127.08775 37.47971)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>서울특별시데이터센터, 남부순환로340길, 06724, 남부순환로340길, 서울, 대한민국</td>
+      <td>401</td>
+      <td>서울특별시 서초구 서초동 1416번지</td>
+      <td>POINT (127.02191 37.47954)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>서울특별시 동부기술교육원, 183, 고덕로, 05235, 고덕로, 고덕동, 대한민국</td>
+      <td>402</td>
+      <td>서울특별시 강동구 고덕로 183</td>
+      <td>POINT (127.14557 37.55604)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>롯데월드, 240, 올림픽로, 05554, 올림픽로, 잠실동, 대한민국</td>
+      <td>403</td>
+      <td>서울특별시 송파구 올림픽로 240</td>
+      <td>POINT (127.09824 37.51150)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>월드메르디앙 201동, 양천로1길, 07602, 양천로1길, 서울, 대한민국</td>
+      <td>404</td>
+      <td>서울특별시 강서구 양천로 201</td>
+      <td>POINT (126.81027 37.57468)</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>405-298, 목동동로12길, 08005, 목동동로12길, 서울, 대한민국</td>
+      <td>405</td>
+      <td>서울특별시 양천구 목동동로 298</td>
+      <td>POINT (126.87355 37.52290)</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>서울특별시립도봉도서관, 시루봉로, 01375, 시루봉로, 쌍문4동, 대한민국</td>
+      <td>406</td>
+      <td>서울특별시 도봉구 시루봉로 173</td>
+      <td>POINT (127.02772 37.65291)</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>NaN</td>
+      <td>407</td>
+      <td>서울특별시 노원구 공릉동 사서함 230-3호 사서함 77호</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>서울시립대학교, 163, 서울시립대로, 02504, 서울시립대로, 서울특별시, 대한민국</td>
+      <td>408</td>
+      <td>서울특별시 동대문구 서울시립대로 163</td>
+      <td>POINT (127.05918 37.58302)</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>32, 면목로84길, 02162, 면목로84길, 서울시 중랑구, 대한민국</td>
+      <td>409</td>
+      <td>서울특별시 중랑구 면목로57길 32</td>
+      <td>POINT (127.08852 37.59191)</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>동작보라매자이더포레스트, 서울특별시 동작구 여의대방로22길 121, 대한민국</td>
+      <td>410</td>
+      <td>서울특별시 동작구 여의대방로16길 61</td>
+      <td>POINT (126.92597 37.49854)</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>NaN</td>
+      <td>411</td>
+      <td>서울특별시 마포구 창전동 산1-75</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>세브란스병원, 50-1, 연세로, 03722, 연세로, 서울특별시, 대한민국</td>
+      <td>412</td>
+      <td>서울특별시 서대문구 연세로 50</td>
+      <td>POINT (126.94038 37.56230)</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>NaN</td>
+      <td>413</td>
+      <td>서울특별시 광진구 자양2동 680-67</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>국민대학교우편취급국, 77 종합복지관 2층, 정릉로, 02707, 정릉로, 정릉동,...</td>
+      <td>414</td>
+      <td>서울특별시 성북구 정릉로 77</td>
+      <td>POINT (126.99594 37.61029)</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>NaN</td>
+      <td>415</td>
+      <td>서울특별시 용산구 이촌로 255</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>서울특별시 소방학교, 통일로, 03312, 통일로, 진관동, 대한민국</td>
+      <td>416</td>
+      <td>서울특별시 은평구 진관동 산26</td>
+      <td>POINT (126.91181 37.63268)</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>서울독산초등학교, 31, 시흥대로104길, 08618, 시흥대로104길, 금천구, ...</td>
+      <td>417</td>
+      <td>서울특별시 금천구 시흥대로104길 31</td>
+      <td>POINT (126.90003 37.46524)</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>여의도 이랜드크루즈, 280, 여의동로, 07337, 여의동로, 서울, 대한민국</td>
+      <td>418</td>
+      <td>서울특별시 영등포구 여의동로 280</td>
+      <td>POINT (126.93841 37.52578)</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>83, 소파로, 04630, 소파로, 예장동, 대한민국</td>
+      <td>419</td>
+      <td>서울특별시 중구 소파로 83  \t</td>
+      <td>POINT (126.98384 37.55617)</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>서울숲아이파크, 서울특별시 성동구 동일로 237, 대한민국</td>
+      <td>421</td>
+      <td>서울특별시 성동구 서울숲길 18</td>
+      <td>POINT (127.06943 37.55290)</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>종로경찰서, 종로17길, 03140, 종로17길, 서울특별시 종로구, 대한민국</td>
+      <td>422</td>
+      <td>서울특별시 종로구 북악산로267</td>
+      <td>POINT (126.98893 37.57054)</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>NaN</td>
+      <td>423</td>
+      <td>서울특별시 구로구 부일로 893</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>강북세일학원, 13, 정릉로48길, 02801, 정릉로48길, 서울특별시 성북구, ...</td>
+      <td>424</td>
+      <td>서울특별시 강북구 도봉로89길 13</td>
+      <td>POINT (127.02682 37.60338)</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>NaN</td>
+      <td>425</td>
+      <td>서울특별시 관악구 남현동 산100-1420003호</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>서울봉천동우체국, 249-1, 관악로, 08727, 관악로, 서울특별시 관악구, 대한민국</td>
+      <td>509</td>
+      <td>서울특별시 관악구 관악로 1</td>
+      <td>POINT (126.95671 37.48677)</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>맨하탄21리빙텔, 20, 국회대로74길, 07238, 국회대로74길, 서울특별시 영...</td>
+      <td>510</td>
+      <td>서울특별시 영등포구 국회대로53길 20</td>
+      <td>POINT (126.92153 37.52963)</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>김대중대통령묘소, 210, 현충로, 06984, 현충로, 서울, 대한민국</td>
+      <td>889</td>
+      <td>서울특별시 동작구 현충로 210</td>
+      <td>POINT (126.97018 37.49665)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">addresses</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">addresses</span> <span class="o">=</span> <span class="n">addresses</span><span class="o">.</span><span class="n">to_crs</span><span class="p">({</span><span class="s2">&quot;init&quot;</span><span class="p">:</span> <span class="s2">&quot;EPSG:5179&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\bkk11\miniconda3\envs\Python-SA-GIS\lib\site-packages\pyproj\crs\crs.py:53: FutureWarning: &#39;+init=&lt;authority&gt;:&lt;code&gt;&#39; syntax is deprecated. &#39;&lt;authority&gt;:&lt;code&gt;&#39; is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+  return _prepare_from_string(&quot; &quot;.join(pjargs))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">city_districts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+<span class="n">ep_district</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">addresses</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../../_images/ac08797a313c423525cf4724cf195172004b29b7a0e3965fdbba1d3e48150b6e.png" src="../../_images/ac08797a313c423525cf4724cf195172004b29b7a0e3965fdbba1d3e48150b6e.png" />
+</div>
+</div>
+<p> 어떤 지점은 은평구 내에 있지만 그렇지 않은 지점들도 있습니다. 은평구 내부에 있는 항목을 찾기 위해, 이번에는 <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code>에 대해 <strong>PIP</strong> 쿼리를 사용해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">in_ep_district</span> <span class="o">=</span> <span class="n">addresses</span><span class="o">.</span><span class="n">within</span><span class="p">(</span><span class="n">ep_district</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">])</span>
+<span class="n">in_ep_district</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     False
+1     False
+2     False
+3     False
+4     False
+5     False
+6     False
+7     False
+8     False
+9     False
+10    False
+11    False
+12    False
+13    False
+14    False
+15    False
+16     True
+17    False
+18    False
+19    False
+20    False
+21    False
+22    False
+23    False
+24    False
+25    False
+26    False
+27    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p> 마스크 배열(mask array)이라고도 하는 이 Boolean 리스트를 사용하여 주소 데이터프레임 <code class="docutils literal notranslate"><span class="pre">addresses</span></code>를 필터링할 수 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">addresses_in_ep_district</span> <span class="o">=</span> <span class="n">addresses</span><span class="p">[</span><span class="n">in_ep_district</span><span class="p">]</span>
+<span class="n">addresses_in_ep_district</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>지점</th>
+      <th>지점주소</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>16</th>
+      <td>서울특별시 소방학교, 통일로, 03312, 통일로, 진관동, 대한민국</td>
+      <td>416</td>
+      <td>서울특별시 은평구 진관동 산26</td>
+      <td>POINT (948102.071 1959409.520)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p> 마지막으로, 위 주소 목록을 시각화 해 해당 주소가 실제로 은평구 내에 있는지 시각적으로 확인하겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">city_districts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+<span class="n">ep_district</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+
+<span class="n">addresses_in_ep_district</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../../_images/4e61d54864d8beacf501b4075fa9f2f219b008b1d507c88ecc52046c6f34006c.png" src="../../_images/4e61d54864d8beacf501b4075fa9f2f219b008b1d507c88ecc52046c6f34006c.png" />
+</div>
+</div>
+<p> 완벽합니다! 실제로 서울 은평구(빨간색 다각형) 구역 안에 있는 해당 주소를 표시한 파란색 점만 남았습니다.</p>
+<hr class="docutils" />
+<script src="https://utteranc.es/client.js"
+        repo="Kwan-Gu/geospatial_analysis"
+        issue-term="pathname"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\3. 지오코딩과 공간 쿼리"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>지오코딩 (Geocoding)</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ray-casting-algorithm">3.1. 레이 캐스팅 알고리즘 (Ray Casting Algorithm)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shapely-pip">3.2. Shapely에서 PIP 쿼리 사용하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geopandas-geodataframe-pip">3.3. Geopandas.GeoDataFrame에서 PIP 쿼리 사용하기</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 백관구(Kwan-Gu Baek), 이정택, 신지민
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
