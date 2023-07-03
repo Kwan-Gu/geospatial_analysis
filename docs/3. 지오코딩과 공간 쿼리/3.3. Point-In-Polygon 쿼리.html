@@ -526,43 +526,10 @@ POLYGON ((24.950899 60.169158, 24.953492 60.169158, 24.95351 60.170104, 24.95095
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="nn">File ~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:664,</span> in <span class="ni">plot_dataframe</span><span class="nt">(df, column, cmap, color, ax, cax, categorical, legend, scheme, k, vmin, vmax, markersize, figsize, legend_kwds, categories, classification_kwds, missing_kwds, aspect, **style_kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">663</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">664</span>     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">    </span><span class="mi">665</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">city_districts</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-
-<span class="nn">File ~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:969,</span> in <span class="ni">GeoplotAccessor.__call__</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">967</span> <span class="n">kind</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;kind&quot;</span><span class="p">,</span> <span class="s2">&quot;geo&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">968</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;geo&quot;</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">969</span>     <span class="k">return</span> <span class="n">plot_dataframe</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">970</span> <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pandas_kinds</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">971</span>     <span class="c1"># Access pandas plots</span>
-<span class="g g-Whitespace">    </span><span class="mi">972</span>     <span class="k">return</span> <span class="n">PlotAccessor</span><span class="p">(</span><span class="n">data</span><span class="p">)(</span><span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:666,</span> in <span class="ni">plot_dataframe</span><span class="nt">(df, column, cmap, color, ax, cax, categorical, legend, scheme, k, vmin, vmax, markersize, figsize, legend_kwds, categories, classification_kwds, missing_kwds, aspect, **style_kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">664</span>     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">    </span><span class="mi">665</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">666</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">667</span>         <span class="s2">&quot;The matplotlib package is required for plotting in geopandas. &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="s2">&quot;You can install it using &#39;conda install -c conda-forge matplotlib&#39; or &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="s2">&quot;&#39;pip install matplotlib&#39;.&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">670</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">672</span> <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">673</span>     <span class="k">if</span> <span class="n">cax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="ne">ImportError</span>: The matplotlib package is required for plotting in geopandas. You can install it using &#39;conda install -c conda-forge matplotlib&#39; or &#39;pip install matplotlib&#39;.
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
+<img alt="../../_images/ad61b1472db8e031c2d295ee24a28054c6c4fc27b9a5f7e488b655cd0a6c6101.png" src="../../_images/ad61b1472db8e031c2d295ee24a28054c6c4fc27b9a5f7e488b655cd0a6c6101.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -578,7 +545,7 @@ Axis Info [cartesian]:
 - X[north]: Northing (metre)
 - Y[east]: Easting (metre)
 Area of Use:
-- name: Korea, Republic of (South Korea)
+- name: Republic of Korea (South Korea) - onshore and offshore.
 - bounds: (122.71, 28.6, 134.28, 40.27)
 Coordinate Operation:
 - name: Korea Unified Belt
@@ -885,9 +852,9 @@ Axis Info [ellipsoidal]:
 - Lat[north]: Geodetic latitude (degree)
 - Lon[east]: Geodetic longitude (degree)
 Area of Use:
-- name: World
+- name: World.
 - bounds: (-180.0, -90.0, 180.0, 90.0)
-Datum: World Geodetic System 1984
+Datum: World Geodetic System 1984 ensemble
 - Ellipsoid: WGS 84
 - Prime Meridian: Greenwich
 </pre></div>
@@ -901,8 +868,8 @@ Datum: World Geodetic System 1984
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\bkk11\miniconda3\envs\Python-SA-GIS\lib\site-packages\pyproj\crs\crs.py:53: FutureWarning: &#39;+init=&lt;authority&gt;:&lt;code&gt;&#39; syntax is deprecated. &#39;&lt;authority&gt;:&lt;code&gt;&#39; is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
-  return _prepare_from_string(&quot; &quot;.join(pjargs))
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\pyproj\crs\crs.py:141: FutureWarning: &#39;+init=&lt;authority&gt;:&lt;code&gt;&#39; syntax is deprecated. &#39;&lt;authority&gt;:&lt;code&gt;&#39; is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+  in_crs_string = _prepare_from_proj_string(in_crs_string)
 </pre></div>
 </div>
 </div>
@@ -919,7 +886,7 @@ Datum: World Geodetic System 1984
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/ac08797a313c423525cf4724cf195172004b29b7a0e3965fdbba1d3e48150b6e.png" src="../../_images/ac08797a313c423525cf4724cf195172004b29b7a0e3965fdbba1d3e48150b6e.png" />
+<img alt="../../_images/24e916aaa8d9dd352294ea7a421b1a9af87c0cc19c4872f1480c31e0a348668a.png" src="../../_images/24e916aaa8d9dd352294ea7a421b1a9af87c0cc19c4872f1480c31e0a348668a.png" />
 </div>
 </div>
 <p> 어떤 지점은 은평구 내에 있지만 그렇지 않은 지점들도 있습니다. 은평구 내부에 있는 항목을 찾기 위해, 이번에는 <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code>에 대해 <strong>PIP</strong> 쿼리를 사용해 보겠습니다.</p>
@@ -1023,7 +990,7 @@ dtype: bool
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/4e61d54864d8beacf501b4075fa9f2f219b008b1d507c88ecc52046c6f34006c.png" src="../../_images/4e61d54864d8beacf501b4075fa9f2f219b008b1d507c88ecc52046c6f34006c.png" />
+<img alt="../../_images/ab19a7508907c933675147a8ea08553811ea80df1199cd262d23242a253fb521.png" src="../../_images/ab19a7508907c933675147a8ea08553811ea80df1199cd262d23242a253fb521.png" />
 </div>
 </div>
 <p> 완벽합니다! 실제로 서울 은평구(빨간색 다각형) 구역 안에 있는 해당 주소를 표시한 파란색 점만 남았습니다.</p>
