@@ -6,10 +6,15 @@ root: intro
 parts:
   - caption: 서론
     numbered: 3
-    html:
-      use_multitoc_numbering: true
     chapters:
-    - file: docs/0. 서론/0.0. 개요
-    - file: docs/0. 서론/0.1. JupyterLab 분석 환경
-    - file: docs/0. 서론/0.2. 파이썬과 패키지 설치
-    - file: docs/0. 서론/0.3. 파이썬 GIS 환경 생성
+      - file: docs/0. 서론/0.0. 개요
+      - file: docs/0. 서론/0.1. JupyterLab 분석 환경
+      - file: docs/0. 서론/0.2. 파이썬과 패키지 설치
+      - file: docs/0. 서론/0.3. 파이썬 GIS 환경 생성
+  - caption: 지오코딩(Geocoding)과 공간 쿼리
+    numbered: 3
+    chapters:
+      - file: docs/3. 지오코딩과 공간 쿼리/3.0. 개요
+      - file: docs/3. 지오코딩과 공간 쿼리/3.1. 지오코딩
+      - file: docs/3. 지오코딩과 공간 쿼리/3.2. Geopandas와 지오코딩
+      - file: docs/3. 지오코딩과 공간 쿼리/3.3. Point-In-Polygon 쿼리

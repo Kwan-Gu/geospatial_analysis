@@ -44,11 +44,15 @@ Here is my figure caption!
 ````
 
 ## 배포 과정
-### 1. 빌드
+### 1. requirements.txt 업데이트
+```commandline
+pip freeze > automating_gis_processes/requirements.txt
+```
+### 2. 빌드
 ```commandline
 jb build --all .\automating_gis_processes\
 ```
-### 2. 배포
+### 3. 배포
 ```commandline
 ghp-import -n -p -f .\automating_gis_processes\_build\html\
 ```
