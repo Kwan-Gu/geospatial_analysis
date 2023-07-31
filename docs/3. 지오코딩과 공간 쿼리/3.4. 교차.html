@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2. JupyterLab 분석 환경 &#8212; 공간정보 분석 Ⅰ</title>
+    <title>4. 교차 (Intersect) &#8212; 공간정보 분석 Ⅰ</title>
   
   
   
@@ -95,11 +95,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/0. 서론/0.1. JupyterLab 분석 환경';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/3. 지오코딩과 공간 쿼리/3.4. 교차';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3. 파이썬과 패키지 설치" href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html" />
-    <link rel="prev" title="1. 개요" href="0.0.%20%EA%B0%9C%EC%9A%94.html" />
+    <link rel="prev" title="3. PIP (Point-In-Polygon) 쿼리" href="3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,18 +182,18 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. JupyterLab 분석 환경</a></li>
-<li class="toctree-l1"><a class="reference internal" href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
-<li class="toctree-l1"><a class="reference internal" href="0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">2. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">3. 지오코딩과 공간 쿼리</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">2. 지오코딩 (Geocoding)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html">3. PIP (Point-In-Polygon) 쿼리</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.4.%20%EA%B5%90%EC%B0%A8.html">4. 교차 (Intersect)</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">2. 지오코딩 (Geocoding)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html">3. PIP (Point-In-Polygon) 쿼리</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. 교차 (Intersect)</a></li>
 </ul>
 
     </div>
@@ -238,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/0. 서론/0.1. JupyterLab 분석 환경.html&body=Your%20issue%20content%20here." target="_blank"
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/3. 지오코딩과 공간 쿼리/3.4. 교차.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button"
    title="Open an issue"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -296,7 +295,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>JupyterLab 분석 환경</h1>
+    <h1>교차 (Intersect)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -310,23 +309,86 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="jupyterlab">
-<h1><span class="section-number">2. </span>JupyterLab 분석 환경<a class="headerlink" href="#jupyterlab" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="intersect">
+<h1><span class="section-number">4. </span>교차 (Intersect)<a class="headerlink" href="#intersect" title="Permalink to this heading">#</a></h1>
 <hr class="docutils" />
-<p> 이 책에서 여러분은 웹 브라우저 기반의 개발 환경인 주피터랩(JupyterLab)을 사용합니다. <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html">주피터랩</a>은 데이터 과학을 위한 오픈소스 웹 기반 통합 개발 인터페이스(Integrated Development Interface; IDE) 입니다. 이 인터페이스는 파일 브라우저, 터미널, 텍스트 에디터를 포함한 여러 요소로 구성되며 다양한 플러그인을 사용하여 기능을 확장할 수 있습니다.</p>
-<figure class="align-default" id="id1">
-<a class="reference internal image-reference" href="../../_images/jupyterlab-launcher.png"><img alt="../../_images/jupyterlab-launcher.png" src="../../_images/jupyterlab-launcher.png" style="height: 500px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text"><i>주피터랩(JupyterLab)</i> 시작 화면</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p> <i>주피터랩(JupyterLab)</i>의 핵심에는 <b>주피터 노트북(Jupyter Notebook)</b>이라는 개념이 있습니다. 주피터 노트북(파일 확장자: .ipynb)은 코드와 함께 리치 텍스트(서식 있는 텍스트), 그림, 표를 작성할 수 있는 문서 형식입니다. 이 형식은 재현가능한 데이터 과학 워크플로(reproducible data science workflow)를 대화형(interactive)으로 문서화하는 데 적합합니다. 참고로, 이 책도 주피터 노트북을 사용해 작성했습니다. <strong>이 책에서는 JupyterLab의 Jupyter Notebook을 기본 프로그래밍 환경으로 사용합니다.</strong></p>
-<figure class="align-default" id="id2">
-<a class="reference internal image-reference" href="../../_images/jupyterlab-example-notebook.png"><img alt="../../_images/jupyterlab-example-notebook.png" src="../../_images/jupyterlab-example-notebook.png" style="height: 500px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text"><i>주피터랩(JupyterLab)</i>에서 연 노트북(notebook) 화면</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
+<p> 이전 단원에서 다룬 <code class="docutils literal notranslate"><span class="pre">within</span></code>과 <code class="docutils literal notranslate"><span class="pre">contains</span></code>처럼 공간적인 관계를 판단하는 것과 유사하게, 두 도형이 교차(intersect)하는지 또는 접촉(touch)하는지 확인하는 쿼리를 작성할 수 있습니다. <code class="docutils literal notranslate"><span class="pre">Shapely</span></code> 라이브러리를 활용해 아래 두 쿼리를 사용할 수 있습니다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.intersects"><code class="docutils literal notranslate"><span class="pre">intersects()</span></code></a> : 한 객체의 경계 또는 내부가 다른 객체의 경계 또는 내부와 교차하는 경우</p></li>
+<li><p><a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.touches"><code class="docutils literal notranslate"><span class="pre">touches()</span></code></a> : 두 객체가 적어도 하나의 공통된 점(point)을 가지고 있으면서 서로 닿지만, 내부는 교차하지 않는 경우</p></li>
+</ul>
+<p> 아래 예시에서 두 개의 줄(line)에 대해 위 함수들을 사용해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="k">as</span> <span class="nn">geom</span>
+
+<span class="n">line1</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">LineString</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="n">line2</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">LineString</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p> 두 선 <code class="docutils literal notranslate"><span class="pre">line1</span></code>과 <code class="docutils literal notranslate"><span class="pre">line2</span></code>이 교차하며, 접촉합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span><span class="o">.</span><span class="n">touches</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p> <code class="docutils literal notranslate"><span class="pre">shapely.geometry.MultiLineString</span></code>에 두 줄 <code class="docutils literal notranslate"><span class="pre">line1</span></code>과 <code class="docutils literal notranslate"><span class="pre">line2</span></code>를 추가하면 Jupyter Notebook 내에서 간단하게 시각화할 수 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geom</span><span class="o">.</span><span class="n">MultiLineString</span><span class="p">([</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/11da88e78204634e71bb08019c239f070d997e170c43b72991e23afb51f9b7f2.svg" src="../../_images/11da88e78204634e71bb08019c239f070d997e170c43b72991e23afb51f9b7f2.svg" /></div>
+</div>
+<p> 위 그림에서 <code class="docutils literal notranslate"><span class="pre">line1</span></code>이 끝나고 <code class="docutils literal notranslate"><span class="pre">line2</span></code>가 시작되는 지점인 <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1)</span></code>을 공유하므로 교차(<code class="docutils literal notranslate"><span class="pre">intersects</span></code>)하는 것을 확인할 수 있습니다. 또한 두 선은 내부가 교차되지 않으므로 접촉(<code class="docutils literal notranslate"><span class="pre">touches</span></code>)의 조건도 만족하는 것을 확인할 수 있습니다.</p>
+<p> 만약 줄(line)이 내부의 일부를 공유한다면 접촉으로 간주되지 않습니다. 예를 들어 <code class="docutils literal notranslate"><span class="pre">line1</span></code>은 <code class="docutils literal notranslate"><span class="pre">line1</span></code>과 교차(<code class="docutils literal notranslate"><span class="pre">intersects</span></code>)하지만 내부도 공유하므로 접촉(<code class="docutils literal notranslate"><span class="pre">touches</span></code>)에 해당하지는 않습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">line1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span><span class="o">.</span><span class="n">touches</span><span class="p">(</span><span class="n">line1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
 <hr class="docutils" />
 <script src="https://utteranc.es/client.js"
         repo="Kwan-Gu/geospatial_analysis"
@@ -349,7 +411,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./docs\0. 서론"
+            path: "./docs\3. 지오코딩과 공간 쿼리"
         },
         predefinedOutput: true
     }
@@ -368,22 +430,13 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="0.0.%20%EA%B0%9C%EC%9A%94.html"
+       href="3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>개요</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>PIP (Point-In-Polygon) 쿼리</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>파이썬과 패키지 설치</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
