@@ -38,8 +38,6 @@ html:
   comments:
     utterances:
       repo: "Kwan-Gu/geospatial_analysis"
-#   use_issues_button: true
-#   use_repository_button: true
 
 # Sphinx
 sphinx:
