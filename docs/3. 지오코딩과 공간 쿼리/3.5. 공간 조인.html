@@ -1,0 +1,873 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5. 공간 조인 (Spatial Join) &#8212; 공간정보 분석 Ⅰ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "Kwan-Gu/geospatial_analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/3. 지오코딩과 공간 쿼리/3.5. 공간 조인';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="4. 교차 (Intersect)" href="3.4.%20%EA%B5%90%EC%B0%A8.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">2. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">3. 지오코딩과 공간 쿼리</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">2. 지오코딩 (Geocoding)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html">3. PIP (Point-In-Polygon) 쿼리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4.%20%EA%B5%90%EC%B0%A8.html">4. 교차 (Intersect)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. 공간 조인 (Spatial Join)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/3. 지오코딩과 공간 쿼리/3.5. 공간 조인.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>공간 조인 (Spatial Join)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.1. 입력 데이터 불러오기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join">5.2. 입력 레이어 조인 (join)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spatial-join">
+<h1><span class="section-number">5. </span>공간 조인 (Spatial Join)<a class="headerlink" href="#spatial-join" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<p> <i>공간 조인(Spatial joins)</i>은 둘 이상의 공간 데이터를 기하학적 관계에 기반하여 결합하는 작업을 일컫습니다. 이전 단원에서 공간 조인 중 <a href="./3.3. Point-In-Polygon 쿼리.ipynb">PIP (Point-In-Polygon) 쿼리</a>와 <a href="./3.4. 교차.ipynb">교차(intersects) 쿼리</a>를 다뤘습니다. 이 외에도 기하학적 관계에 기반해 작업할 수 있는 공간 조인의 종류에 대해 살펴보겠습니다.</p>
+<p> 공간 조인 작업에는 두 개의 파라미터가 필요합니다. 첫번째 파라미터는 두 도형 사이에 충족해야 하는 기하학적 조건을 명시한 <i>predicament (조인 종류)</i> 입니다. 두번째 파라미터는 <i>join-type (조인 유형)</i> 입니다. join-type (조인 유형)은 predicate를 만족하는 행만 유지되는지 또는 한 도형의 모든 행이 유지되는지 또는 두 도형의 모든 행이 유지되는지를 선택할 수 있는 옵션입니다. 두 파라미터에 대해서 잘 이해가 되지 않을 수도 있습니다. 아래 예시를 통해 자세히 살펴보면서 이해할 수 있도록 합니다.</p>
+<p> <i>Geopandas</i>는 GIS 프로그램에서 대표적으로 많이 사용되는 <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mergingdata.html#binary-predicate-joins">공간 조인 predicate</a>를 지원합니다. Predicate는 일반적인 영어 동사로 표현되므로 직관적입니다. 각 predicate에 대한 자세한 설명은 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#binary-predicates">shapely 공식 문서</a>를 참조하시길 바랍니다.</p>
+<ul class="simple">
+<li><p>교차 (intersects)</p></li>
+<li><p>포함 (contains) / 내부 (within)</p></li>
+<li><p>접촉 (touches)</p></li>
+<li><p>횡단 (crosses)</p></li>
+<li><p>겹침 (overlaps)</p></li>
+</ul>
+<p> <i>Join-type (조인 유형)</i>은 geopandas에서 3 가지 옵션을 구현합니다.</p>
+<ul class="simple">
+<li><p><i>left</i> : 왼쪽 데이터프레임의 모든 행 유지. 매칭되지 않는 경우 빈 값(empty value)으로 채움. 왼쪽 데이터프레임의 geometry 열 유지</p></li>
+<li><p><i>right</i> : 오른쪽 데이터프레임의 모든 행 유지. 매칭되지 않는 경우 빈 값(empty value)으로 채움. 오른쪽 데이터프레임의 geometry 열 유지</p></li>
+<li><p><i>inner</i> : 매칭되는 행만 유지, 왼쪽 데이터프레임의 geometry 열 유지</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p> <a class="reference external" href="https://pygis.io/docs/e_spatial_joins.html">PyGIS 책</a>에서 공간 조인 predicate와 join-type에 대한 그림 설명을 참고할 수 있습니다.</p>
+</div>
+<section id="id1">
+<h2><span class="section-number">5.1. </span>입력 데이터 불러오기<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p> 이번 단원에서 공간 조인을 실습하기 위해, 이전 단원에서 사용한 주소 데이터와 인구 격자(grid) 데이터를 결합하여 주소별 인구 밀도 데이터를 만들어 보겠습니다. 여기에서 사용하게 될 인구 격자 데이터는 <a class="reference external" href="https://map.ngii.go.kr/mn/mainPage.do">국토정보플랫폼</a>의 국토통계지도에서 다운로드 받을 수 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="n">NOTEBOOK_PATH</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">DATA_DIRECTORY</span> <span class="o">=</span> <span class="n">NOTEBOOK_PATH</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="n">addresses</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="s2">&quot;addresses.gpkg&quot;</span><span class="p">)</span>
+<span class="n">population_grid</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="s2">&quot;국토통계_인구정보_1KM_서울특별시_202304&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">population_grid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gid</th>
+      <th>lbl</th>
+      <th>val</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>다사6453</td>
+      <td>9172.00</td>
+      <td>9172.0</td>
+      <td>POLYGON ((964000.000 1953000.000, 964000.000 1...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>다사5651</td>
+      <td>12198.00</td>
+      <td>12198.0</td>
+      <td>POLYGON ((956000.000 1951000.000, 956000.000 1...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>다사6157</td>
+      <td>28897.00</td>
+      <td>28897.0</td>
+      <td>POLYGON ((961000.000 1957000.000, 961000.000 1...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>다사5858</td>
+      <td>23351.00</td>
+      <td>23351.0</td>
+      <td>POLYGON ((958000.000 1958000.000, 958000.000 1...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>다사5347</td>
+      <td>11380.00</td>
+      <td>11380.0</td>
+      <td>POLYGON ((953000.000 1947000.000, 953000.000 1...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p> 인구 격자 데이터는 <code class="docutils literal notranslate"><span class="pre">gid</span></code>, <code class="docutils literal notranslate"><span class="pre">lbl</span></code>, <code class="docutils literal notranslate"><span class="pre">val</span></code>, <code class="docutils literal notranslate"><span class="pre">geometry</span></code> 4개의 열로 구성되어 있습니다. 여기에서 사용할 인구 열 <code class="docutils literal notranslate"><span class="pre">val</span></code>과 위치정보 열 <code class="docutils literal notranslate"><span class="pre">geometry</span></code>를 제외하고 나머지 열들을 제거해 줍니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">population_grid</span> <span class="o">=</span> <span class="n">population_grid</span><span class="p">[[</span><span class="s2">&quot;val&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span>
+<span class="n">population_grid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>val</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>9172.0</td>
+      <td>POLYGON ((964000.000 1953000.000, 964000.000 1...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>12198.0</td>
+      <td>POLYGON ((956000.000 1951000.000, 956000.000 1...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>28897.0</td>
+      <td>POLYGON ((961000.000 1957000.000, 961000.000 1...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>23351.0</td>
+      <td>POLYGON ((958000.000 1958000.000, 958000.000 1...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11380.0</td>
+      <td>POLYGON ((953000.000 1947000.000, 953000.000 1...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p> 각 격자 셀의 주민 수를 면적(km²)으로 나누어 인구 밀도를 계산합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">population_grid</span><span class="p">[</span><span class="s2">&quot;population_density&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">population_grid</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">population_grid</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="mi">1_000_000</span><span class="p">)</span>
+<span class="n">population_grid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>val</th>
+      <th>geometry</th>
+      <th>population_density</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>9172.0</td>
+      <td>POLYGON ((964000.000 1953000.000, 964000.000 1...</td>
+      <td>9172.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>12198.0</td>
+      <td>POLYGON ((956000.000 1951000.000, 956000.000 1...</td>
+      <td>12198.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>28897.0</td>
+      <td>POLYGON ((961000.000 1957000.000, 961000.000 1...</td>
+      <td>28897.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>23351.0</td>
+      <td>POLYGON ((958000.000 1958000.000, 958000.000 1...</td>
+      <td>23351.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11380.0</td>
+      <td>POLYGON ((953000.000 1947000.000, 953000.000 1...</td>
+      <td>11380.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="join">
+<h2><span class="section-number">5.2. </span>입력 레이어 조인 (join)<a class="headerlink" href="#join" title="Permalink to this heading">#</a></h2>
+<p> 이제 여러분은 두 레이어 <code class="docutils literal notranslate"><span class="pre">addresses</span></code>와 <code class="docutils literal notranslate"><span class="pre">population_grid</span></code>에 공간 조인을 수행할 준비가 되었습니다. 이번 작업의 목표는 각 주소 지점 주변의 인구 밀도를 탐색하는 것입니다. 그러기 위해서는 <code class="docutils literal notranslate"><span class="pre">population_grid</span></code> 데이터의 인구 밀도(다각형 레이어)를 <code class="docutils literal notranslate"><span class="pre">addresses</span></code> 데이터의 주소 지점(점 레이어)에 결합시켜야 합니다. 그 후, <strong>다각형 내부에 점이 위치</strong>하는지 판단하여 점이 위치한 해당 다각형의 인구 밀도 정보를 사용하면 됩니다. 따라서 이 작업에서는 <strong>주소 지점(점 레이어)의 <code class="docutils literal notranslate"><span class="pre">geometry</span></code> 열을 유지</strong>해야 합니다.</p>
+<p> 공간 조인을 진행하기 전에 두 레이어가 동일한 CRS (Cartographic Reference System; 지도제작 참조 시스템)에 있는지 확인해야 합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">addresses</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">population_grid</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;두 레이어의 CRS가 동일하지 않습니다.</span><span class="se">\n</span><span class="s2"> addresses : </span><span class="si">{</span><span class="n">addresses</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="se">\n</span><span class="s2"> population_grid : </span><span class="si">{</span><span class="n">population_grid</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">assert</span> <span class="n">addresses</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">population_grid</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;두 레이어의 CRS가 동일하지 않습니다.</span><span class="se">\n</span><span class="s2"> addresses : </span><span class="si">{</span><span class="n">addresses</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="se">\n</span><span class="s2"> population_grid : </span><span class="si">{</span><span class="n">population_grid</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="ne">AssertionError</span>: 두 레이어의 CRS가 동일하지 않습니다.
+ <span class="n">addresses</span> <span class="p">:</span> <span class="n">EPSG</span><span class="p">:</span><span class="mi">4326</span>
+ <span class="n">population_grid</span> <span class="p">:</span> <span class="n">PROJCS</span><span class="p">[</span><span class="s2">&quot;Korea 2000 / Unified CS&quot;</span><span class="p">,</span><span class="n">GEOGCS</span><span class="p">[</span><span class="s2">&quot;Korea 2000&quot;</span><span class="p">,</span><span class="n">DATUM</span><span class="p">[</span><span class="s2">&quot;Geocentric_datum_of_Korea&quot;</span><span class="p">,</span><span class="n">SPHEROID</span><span class="p">[</span><span class="s2">&quot;GRS 1980&quot;</span><span class="p">,</span><span class="mi">6378137</span><span class="p">,</span><span class="mf">298.257222101</span><span class="p">,</span><span class="n">AUTHORITY</span><span class="p">[</span><span class="s2">&quot;EPSG&quot;</span><span class="p">,</span><span class="s2">&quot;7019&quot;</span><span class="p">]],</span><span class="n">TOWGS84</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">AUTHORITY</span><span class="p">[</span><span class="s2">&quot;EPSG&quot;</span><span class="p">,</span><span class="s2">&quot;6737&quot;</span><span class="p">]],</span><span class="n">PRIMEM</span><span class="p">[</span><span class="s2">&quot;Greenwich&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">AUTHORITY</span><span class="p">[</span><span class="s2">&quot;EPSG&quot;</span><span class="p">,</span><span class="s2">&quot;8901&quot;</span><span class="p">]],</span><span class="n">UNIT</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span><span class="mf">0.0174532925199433</span><span class="p">]],</span><span class="n">PROJECTION</span><span class="p">[</span><span class="s2">&quot;Transverse_Mercator&quot;</span><span class="p">],</span><span class="n">PARAMETER</span><span class="p">[</span><span class="s2">&quot;central_meridian&quot;</span><span class="p">,</span><span class="mf">127.5</span><span class="p">],</span><span class="n">PARAMETER</span><span class="p">[</span><span class="s2">&quot;latitude_of_origin&quot;</span><span class="p">,</span><span class="mi">38</span><span class="p">],</span><span class="n">PARAMETER</span><span class="p">[</span><span class="s2">&quot;scale_factor&quot;</span><span class="p">,</span><span class="mf">0.9996</span><span class="p">],</span><span class="n">PARAMETER</span><span class="p">[</span><span class="s2">&quot;false_easting&quot;</span><span class="p">,</span><span class="mi">1000000</span><span class="p">],</span><span class="n">PARAMETER</span><span class="p">[</span><span class="s2">&quot;false_northing&quot;</span><span class="p">,</span><span class="mi">2000000</span><span class="p">],</span><span class="n">UNIT</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">AXIS</span><span class="p">[</span><span class="s2">&quot;Easting&quot;</span><span class="p">,</span><span class="n">EAST</span><span class="p">],</span><span class="n">AXIS</span><span class="p">[</span><span class="s2">&quot;Northing&quot;</span><span class="p">,</span><span class="n">NORTH</span><span class="p">],</span><span class="n">AUTHORITY</span><span class="p">[</span><span class="s2">&quot;EPSG&quot;</span><span class="p">,</span><span class="s2">&quot;5179&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p> 위와 같이 두 레이어의 CRS가 동일하지 않다는 것을 확인했습니다. <code class="docutils literal notranslate"><span class="pre">addresses</span></code>의 CRS인 EPSG:4326을 사용하여 <code class="docutils literal notranslate"><span class="pre">population_grid</span></code>를 재투영(reproject) 하겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">population_grid</span> <span class="o">=</span> <span class="n">population_grid</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">addresses</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p> 이제 <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.sjoin.html"><code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.sjoin()</span></code></a> 메서드를 사용하여 공간 조인을 수행할 준비가 되었습니다. 여러분은 <em>within</em> predicate를 사용하고, 점 레이어의 geometry 열을 유지해야 합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">addresses_with_population_data</span> <span class="o">=</span> <span class="n">addresses</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">population_grid</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">&quot;within&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">addresses_with_population_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>지점</th>
+      <th>지점주소</th>
+      <th>geometry</th>
+      <th>index_right</th>
+      <th>val</th>
+      <th>population_density</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>서울특별시아동학대예방센터, 광평로34길, 06352, 광평로34길, 서울, 대한민국</td>
+      <td>400</td>
+      <td>서울특별시 강남구 일원동 580</td>
+      <td>POINT (127.08775 37.47971)</td>
+      <td>500.0</td>
+      <td>16080.0</td>
+      <td>16080.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>서울특별시데이터센터, 남부순환로340길, 06724, 남부순환로340길, 서울, 대한민국</td>
+      <td>401</td>
+      <td>서울특별시 서초구 서초동 1416번지</td>
+      <td>POINT (127.02191 37.47954)</td>
+      <td>298.0</td>
+      <td>8109.0</td>
+      <td>8109.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>서울특별시 동부기술교육원, 183, 고덕로, 05235, 고덕로, 고덕동, 대한민국</td>
+      <td>402</td>
+      <td>서울특별시 강동구 고덕로 183</td>
+      <td>POINT (127.14557 37.55604)</td>
+      <td>78.0</td>
+      <td>39764.0</td>
+      <td>39764.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>롯데월드, 240, 올림픽로, 05554, 올림픽로, 잠실동, 대한민국</td>
+      <td>403</td>
+      <td>서울특별시 송파구 올림픽로 240</td>
+      <td>POINT (127.09824 37.51150)</td>
+      <td>367.0</td>
+      <td>24798.0</td>
+      <td>24798.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>월드메르디앙 201동, 양천로1길, 07602, 양천로1길, 서울, 대한민국</td>
+      <td>404</td>
+      <td>서울특별시 강서구 양천로 201</td>
+      <td>POINT (126.81027 37.57468)</td>
+      <td>394.0</td>
+      <td>21722.0</td>
+      <td>21722.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p> 위와 같이 인구 밀도 정보가 첨부된 주소 데이터셋을 만들었습니다. 제작된 데이터셋을 사용해 지도 위에 시각화 해보겠습니다.</p>
+<p> <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.plot()</span></code> 메서드는 시각화하고자 하는 열 이름을 <code class="docutils literal notranslate"><span class="pre">column</span></code> 인수(argument)에 전달하여 그라데이션 색으로 해당 열의 값을 지도 상에 표현할 수 있습니다. 또한 지도 스타일과 관련된 다양한 인수들을 사용해 여러분이 원하는 색상, 스타일로 시각화할 수 있습니다. 이러한 대표적인 인수로는 범주화 체계(categorisation scheme)를 정의하는 <code class="docutils literal notranslate"><span class="pre">scheme</span></code>과 <a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">색상 맵(colour map)</a>을 설정하는 <code class="docutils literal notranslate"><span class="pre">cmap</span></code>이 있습니다. <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>에서 사용되는 인수들을 공통적으로 사용할 수 있습니다. 예를 들어, 마커(marker)의 크기를 설정하는 <code class="docutils literal notranslate"><span class="pre">markersize</span></code>, 다각형 영역 색상을 설정하는 <code class="docutils literal notranslate"><span class="pre">facecolor</span></code>와 같은 인수가 있습니다. 이 외에도 범례(legend)를 그리려면 <code class="docutils literal notranslate"><span class="pre">legend</span></code>를 <code class="docutils literal notranslate"><span class="pre">True</span></code>로 설정하고, 그림의 크기를 설정하려면 가로·세로 인치(inch) 값으로 구성된 튜플(tuple)을 인수 <code class="docutils literal notranslate"><span class="pre">figsize</span></code>에 전달합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s2">&quot;Malgun Gothic&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">addresses_with_population_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;population_density&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Reds&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;주소 지점 인근 인구 밀도&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;주소 지점 인근 인구 밀도&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/91f9c0c8f92a10aca9f6d4d6309c41fa7f6cb4f232c37b5caec1dd687909ea6f.png" src="../../_images/91f9c0c8f92a10aca9f6d4d6309c41fa7f6cb4f232c37b5caec1dd687909ea6f.png" />
+</div>
+</div>
+<p> 동일한 인수를 적용하여 전체 <code class="docutils literal notranslate"><span class="pre">population_grid</span></code> 데이터셋의 인구 밀도 지도를 그릴 수 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">population_grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;population_density&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Reds&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;서울 인구 밀도&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;서울 인구 밀도&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/2e508b3b17b7abbb30387f9c07ff8a5980288d1961e52d34ba28779eb87ae417.png" src="../../_images/2e508b3b17b7abbb30387f9c07ff8a5980288d1961e52d34ba28779eb87ae417.png" />
+</div>
+</div>
+<p> 마지막으로 여러분이 공간 조인한 데이터프레임 <code class="docutils literal notranslate"><span class="pre">addresses_with_population_data</span></code>를 파일에 저장하는 것으로 마무리하겠습니다. 새로운 레이어 이름을 지정하여 기존 <em>GeoPackage</em> 파일 <code class="docutils literal notranslate"><span class="pre">addresses.gpkg</span></code>에 추가할 수도 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">addresses_with_population_data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span>
+    <span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="s2">&quot;addresses.gpkg&quot;</span><span class="p">,</span>
+    <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;addresses_with_population_data&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\3. 지오코딩과 공간 쿼리"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3.4.%20%EA%B5%90%EC%B0%A8.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>교차 (Intersect)</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.1. 입력 데이터 불러오기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join">5.2. 입력 레이어 조인 (join)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 백관구(Kwan-Gu Baek), 이정택, 신지민
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
