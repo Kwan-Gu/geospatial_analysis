@@ -1,6 +1,6 @@
-# 공간분석 스터디
+# 공간정보분석 Ⅰ - Automating GIS Processes
 
-&emsp;공간분석 스터디에서 《Automating GIS Processes》를 번역한 자료 《공간정보 분석 Ⅰ》 입니다.
+&emsp;《Automating GIS Processes》를 **한국어로 번역 및 자료를 현지화**한 웹페이지 입니다.  
 
 ## 파일 설명
 - Configuration file : _config.yml  
