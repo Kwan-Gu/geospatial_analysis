@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2. JupyterLab 분석 환경 &#8212; 공간정보 분석 Ⅰ</title>
+    <title>1. Shapely와 기하학적 객체 &#8212; 공간정보 분석 Ⅰ</title>
   
   
   
@@ -95,11 +95,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/0. 서론/0.1. JupyterLab 분석 환경';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/1. Shapely와 기하학적 객체/1.0. 개요';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3. 파이썬과 패키지 설치" href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html" />
-    <link rel="prev" title="1. 개요" href="0.0.%20%EA%B0%9C%EC%9A%94.html" />
+    <link rel="next" title="1. 개요" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html" />
+    <link rel="prev" title="4. 파이썬 GIS 환경 생성" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,15 +183,15 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. JupyterLab 분석 환경</a></li>
-<li class="toctree-l1"><a class="reference internal" href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
-<li class="toctree-l1"><a class="reference internal" href="0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">2. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅰ. Shapely와 기하학적 객체</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../1.%20Shapely%EC%99%80%20%EA%B8%B0%ED%95%98%ED%95%99%EC%A0%81%20%EA%B0%9D%EC%B2%B4/1.0.%20%EA%B0%9C%EC%9A%94.html">1. Shapely와 기하학적 객체</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Shapely와 기하학적 객체</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅲ. 지오코딩과 공간 쿼리</span></p>
 <ul class="nav bd-sidenav">
@@ -243,7 +243,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/0. 서론/0.1. JupyterLab 분석 환경.html&body=Your%20issue%20content%20here." target="_blank"
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/1. Shapely와 기하학적 객체/1.0. 개요.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button"
    title="Open an issue"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -290,7 +290,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -301,11 +303,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>JupyterLab 분석 환경</h1>
+    <h1>Shapely와 기하학적 객체</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1.1. 개요</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.2. 학습 목표</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -315,23 +326,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="jupyterlab">
-<h1><span class="section-number">2. </span>JupyterLab 분석 환경<a class="headerlink" href="#jupyterlab" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="shapely">
+<h1><span class="section-number">1. </span>Shapely와 기하학적 객체<a class="headerlink" href="#shapely" title="Permalink to this heading">#</a></h1>
 <hr class="docutils" />
-<p> 이 책에서 여러분은 웹 브라우저 기반의 개발 환경인 주피터랩(JupyterLab)을 사용합니다. <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html">주피터랩</a>은 데이터 과학을 위한 오픈소스 웹 기반 통합 개발 인터페이스(Integrated Development Interface; IDE) 입니다. 이 인터페이스는 파일 브라우저, 터미널, 텍스트 에디터를 포함한 여러 요소로 구성되며 다양한 플러그인을 사용하여 기능을 확장할 수 있습니다.</p>
-<figure class="align-default" id="id1">
-<a class="reference internal image-reference" href="../../_images/jupyterlab-launcher.png"><img alt="../../_images/jupyterlab-launcher.png" src="../../_images/jupyterlab-launcher.png" style="height: 500px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text"><i>주피터랩(JupyterLab)</i> 시작 화면</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p> <i>주피터랩(JupyterLab)</i>의 핵심에는 <b>주피터 노트북(Jupyter Notebook)</b>이라는 개념이 있습니다. 주피터 노트북(파일 확장자: .ipynb)은 코드와 함께 리치 텍스트(서식 있는 텍스트), 그림, 표를 작성할 수 있는 문서 형식입니다. 이 형식은 재현가능한 데이터 과학 워크플로(reproducible data science workflow)를 대화형(interactive)으로 문서화하는 데 적합합니다. 참고로, 이 책도 주피터 노트북을 사용해 작성했습니다. <strong>이 책에서는 JupyterLab의 Jupyter Notebook을 기본 프로그래밍 환경으로 사용합니다.</strong></p>
-<figure class="align-default" id="id2">
-<a class="reference internal image-reference" href="../../_images/jupyterlab-example-notebook.png"><img alt="../../_images/jupyterlab-example-notebook.png" src="../../_images/jupyterlab-example-notebook.png" style="height: 500px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text"><i>주피터랩(JupyterLab)</i>에서 연 노트북(notebook) 화면</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
+<section id="id1">
+<h2><span class="section-number">1.1. </span>개요<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p> 공간정보 데이터셋 작업을 본격적으로 시작하기 전에 먼저, 기본적인 기하학적 객체에 익숙해질 필요가 있습니다. 이번 단원에서는 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">Shapely</a> 패키지를 사용하여 파이썬에서 간단한 특성(features)을 만들고 조작하는 방법을 배웁니다.</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">1.2. </span>학습 목표<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>GIS와 공간 분석을 위한 Python 패키지 탐색</p></li>
+<li><p>Shapely를 통해 기하학적 객체(점, 선, 다각형)가 처리되고 저장되는 방법</p></li>
+<li><p>좌표 값이 주어진 기하학적 객체를 생성</p></li>
+</ul>
 <hr class="docutils" />
 <script src="https://utteranc.es/client.js"
         repo="Kwan-Gu/geospatial_analysis"
@@ -340,6 +348,7 @@ document.write(`
         crossorigin="anonymous"
         async>
 </script></section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -354,7 +363,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./docs\0. 서론"
+            path: "./docs\1. Shapely와 기하학적 객체"
         },
         predefinedOutput: true
     }
@@ -373,20 +382,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="0.0.%20%EA%B0%9C%EC%9A%94.html"
+       href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>개요</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>파이썬 GIS 환경 생성</p>
       </div>
     </a>
     <a class="right-next"
-       href="0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html"
+       href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>파이썬과 패키지 설치</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>개요</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -399,6 +408,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1.1. 개요</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.2. 학습 목표</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
