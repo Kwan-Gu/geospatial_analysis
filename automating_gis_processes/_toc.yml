@@ -11,6 +11,12 @@ parts:
       - file: docs/0. 서론/0.1. JupyterLab 분석 환경
       - file: docs/0. 서론/0.2. 파이썬과 패키지 설치
       - file: docs/0. 서론/0.3. 파이썬 GIS 환경 생성
+
+  - caption: Ⅰ. Shapely와 기하학적 객체
+    numbered: 3
+    chapters:
+      - file: docs/1. Shapely와 기하학적 객체/1.0. 개요
+
   - caption: Ⅲ. 지오코딩과 공간 쿼리
     numbered: 3
     chapters:
