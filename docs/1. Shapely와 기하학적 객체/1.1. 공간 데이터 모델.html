@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>공간 데이터 모델 &#8212; 공간정보 분석 Ⅰ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "Kwan-Gu/geospatial_analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/1. Shapely와 기하학적 객체/1.1. 공간 데이터 모델';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">2. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅰ. Shapely와 기하학적 객체</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅲ. 지오코딩과 공간 쿼리</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">2. 지오코딩 (Geocoding)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html">3. PIP (Point-In-Polygon) 쿼리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.4.%20%EA%B5%90%EC%B0%A8.html">4. 교차 (Intersect)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.5.%20%EA%B3%B5%EA%B0%84%20%EC%A1%B0%EC%9D%B8.html">5. 공간 조인 (Spatial Join)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/1. Shapely와 기하학적 객체/1.1. 공간 데이터 모델.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>공간 데이터 모델</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-tuples">좌표 튜플(Coordinate Tuples)로 구성되는 기하학적 객체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#points">점 (Points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linestrings-linerings">선 (LineStrings) &amp; 선형 링 (LineRings)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygons">다각형 (Polygons)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">기하학적 객체 집합</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>공간 데이터 모델<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<figure style="text-align:center;">
+    <img src="./img/geometric objects.svg" width="30%">
+    <figcaption style="text-align:center;">Python에서 <a href="https://shapely.readthedocs.io/en/stable/">shapely</a> 라이브러리를 활용해 사용할 수 있는 기본적인 기하학적 객체들 (출처: <a href="https://en.wikipedia.org/wiki/GeoJSON">위키피디아 GeoJSON</a>)</figcaption>
+</figure><p> 모든 지리공간 벡터 데이터는 기본적인 기하학적 객체의 집합으로 설명할 수 있습니다. 예를 들어 <strong>점</strong>, <strong>선</strong> 및 <strong>다각형</strong>은 공간 데이터의 기본 구성 요소입니다.</p>
+<p> Python에서 이러한 공간 객체를 활용해 다양한 기하학적 작업을 수행하기 위해 사용되는 표준 라이브러리로 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a>가 있습니다. 지리정보 데이터셋(레이어; layers)을 처리하는 geopandas(〈Ⅱ. GeoPandas로 공간 데이터 관리〉 참조)와 같은 라이브러리를 제대로 사용하기 위해서도 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a> 라이브러리가 어떻게 작동하는지에 대한 기본적인 이해가 가장 중요합니다.</p>
+<p> Shapely는 다른 지리공간 소프트웨어와 마찬가지로 <a class="reference external" href="https://www.ogc.org/standard/sfa/">Open Geospatial Consortium의 Simple Feature Access</a> 표준에 제시된 공간 데이터 모델을 따릅니다. 이 단원에서 사용되는 용어들도 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a>에서 사용될뿐만 아니라, 일반적인 개념이므로 훨씬 더 광범위하게 사용할 수도 있습니다.</p>
+<section id="coordinate-tuples">
+<h2>좌표 튜플(Coordinate Tuples)로 구성되는 기하학적 객체<a class="headerlink" href="#coordinate-tuples" title="Permalink to this heading">#</a></h2>
+<p> 기본적인 기하학적 객체를 구성하는 가장 작은 구성 단위는 <b>좌표 튜플(coordinate tuples)</b> 입니다. 즉, 좌표 튜플은 점, 선 및 다각형을 정의하는 데 사용됩니다. 이러한 좌표 튜플은 일반적으로 2차원 <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> 또는 3차원 <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">z)</span></code>으로 정의됩니다.</p>
+<div class="note admonition">
+<p class="admonition-title">튜플 (Tuples)</p>
+<p> <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences">튜플(Tuple)</a>은 쉼표(<code class="docutils literal notranslate"><span class="pre">,</span></code>)로 구분된 여러 값 또는 단일 값으로 구성된 Python의 기본적인 데이터 구조입니다. 위 좌표 튜플(coordinate tuples)은 튜플로 표시됩니다. 예를 들어, <code class="docutils literal notranslate"><span class="pre">(60.192059,</span> <span class="pre">24.945831)</span></code>은 두 개의 값을 가진 튜플이고, <code class="docutils literal notranslate"><span class="pre">(1,)</span></code>은 하나의 값을 가진 튜플입니다. 그리고 함수 <code class="docutils literal notranslate"><span class="pre">tuple([1,</span> <span class="pre">2,</span> <span class="pre">3])</span></code>은 리스트(<code class="docutils literal notranslate"><span class="pre">list</span></code>)인 <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>을 튜플(<code class="docutils literal notranslate"><span class="pre">tuple</span></code>) <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code>으로 변환(캐스트; casts)하는 역할을 합니다.</p>
+<p> 튜플은 Python의 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typesseq">시퀀스(sequence) 데이터 유형</a>에 속합니다. 튜플 외에 다른 시퀀스 데이터 유형은 리스트(list)와 range가 있습니다. 튜플은 리스트 및 range와 많은 유사점이 있지만 종종 다른 목적을 위해 사용됩니다. 튜플과 리스트의 가장 큰 차이점은, 튜플의 경우 변경할 수 없다(<a class="reference external" href="https://docs.python.org/3/glossary.html#term-immutable">immutable</a>)는 점입니다. 예를 들어, 리스트는 리스트에 값을 추가하거나 제거하여 변경할 수 있지만(mutable), 튜플은 불가능합니다.</p>
+</div>
+</section>
+<section id="points">
+<h2>점 (Points)<a class="headerlink" href="#points" title="Permalink to this heading">#</a></h2>
+<p> <b>점(Point)</b>은 2차원 또는 3차원 유클리드 공간에서 하나의 점을 가리킵니다. 따라서, 점은 단일 좌표 튜플로 정의됩니다.</p>
+</section>
+<section id="linestrings-linerings">
+<h2>선 (LineStrings) &amp; 선형 링 (LineRings)<a class="headerlink" href="#linestrings-linerings" title="Permalink to this heading">#</a></h2>
+<p> <b>선(LineString)</b>과 <b>선형 링(LineRing)</b>은 점의 시퀀스(sequence)로 정의된 선(lines)의 종류를 가리킵니다. 점을 순서대로 연결하면 선(LineString)이 형성되며, 만약 첫 번째 점과 마지막 점이 동일하면 선형 링(LineRing)이 됩니다. 따라서, <i>선(LineString)</i>을 정의하려면 최소 2개의 점이 필요하고, <i>선형 링(LinearRing)</i>의 경우 최소 3개가 필요합니다.</p>
+</section>
+<section id="polygons">
+<h2>다각형 (Polygons)<a class="headerlink" href="#polygons" title="Permalink to this heading">#</a></h2>
+<p> <b>다각형(Polygon)</b>은 영역을 나타냅니다. 다각형은 하나의 <i>선형 링(LinearRing)</i>과 공백 영역을 나타내는 여러 개의 <i>선형 링(LinearRing)</i>들로 정의됩니다. 따라서 다각형을 정의하려면 최소한 3개의 좌표 튜플들이 필요합니다.</p>
+</section>
+<section id="id2">
+<h2>기하학적 객체 집합<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p> 복잡한 형태의 공간 특성을 표현하기 위해 기본적인 기하학적 객체들을 결합해 사용할 수 있습니다. 예를 들어, 불연속 지역으로 구성된 행정 구역(예. 서울특별시의 강북과 강남 지역)을 표현하는 경우가 있습니다.</p>
+<ul class="simple">
+<li><p><strong>다중 점(MultiPoint)</strong> : 점들의 집합</p></li>
+<li><p><strong>다중 선(MultiLineString)</strong> : 선들의 집합</p></li>
+<li><p><strong>다중 다각형(MultiPolygon)</strong> : 다각형들의 집합</p></li>
+<li><p><strong>기하 집합(GeometryCollection)</strong> : 점, 선, 다각형뿐만 아니라 다중 점, 다중 선, 다중 다각형의 집합</p></li>
+</ul>
+<figure style="text-align:center;">
+    <img src="./img/multipolygons.svg" width="30%">
+    <figcaption style="text-align:center;"><i>Tyrol</i> (오스트리아의 연방주)은 <b>다중 다각형(MultiPolygon)</b> 입니다 (그림 출처: <a href="https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_GEM_1">Statistics Austria</a>).</figcaption>
+</figure><hr class="docutils" />
+<script src="https://utteranc.es/client.js"
+        repo="Kwan-Gu/geospatial_analysis"
+        issue-term="pathname"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\1. Shapely와 기하학적 객체"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-tuples">좌표 튜플(Coordinate Tuples)로 구성되는 기하학적 객체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#points">점 (Points)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linestrings-linerings">선 (LineStrings) &amp; 선형 링 (LineRings)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygons">다각형 (Polygons)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">기하학적 객체 집합</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 백관구(Kwan-Gu Baek), 이정택, 신지민
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
