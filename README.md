@@ -20,6 +20,7 @@
 - `chapters` : (`jb-book`일 때 한정) 단원 파일들  
 
 ## 이미지 붙이는 마크다운  
+https://jupyterbook.org/en/stable/content/figures.html#figure-parameters  
 ````md
 ```{figure} ../images/C-3PO_droid.png
 ---

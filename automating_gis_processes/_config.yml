@@ -38,6 +38,7 @@ html:
   comments:
     utterances:
       repo: "Kwan-Gu/geospatial_analysis"
+  use_multitoc_numbering: false
 
 # Sphinx
 sphinx:

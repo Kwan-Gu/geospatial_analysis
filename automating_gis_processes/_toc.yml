@@ -16,6 +16,7 @@ parts:
     numbered: 3
     chapters:
       - file: docs/1. Shapely와 기하학적 객체/1.0. 개요
+      - file: docs/1. Shapely와 기하학적 객체/1.1. 공간 데이터 모델
 
   - caption: Ⅲ. 지오코딩과 공간 쿼리
     numbered: 3
