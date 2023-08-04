@@ -334,13 +334,13 @@ document.write(`
 <h1><span class="section-number">2. </span>공간 데이터 모델<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
 <hr class="docutils" />
 <figure class="align-default" id="id3">
-<a class="reference internal image-reference" href="docs/1. Shapely와 기하학적 객체/img/geometricobjects.svg"><img alt="docs/1. Shapely와 기하학적 객체/img/geometricobjects.svg" height="200px" src="docs/1. Shapely와 기하학적 객체/img/geometricobjects.svg" /></a>
+<a class="reference internal image-reference" href="../../_images/geometric_objects.svg"><img alt="../../_images/geometric_objects.svg" height="500px" src="../../_images/geometric_objects.svg" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Python에서 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a> 라이브러리를 활용해 사용할 수 있는 기본적인 기하학적 객체들 (출처: <a class="reference external" href="https://en.wikipedia.org/wiki/GeoJSON">위키피디아 GeoJSON</a>)</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p> 모든 지리공간 벡터 데이터는 기본적인 기하학적 객체의 집합으로 설명할 수 있습니다. 예를 들어 <strong>점</strong>, <strong>선</strong> 및 <strong>다각형</strong>은 공간 데이터의 기본 구성 요소입니다.</p>
-<p> Python에서 이러한 공간 객체를 활용해 다양한 기하학적 작업을 수행하기 위해 사용되는 표준 라이브러리로 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a>가 있습니다. 지리정보 데이터셋(레이어; layers)을 처리하는 geopandas(〈Ⅱ. GeoPandas로 공간 데이터 관리〉 참조)와 같은 라이브러리를 제대로 사용하기 위해서도 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a> 라이브러리가 어떻게 작동하는지에 대한 기본적인 이해가 가장 중요합니다.</p>
+<p> Python에서 이러한 공간 객체를 활용해 다양한 기하학적 작업을 수행하기 위해 사용되는 표준 라이브러리로 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a>가 있습니다. 지리정보 데이터셋(레이어; layers)을 처리하는 geopandas(<em>Ⅱ. GeoPandas로 공간 데이터 관리</em> 참조)와 같은 라이브러리를 제대로 사용하기 위해서도 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a> 라이브러리가 어떻게 작동하는지에 대한 기본적인 이해가 가장 중요합니다.</p>
 <p> Shapely는 다른 지리공간 소프트웨어와 마찬가지로 <a class="reference external" href="https://www.ogc.org/standard/sfa/">Open Geospatial Consortium의 Simple Feature Access</a> 표준에 제시된 공간 데이터 모델을 따릅니다. 이 단원에서 사용되는 용어들도 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a>에서 사용될뿐만 아니라, 일반적인 개념이므로 훨씬 더 광범위하게 사용할 수도 있습니다.</p>
 <section id="coordinate-tuples">
 <h2><span class="section-number">2.1. </span>좌표 튜플(Coordinate Tuples)로 구성되는 기하학적 객체<a class="headerlink" href="#coordinate-tuples" title="Permalink to this heading">#</a></h2>
@@ -373,7 +373,7 @@ document.write(`
 <li><p><strong>기하 집합(GeometryCollection)</strong> : 점, 선, 다각형뿐만 아니라 다중 점, 다중 선, 다중 다각형의 집합</p></li>
 </ul>
 <figure class="align-default" id="id4">
-<a class="reference internal image-reference" href="../../_images/multipolygons.svg"><img alt="../../_images/multipolygons.svg" height="200px" src="../../_images/multipolygons.svg" /></a>
+<a class="reference internal image-reference" href="../../_images/multipolygons.svg"><img alt="../../_images/multipolygons.svg" height="300px" src="../../_images/multipolygons.svg" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 2.4 </span><span class="caption-text"><em>Tyrol</em> (오스트리아의 연방주)은 <strong>다중 다각형(MultiPolygon)</strong> 입니다 (그림 출처: <a class="reference external" href="https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_GEM_1">Statistics Austria</a>).</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
 </figcaption>
