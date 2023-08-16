@@ -31,6 +31,16 @@ Here is my figure caption!
 ```
 ````
 
+## 셀 출력 숨기기
+https://jupyterbook.org/en/stable/interactive/hiding.html#hide-cell-outputs
+```python
+{
+    "tags": [
+        "hide-output"
+    ]
+}
+```
+
 ## 댓글 기능 추가
 ````md
 ```{raw} html
@@ -53,7 +63,11 @@ pip freeze > automating_gis_processes/requirements.txt
 ```commandline
 jb build --all .\automating_gis_processes\
 ```
-### 3. 배포
+
+### 3. 빌드 결과 확인
+브라우저에 빌드 파일 주소 입력
+
+### 4. 배포
 ```commandline
 ghp-import -n -p -f .\automating_gis_processes\_build\html\
 ```

@@ -17,6 +17,7 @@ parts:
     chapters:
       - file: docs/1. Shapely와 기하학적 객체/1.0. 개요
       - file: docs/1. Shapely와 기하학적 객체/1.1. 공간 데이터 모델
+      - file: docs/1. Shapely와 기하학적 객체/1.2. Shapely 사용하기
 
   - caption: Ⅲ. 지오코딩과 공간 쿼리
     numbered: 3
@@ -27,3 +28,7 @@ parts:
       - file: docs/3. 지오코딩과 공간 쿼리/3.3. Point-In-Polygon 쿼리
       - file: docs/3. 지오코딩과 공간 쿼리/3.4. 교차
       - file: docs/3. 지오코딩과 공간 쿼리/3.5. 공간 조인
+
+  - caption: ※ 부록
+    chapters:
+      - file: docs/word
