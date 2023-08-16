@@ -1,0 +1,1568 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>3. Shapely 사용하기 &#8212; 공간정보 분석 Ⅰ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "Kwan-Gu/geospatial_analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/1. Shapely와 기하학적 객체/1.2. Shapely 사용하기';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1. 개요" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html" />
+    <link rel="prev" title="2. 공간 데이터 모델" href="1.1.%20%EA%B3%B5%EA%B0%84%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AA%A8%EB%8D%B8.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">2. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅰ. Shapely와 기하학적 객체</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1.%20%EA%B3%B5%EA%B0%84%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AA%A8%EB%8D%B8.html">2. 공간 데이터 모델</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Shapely 사용하기</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅲ. 지오코딩과 공간 쿼리</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">2. 지오코딩 (Geocoding)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html">3. PIP (Point-In-Polygon) 쿼리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.4.%20%EA%B5%90%EC%B0%A8.html">4. 교차 (Intersect)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.5.%20%EA%B3%B5%EA%B0%84%20%EC%A1%B0%EC%9D%B8.html">5. 공간 조인 (Spatial Join)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">※ 부록</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../word.html">용어 리스트</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/1. Shapely와 기하학적 객체/1.2. Shapely 사용하기.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Shapely 사용하기</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point">3.1. 점(Point)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.1.1. Point 속성 및 메서드</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lines">3.2. 선 (Lines)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linestring">3.2.1. LineString 속성 및 메서드</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon">3.3. 다각형 (Polygon)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.3.1. Polygon 속성 및 메서드</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="shapely">
+<h1><span class="section-number">3. </span>Shapely 사용하기<a class="headerlink" href="#shapely" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<p> Shapely는 도형과 관련해 다양한 작업을 수행할 수 있습니다. 예를 들어 아래와 같은 작업들을 수행할 수 있습니다.</p>
+<ul class="simple">
+<li><p>점(Point), 선(line), 다각형(polygon) 생성</p></li>
+<li><p>도형의 면적, 길이, 둘레 등 계산</p></li>
+<li><p>도형 간의 병합(<code class="docutils literal notranslate"><span class="pre">union</span></code>), 빼기(<code class="docutils literal notranslate"><span class="pre">difference</span></code>), 거리 계산</p></li>
+<li><p>두 도형이 교차(intersect), 접촉(touch), 횡단(cross)하는지 등 여부 확인</p></li>
+</ul>
+<section id="point">
+<h2><span class="section-number">3.1. </span>점(Point)<a class="headerlink" href="#point" title="Permalink to this heading">#</a></h2>
+<p> 점(Point) 객체를 생성하는 것은 간단합니다. 좌표(x, y 또는 x, y, z)를 생성자(constructor)에 전달하면 됩니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shapely.geometry.Point 클래스 임포트(import)</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+
+<span class="c1"># 점(Point) 객체 생성</span>
+<span class="n">point1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">)</span>
+<span class="n">point2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.1</span><span class="p">)</span>
+<span class="n">point3</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">9.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.456</span><span class="p">)</span>
+<span class="n">point4_3D</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">9.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.456</span><span class="p">,</span> <span class="mf">0.57</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p> 생성한 점 객체를 확인하려면 아래와 같이 도형을 표시할 수 있습니다. 또는 <code class="docutils literal notranslate"><span class="pre">print</span></code> 문을 사용하여 shapely 도형 객체에 대해 텍스트로 표시할 수도 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e32cd8f99dad3181abe54558bec3343c07326535ae3840b0547bebefe82994d5.svg" src="../../_images/e32cd8f99dad3181abe54558bec3343c07326535ae3840b0547bebefe82994d5.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">point1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">point4_3D</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POINT (2.2 4.2)
+POINT Z (9.26 -2.456 0.57)
+</pre></div>
+</div>
+</div>
+</div>
+<p> 이 텍스트 표현은 <a class="reference external" href="https://www.ogc.org/">OGC (Open Geospatial Consortium)</a>의 <a class="reference external" href="https://www.ogc.org/standard/sfa/">Simple Feature Access</a>에서 제시된 표준인 “WKT (Well-Known Text)” 형식입니다. 위 텍스트 표현 예시에서 <code class="docutils literal notranslate"><span class="pre">print(point4_3D)</span></code>가 “POINT Z …”로 프린트된 것을 볼 수 있습니다. 여기서 문자 “Z”는 도형의 3차원 버전을 의미합니다.</p>
+<p> 점 객체의 데이터 유형도 확인해 보겠습니다. 점의 유형이 <code class="docutils literal notranslate"><span class="pre">shapely.geometry.point.Point</span></code> 임을 알 수 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">point1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shapely.geometry.point.Point
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p> Shapely는 <a class="reference external" href="https://www.osgeo.org/projects/geos/">GEOS</a>를 사용하여 도형 객체를 처리합니다. GEOS는 C++ 라이브러리(Python보다 훨씬 빠름)로, GIS의 오픈소스 분야에서 <a class="reference external" href="https://qgis.org/en/site/">QGIS</a>를 비롯한 지리공간 연산 관련 많은 프로젝트들을 지원합니다.</p>
+</div>
+<section id="id1">
+<h3><span class="section-number">3.1.1. </span>Point 속성 및 메서드<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p> 점과 같은 shapely 도형 객체에는 유용한 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#general-attributes-and-methods">속성 및 메서드</a>들이 기본적으로 내장되어 있습니다. 사용 가능한 속성들을 활용하면, 점의 좌표 값을 추출하거나 점 사이의 유클리드 거리를 계산하는 등 다양한 기하학적 연산을 수행할 수 있습니다.</p>
+<p> <code class="docutils literal notranslate"><span class="pre">geom_type</span></code> 속성에는 shapely 도형에 대한 유형 정보가 포함되어 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point1</span><span class="o">.</span><span class="n">geom_type</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Point&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p> 도형 객체의 좌표값에 접근하기 위한 방법은 여러 가지가 있습니다. 예를 들어, 아래 예시의 속성 <code class="docutils literal notranslate"><span class="pre">coords</span></code>는 <code class="docutils literal notranslate"><span class="pre">shapely.coords.CoordinateSequence</span></code>를 가리키며 좌표 리스트를 <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> 형태로 반환합니다. 여기서 <code class="docutils literal notranslate"><span class="pre">Iterator</span></code>란, 항목들을 리스트 형태로 반환하는 파이썬 데이터 구조 중 한 종류입니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 좌표값</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">point1</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(2.2, 4.2)]
+</pre></div>
+</div>
+</div>
+</div>
+<p> 좌표값에 접근하기 위한 위 방법 외에도 <code class="docutils literal notranslate"><span class="pre">shapely.geometry.Point</span></code> 객체는 좌표값에 <em>직접</em> 접근할 수 있는 속성 <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, (3차원 도형의 경우만) <code class="docutils literal notranslate"><span class="pre">z</span></code>을 갖습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># x, y 좌표값 읽기</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">point1</span><span class="o">.</span><span class="n">x</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">point1</span><span class="o">.</span><span class="n">y</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.2 4.2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (3차원) x, y, z 좌표값 읽기</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">point4_3D</span><span class="o">.</span><span class="n">x</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">point4_3D</span><span class="o">.</span><span class="n">y</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">point4_3D</span><span class="o">.</span><span class="n">z</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9.26 -2.456 0.57
+</pre></div>
+</div>
+</div>
+</div>
+<p> <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.distance"><code class="docutils literal notranslate"><span class="pre">distance</span></code></a> 메서드를 사용하여 두 객체 사이의 거리를 계산하는 것도 가능합니다.</p>
+<p> 아래 예제에서 두 점 간의 거리는 데카르트(cartesian) 좌표계에서 계산됩니다. 하지만, 실제 GIS 데이터로 작업할 때에는 사용된 좌표 참조 시스템(CRS)을 기반으로 거리 계산을 수행합니다. 따라서 거리 계산시 사용된 좌표 참조 시스템(CRS)의 측정 단위(예. m)가 무엇인지 확인해야 합니다. <code class="docutils literal notranslate"><span class="pre">point1</span></code>과 <code class="docutils literal notranslate"><span class="pre">point2</span></code> 사이의 거리를 계산해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># point1과 point2 간 거리 계산</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">point1</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">point2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;점 사이의 거리는 </span><span class="si">{</span><span class="n">dist</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> unit 입니다.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>점 사이의 거리는 29.72 unit 입니다.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p> Shapely를 사용하여 거리 및 면적을 계산할 때 기본적으로 내장된 메서드는,<br/>
+  a) 평면, 데카르트(Cartesian), 유클리드 공간을 가정하고<br/>
+  b) 계산된 값을 좌표계의 단위(예: m, 도; degree)에 따라 반환합니다.</p>
+</div>
+</section>
+</section>
+<section id="lines">
+<h2><span class="section-number">3.2. </span>선 (Lines)<a class="headerlink" href="#lines" title="Permalink to this heading">#</a></h2>
+<p> 선(<code class="docutils literal notranslate"><span class="pre">LineString</span></code>) 객체 생성 방법은 점(<code class="docutils literal notranslate"><span class="pre">Point</span></code>) 생성과 유사합니다. 단일 좌표값을 갖는 튜플(<code class="docutils literal notranslate"><span class="pre">(2.2,</span> <span class="pre">4.2)</span></code>) 대신에, 좌표 튜플 리스트(<code class="docutils literal notranslate"><span class="pre">[(2.2,</span> <span class="pre">4.2),</span> <span class="pre">(7.2,</span> <span class="pre">-25.1),</span> <span class="pre">(9.26,</span> <span class="pre">-2.456)]</span></code>) 또는 선을 구성하는 점들의 리스트를 사용합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LineString 클래스 임포트</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">LineString</span>
+
+<span class="c1"># 점(Point) 객체로부터 선(LineString) 생성</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">])</span>
+<span class="n">line</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0dd31ba3b4a057207acbb77864aa8a612f4e0618c9d38c1859f6940fa0b4ba45.svg" src="../../_images/0dd31ba3b4a057207acbb77864aa8a612f4e0618c9d38c1859f6940fa0b4ba45.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 좌표 튜플 리스트로부터 선 생성</span>
+<span class="n">line2</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.1</span><span class="p">),</span> <span class="p">(</span><span class="mf">9.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.456</span><span class="p">)])</span>
+<span class="n">line2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0dd31ba3b4a057207acbb77864aa8a612f4e0618c9d38c1859f6940fa0b4ba45.svg" src="../../_images/0dd31ba3b4a057207acbb77864aa8a612f4e0618c9d38c1859f6940fa0b4ba45.svg" /></div>
+</div>
+<p> 아래의 텍스트 표현은 WKT 포맷입니다. WKT는 사람이 읽을 수 있는 텍스트 형식이므로 편리하며, 대부분의 GIS 도구에서도 사용됩니다. 또한 <code class="docutils literal notranslate"><span class="pre">LineString</span></code>이 여러 개의 좌표로 구성된 튜플로 되어 있음을 알 수 있습니다. WKT <code class="docutils literal notranslate"><span class="pre">LINESTRING</span></code>의 값은 쉼표<code class="docutils literal notranslate"><span class="pre">,</span></code>로 결합된 여러 개의 WKT <code class="docutils literal notranslate"><span class="pre">POINTS</span></code>의 값으로 구성됩니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LINESTRING (2.2 4.2, 7.2 -25.1, 9.26 -2.456)
+LINESTRING (2.2 4.2, 7.2 -25.1, 9.26 -2.456)
+</pre></div>
+</div>
+</div>
+</div>
+<p> 데이터 유형도 확인해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># line 객체의 데이터 타입 확인</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shapely.geometry.linestring.LineString
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># line 객체의 도형 타입(geometry type) 확인</span>
+<span class="n">line</span><span class="o">.</span><span class="n">geom_type</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;LineString&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="linestring">
+<h3><span class="section-number">3.2.1. </span>LineString 속성 및 메서드<a class="headerlink" href="#linestring" title="Permalink to this heading">#</a></h3>
+<p> Shapely의 선 관련 도형(<code class="docutils literal notranslate"><span class="pre">LineString</span></code>, <code class="docutils literal notranslate"><span class="pre">LinearRing</span></code>, <code class="docutils literal notranslate"><span class="pre">MultiLineString</span></code>)에는 유용한 기능을 제공하는 다양한 속성과 메서드가 있습니다. 예를 들어 도형의 좌표에 접근하고, 길이를 계산하고, 중심점을 찾고, 선을 따라서 지정된 간격으로 점을 찍거나, 선과 다른 도형 사이의 최근접 거리를 계산할 수 있습니다.</p>
+<p> 선의 좌표에 접근하는 것은 점의 좌표에 접근하는 것과 매우 유사합니다. 선을 구성하기 위해서는 적어도 두 개 이상의 좌표 튜플이 있어야 하므로, 리스트에는 여러 개의 값이 포함됩니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># line 객체의 좌표 튜플</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(2.2, 4.2), (7.2, -25.1), (9.26, -2.456)]
+</pre></div>
+</div>
+</div>
+</div>
+<p> 선의 모든 x 좌표 또는 모든 y 좌표에 접근해야 하는 경우 <code class="docutils literal notranslate"><span class="pre">xy</span></code> 속성을 사용할 수 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># line 객체의 x, y 좌표</span>
+<span class="n">xcoords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ycoords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">xcoords</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ycoords</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2.2, 7.2, 9.26]
+[4.2, -25.1, -2.456]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="danger admonition">
+<p class="admonition-title">3D-LineStrings</p>
+<p> Shapely 도형의 <code class="docutils literal notranslate"><span class="pre">xy</span></code> 속성은 3차원 도형에서 <code class="docutils literal notranslate"><span class="pre">z</span></code> 값을 반환하지는 않습니다.</p>
+</div>
+<p> GIS 분석에 유용한 또다른 속성으로, 선의 길이와 중심점(centroid)을 구할 수 있습니다. 선(또는 다른 타입의 도형)의 중심점은 <code class="docutils literal notranslate"><span class="pre">shapely.geometry.Point</span></code> 객체입니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># line 객체의 길이</span>
+<span class="n">line_length</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">length</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;선의 길이: </span><span class="si">{</span><span class="n">line_length</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> unit&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>선의 길이: 52.5 unit
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># line 객체의 중심점</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POINT (6.229961354035622 -11.892411157572392)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="polygon">
+<h2><span class="section-number">3.3. </span>다각형 (Polygon)<a class="headerlink" href="#polygon" title="Permalink to this heading">#</a></h2>
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="../../_images/polygon.png"><img alt="../../_images/polygon.png" src="../../_images/polygon.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text">다각형(Polygon) 예시</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p> 다각형(Polygon)을 생성하는 것은 점 또는 선을 생성하는 것과 동일한 논리를 따릅니다. 그러나 다각형을 생성하기 위해 성립해야 하는 규칙은 보다 더 복잡합니다. 다각형의 외부(shell)를 형성하는 하나의 선형 링이 존재해야 하며, 앞에서 생성된 다각형 쉘(shell)에서 잘라낼 부분을 가리키는 여러 개의 선형 링들로 구성됩니다.</p>
+<p> 따라서, <code class="docutils literal notranslate"><span class="pre">shapely.geometry.Polygon</span></code> <em>생성자</em> 함수는 두 개의 파라미터를 필요로 합니다. 첫 번째 파라미터인 쉘(<code class="docutils literal notranslate"><span class="pre">shell</span></code>)은 좌표 튜플 리스트 또는 점 리스트 또는 <code class="docutils literal notranslate"><span class="pre">LinearRing</span></code>이며, 다각형의 외부를 형성합니다. 두 번째 파라미터인 구멍(<code class="docutils literal notranslate"><span class="pre">holes</span></code>)은 선택적(사용해도 되고, 사용하지 않아도 됨)으로 사용되며, 쉘에서 잘라낼 구멍의 리스트 입니다. 이 리스트에 들어갈 항목들은 쉘과 동일한 데이터 타입 입니다.</p>
+<p> 먼저, 구멍이 없는 간단한 다각형을 만들어 보겠습니다. 첫 번째 예제는 <strong>3개의 좌표로 구성된 튜플</strong>을 사용합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span>
+
+<span class="c1"># 좌표로부터 다각형 생성</span>
+<span class="n">polygon1</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.1</span><span class="p">),</span> <span class="p">(</span><span class="mf">9.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.456</span><span class="p">)])</span>
+<span class="n">polygon1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/da6cc4b41d5635608d8abef45299f288edcded636e47bdb44f966e42a049139d.svg" src="../../_images/da6cc4b41d5635608d8abef45299f288edcded636e47bdb44f966e42a049139d.svg" /></div>
+</div>
+<p> 점 리스트에서 직접 다각형을 생성할 수도 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">polygon2</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">])</span>
+<span class="n">polygon2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/da6cc4b41d5635608d8abef45299f288edcded636e47bdb44f966e42a049139d.svg" src="../../_images/da6cc4b41d5635608d8abef45299f288edcded636e47bdb44f966e42a049139d.svg" /></div>
+</div>
+<p> 또는 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#linearrings"><code class="docutils literal notranslate"><span class="pre">LinearRing</span></code></a>으로 다각형을 생성할 수도 있습니다. <code class="docutils literal notranslate"><span class="pre">shapely.geometry.LinearRing</span></code>을 구성할 때, 마지막에 첫 번째 점을 다시 나열하는 것을 생략할 수 있습니다. 이런 경우, Shapely는 점 리스트의 끝에 첫 번째 포인트를 자동으로 다시 추가합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">LinearRing</span>
+
+<span class="n">shell</span> <span class="o">=</span> <span class="n">LinearRing</span><span class="p">([</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">,</span> <span class="n">point1</span><span class="p">])</span>
+<span class="n">polygon3</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">shell</span><span class="p">)</span>
+<span class="n">polygon3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/da6cc4b41d5635608d8abef45299f288edcded636e47bdb44f966e42a049139d.svg" src="../../_images/da6cc4b41d5635608d8abef45299f288edcded636e47bdb44f966e42a049139d.svg" /></div>
+</div>
+<p> 세 개의 다각형 <code class="docutils literal notranslate"><span class="pre">polygon1</span></code>, <code class="docutils literal notranslate"><span class="pre">polygon2</span></code>, <code class="docutils literal notranslate"><span class="pre">polygon3</span></code>를 생성하기 위해 동일한 값과 서로 다른 방법들을 사용했습니다. 이 다각형들이 동일한 도형을 표현하는지 확인해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">polygon1</span> <span class="o">==</span> <span class="n">polygon2</span> <span class="o">==</span> <span class="n">polygon3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p> 점, 선과 마찬가지로 <code class="docutils literal notranslate"><span class="pre">shapely.geometry.Polygon</span></code>의 텍스트 표현은 WKT (Well-Known Text) 포맷입니다. WKT <code class="docutils literal notranslate"><span class="pre">POLYGON</span></code>은 하나 이상의 WKT <code class="docutils literal notranslate"><span class="pre">LINEARRING</span></code>으로 구성됩니다. 첫 번째 선형 링은 외부(<code class="docutils literal notranslate"><span class="pre">shell</span></code>)를 나타내며, 그 이후에 등장하는 선형 링들은 쉘에서 잘라낼 구멍들(<code class="docutils literal notranslate"><span class="pre">holes</span></code>)을 나타냅니다. 아래 코드에서는 구멍이 없는 다각형이므로, 하나의 선형 링으로만 구성되어 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">polygon1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POLYGON ((2.2 4.2, 7.2 -25.1, 9.26 -2.456, 2.2 4.2))
+</pre></div>
+</div>
+</div>
+</div>
+<p> 데이터 타입을 확인해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 데이터 타입</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">polygon1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shapely.geometry.polygon.Polygon
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 도형 타입</span>
+<span class="n">polygon1</span><span class="o">.</span><span class="n">geom_type</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Polygon&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p> 내장 <code class="docutils literal notranslate"><span class="pre">help()</span></code> 함수를 사용하여 함수 또는 클래스가 작동하는 방식, 필요한 파라미터, 사용할 수 있는 속성 및 메소드를 확인할 수 있습니다.</p>
+</div>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">Polygon</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class Polygon in module shapely.geometry.polygon:
+
+class Polygon(shapely.geometry.base.BaseGeometry)
+ |  Polygon(shell=None, holes=None)
+ |  
+ |  A geometry type representing an area that is enclosed by a linear ring.
+ |  
+ |  A polygon is a two-dimensional feature and has a non-zero area. It may
+ |  have one or more negative-space &quot;holes&quot; which are also bounded by linear
+ |  rings. If any rings cross each other, the feature is invalid and
+ |  operations on it may fail.
+ |  
+ |  Parameters
+ |  ----------
+ |  shell : sequence
+ |      A sequence of (x, y [,z]) numeric coordinate pairs or triples, or
+ |      an array-like with shape (N, 2) or (N, 3).
+ |      Also can be a sequence of Point objects.
+ |  holes : sequence
+ |      A sequence of objects which satisfy the same requirements as the
+ |      shell parameters above
+ |  
+ |  Attributes
+ |  ----------
+ |  exterior : LinearRing
+ |      The ring which bounds the positive space of the polygon.
+ |  interiors : sequence
+ |      A sequence of rings which bound all existing holes.
+ |  
+ |  Examples
+ |  --------
+ |  Create a square polygon with no holes
+ |  
+ |  &gt;&gt;&gt; coords = ((0., 0.), (0., 1.), (1., 1.), (1., 0.), (0., 0.))
+ |  &gt;&gt;&gt; polygon = Polygon(coords)
+ |  &gt;&gt;&gt; polygon.area
+ |  1.0
+ |  
+ |  Method resolution order:
+ |      Polygon
+ |      shapely.geometry.base.BaseGeometry
+ |      shapely.lib.Geometry
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  svg(self, scale_factor=1.0, fill_color=None, opacity=None)
+ |      Returns SVG path element for the Polygon geometry.
+ |      
+ |      Parameters
+ |      ==========
+ |      scale_factor : float
+ |          Multiplication factor for the SVG stroke-width.  Default is 1.
+ |      fill_color : str, optional
+ |          Hex string for fill color. Default is to use &quot;#66cc99&quot; if
+ |          geometry is valid, and &quot;#ff3333&quot; if invalid.
+ |      opacity : float
+ |          Float number between 0 and 1 for color opacity. Default value is 0.6
+ |  
+ |  ----------------------------------------------------------------------
+ |  Class methods defined here:
+ |  
+ |  from_bounds(xmin, ymin, xmax, ymax) from builtins.type
+ |      Construct a `Polygon()` from spatial bounds.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods defined here:
+ |  
+ |  __new__(self, shell=None, holes=None)
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  __geo_interface__
+ |      Dictionary representation of the geometry
+ |  
+ |  coords
+ |      Access to geometry&#39;s coordinates (CoordinateSequence)
+ |  
+ |  exterior
+ |  
+ |  interiors
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from shapely.geometry.base.BaseGeometry:
+ |  
+ |  __and__(self, other)
+ |  
+ |  __bool__(self)
+ |  
+ |  __format__(self, format_spec)
+ |      Format a geometry using a format specification.
+ |  
+ |  __nonzero__(self)
+ |  
+ |  __or__(self, other)
+ |  
+ |  __reduce__(self)
+ |      Helper for pickle.
+ |  
+ |  __repr__(self)
+ |      Return repr(self).
+ |  
+ |  __str__(self)
+ |      Return str(self).
+ |  
+ |  __sub__(self, other)
+ |  
+ |  __xor__(self, other)
+ |  
+ |  almost_equals(self, other, decimal=6)
+ |      True if geometries are equal at all coordinates to a
+ |      specified decimal place.
+ |      
+ |      .. deprecated:: 1.8.0
+ |          The &#39;almost_equals()&#39; method is deprecated
+ |          and will be removed in Shapely 2.1 because the name is
+ |          confusing. The &#39;equals_exact()&#39; method should be used
+ |          instead.
+ |      
+ |      Refers to approximate coordinate equality, which requires
+ |      coordinates to be approximately equal and in the same order for
+ |      all components of a geometry.
+ |      
+ |      Because of this it is possible for &quot;equals()&quot; to be True for two
+ |      geometries and &quot;almost_equals()&quot; to be False.
+ |      
+ |      Examples
+ |      --------
+ |      &gt;&gt;&gt; LineString(
+ |      ...     [(0, 0), (2, 2)]
+ |      ... ).equals_exact(
+ |      ...     LineString([(0, 0), (1, 1), (2, 2)]),
+ |      ...     1e-6
+ |      ... )
+ |      False
+ |      
+ |      Returns
+ |      -------
+ |      bool
+ |  
+ |  buffer(self, distance, quad_segs=16, cap_style=&#39;round&#39;, join_style=&#39;round&#39;, mitre_limit=5.0, single_sided=False, **kwargs)
+ |      Get a geometry that represents all points within a distance
+ |      of this geometry.
+ |      
+ |      A positive distance produces a dilation, a negative distance an
+ |      erosion. A very small or zero distance may sometimes be used to
+ |      &quot;tidy&quot; a polygon.
+ |      
+ |      Parameters
+ |      ----------
+ |      distance : float
+ |          The distance to buffer around the object.
+ |      resolution : int, optional
+ |          The resolution of the buffer around each vertex of the
+ |          object.
+ |      quad_segs : int, optional
+ |          Sets the number of line segments used to approximate an
+ |          angle fillet.
+ |      cap_style : shapely.BufferCapStyle or {&#39;round&#39;, &#39;square&#39;, &#39;flat&#39;}, default &#39;round&#39;
+ |          Specifies the shape of buffered line endings. BufferCapStyle.round (&#39;round&#39;)
+ |          results in circular line endings (see ``quad_segs``). Both BufferCapStyle.square
+ |          (&#39;square&#39;) and BufferCapStyle.flat (&#39;flat&#39;) result in rectangular line endings,
+ |          only BufferCapStyle.flat (&#39;flat&#39;) will end at the original vertex,
+ |          while BufferCapStyle.square (&#39;square&#39;) involves adding the buffer width.
+ |      join_style : shapely.BufferJoinStyle or {&#39;round&#39;, &#39;mitre&#39;, &#39;bevel&#39;}, default &#39;round&#39;
+ |          Specifies the shape of buffered line midpoints. BufferJoinStyle.ROUND (&#39;round&#39;)
+ |          results in rounded shapes. BufferJoinStyle.bevel (&#39;bevel&#39;) results in a beveled
+ |          edge that touches the original vertex. BufferJoinStyle.mitre (&#39;mitre&#39;) results
+ |          in a single vertex that is beveled depending on the ``mitre_limit`` parameter.
+ |      mitre_limit : float, optional
+ |          The mitre limit ratio is used for very sharp corners. The
+ |          mitre ratio is the ratio of the distance from the corner to
+ |          the end of the mitred offset corner. When two line segments
+ |          meet at a sharp angle, a miter join will extend the original
+ |          geometry. To prevent unreasonable geometry, the mitre limit
+ |          allows controlling the maximum length of the join corner.
+ |          Corners with a ratio which exceed the limit will be beveled.
+ |      single_side : bool, optional
+ |          The side used is determined by the sign of the buffer
+ |          distance:
+ |      
+ |              a positive distance indicates the left-hand side
+ |              a negative distance indicates the right-hand side
+ |      
+ |          The single-sided buffer of point geometries is the same as
+ |          the regular buffer.  The End Cap Style for single-sided
+ |          buffers is always ignored, and forced to the equivalent of
+ |          CAP_FLAT.
+ |      quadsegs : int, optional
+ |          Deprecated alias for `quad_segs`.
+ |      
+ |      Returns
+ |      -------
+ |      Geometry
+ |      
+ |      Notes
+ |      -----
+ |      The return value is a strictly two-dimensional geometry. All
+ |      Z coordinates of the original geometry will be ignored.
+ |      
+ |      Examples
+ |      --------
+ |      &gt;&gt;&gt; from shapely.wkt import loads
+ |      &gt;&gt;&gt; g = loads(&#39;POINT (0.0 0.0)&#39;)
+ |      
+ |      16-gon approx of a unit radius circle:
+ |      
+ |      &gt;&gt;&gt; g.buffer(1.0).area  # doctest: +ELLIPSIS
+ |      3.1365484905459...
+ |      
+ |      128-gon approximation:
+ |      
+ |      &gt;&gt;&gt; g.buffer(1.0, 128).area  # doctest: +ELLIPSIS
+ |      3.141513801144...
+ |      
+ |      triangle approximation:
+ |      
+ |      &gt;&gt;&gt; g.buffer(1.0, 3).area
+ |      3.0
+ |      &gt;&gt;&gt; list(g.buffer(1.0, cap_style=BufferCapStyle.square).exterior.coords)
+ |      [(1.0, 1.0), (1.0, -1.0), (-1.0, -1.0), (-1.0, 1.0), (1.0, 1.0)]
+ |      &gt;&gt;&gt; g.buffer(1.0, cap_style=BufferCapStyle.square).area
+ |      4.0
+ |  
+ |  contains(self, other)
+ |      Returns True if the geometry contains the other, else False
+ |  
+ |  contains_properly(self, other)
+ |      Returns True if the geometry completely contains the other, with no
+ |      common boundary points, else False
+ |      
+ |      Refer to `shapely.contains_properly` for full documentation.
+ |  
+ |  covered_by(self, other)
+ |      Returns True if the geometry is covered by the other, else False
+ |  
+ |  covers(self, other)
+ |      Returns True if the geometry covers the other, else False
+ |  
+ |  crosses(self, other)
+ |      Returns True if the geometries cross, else False
+ |  
+ |  difference(self, other, grid_size=None)
+ |      Returns the difference of the geometries.
+ |      
+ |      Refer to `shapely.difference` for full documentation.
+ |  
+ |  disjoint(self, other)
+ |      Returns True if geometries are disjoint, else False
+ |  
+ |  distance(self, other)
+ |      Unitless distance to other geometry (float)
+ |  
+ |  dwithin(self, other, distance)
+ |      Returns True if geometry is within a given distance from the other, else False.
+ |      
+ |      Refer to `shapely.dwithin` for full documentation.
+ |  
+ |  equals(self, other)
+ |      Returns True if geometries are equal, else False.
+ |      
+ |      This method considers point-set equality (or topological
+ |      equality), and is equivalent to (self.within(other) &amp;
+ |      self.contains(other)).
+ |      
+ |      Examples
+ |      --------
+ |      &gt;&gt;&gt; LineString(
+ |      ...     [(0, 0), (2, 2)]
+ |      ... ).equals(
+ |      ...     LineString([(0, 0), (1, 1), (2, 2)])
+ |      ... )
+ |      True
+ |      
+ |      Returns
+ |      -------
+ |      bool
+ |  
+ |  equals_exact(self, other, tolerance)
+ |      True if geometries are equal to within a specified
+ |      tolerance.
+ |      
+ |      Parameters
+ |      ----------
+ |      other : BaseGeometry
+ |          The other geometry object in this comparison.
+ |      tolerance : float
+ |          Absolute tolerance in the same units as coordinates.
+ |      
+ |      This method considers coordinate equality, which requires
+ |      coordinates to be equal and in the same order for all components
+ |      of a geometry.
+ |      
+ |      Because of this it is possible for &quot;equals()&quot; to be True for two
+ |      geometries and &quot;equals_exact()&quot; to be False.
+ |      
+ |      Examples
+ |      --------
+ |      &gt;&gt;&gt; LineString(
+ |      ...     [(0, 0), (2, 2)]
+ |      ... ).equals_exact(
+ |      ...     LineString([(0, 0), (1, 1), (2, 2)]),
+ |      ...     1e-6
+ |      ... )
+ |      False
+ |      
+ |      Returns
+ |      -------
+ |      bool
+ |  
+ |  geometryType(self)
+ |  
+ |  hausdorff_distance(self, other)
+ |      Unitless hausdorff distance to other geometry (float)
+ |  
+ |  interpolate(self, distance, normalized=False)
+ |      Return a point at the specified distance along a linear geometry
+ |      
+ |      Negative length values are taken as measured in the reverse
+ |      direction from the end of the geometry. Out-of-range index
+ |      values are handled by clamping them to the valid range of values.
+ |      If the normalized arg is True, the distance will be interpreted as a
+ |      fraction of the geometry&#39;s length.
+ |      
+ |      Alias of `line_interpolate_point`.
+ |  
+ |  intersection(self, other, grid_size=None)
+ |      Returns the intersection of the geometries.
+ |      
+ |      Refer to `shapely.intersection` for full documentation.
+ |  
+ |  intersects(self, other)
+ |      Returns True if geometries intersect, else False
+ |  
+ |  line_interpolate_point(self, distance, normalized=False)
+ |      Return a point at the specified distance along a linear geometry
+ |      
+ |      Negative length values are taken as measured in the reverse
+ |      direction from the end of the geometry. Out-of-range index
+ |      values are handled by clamping them to the valid range of values.
+ |      If the normalized arg is True, the distance will be interpreted as a
+ |      fraction of the geometry&#39;s length.
+ |      
+ |      Alias of `interpolate`.
+ |  
+ |  line_locate_point(self, other, normalized=False)
+ |      Returns the distance along this geometry to a point nearest the
+ |      specified point
+ |      
+ |      If the normalized arg is True, return the distance normalized to the
+ |      length of the linear geometry.
+ |      
+ |      Alias of `project`.
+ |  
+ |  normalize(self)
+ |      Converts geometry to normal form (or canonical form).
+ |      
+ |      This method orders the coordinates, rings of a polygon and parts of
+ |      multi geometries consistently. Typically useful for testing purposes
+ |      (for example in combination with `equals_exact`).
+ |      
+ |      Examples
+ |      --------
+ |      &gt;&gt;&gt; from shapely import MultiLineString
+ |      &gt;&gt;&gt; line = MultiLineString([[(0, 0), (1, 1)], [(3, 3), (2, 2)]])
+ |      &gt;&gt;&gt; line.normalize()
+ |      &lt;MULTILINESTRING ((2 2, 3 3), (0 0, 1 1))&gt;
+ |  
+ |  overlaps(self, other)
+ |      Returns True if geometries overlap, else False
+ |  
+ |  point_on_surface(self)
+ |      Returns a point guaranteed to be within the object, cheaply.
+ |      
+ |      Alias of `representative_point`.
+ |  
+ |  project(self, other, normalized=False)
+ |      Returns the distance along this geometry to a point nearest the
+ |      specified point
+ |      
+ |      If the normalized arg is True, return the distance normalized to the
+ |      length of the linear geometry.
+ |      
+ |      Alias of `line_locate_point`.
+ |  
+ |  relate(self, other)
+ |      Returns the DE-9IM intersection matrix for the two geometries
+ |      (string)
+ |  
+ |  relate_pattern(self, other, pattern)
+ |      Returns True if the DE-9IM string code for the relationship between
+ |      the geometries satisfies the pattern, else False
+ |  
+ |  representative_point(self)
+ |      Returns a point guaranteed to be within the object, cheaply.
+ |      
+ |      Alias of `point_on_surface`.
+ |  
+ |  reverse(self)
+ |      Returns a copy of this geometry with the order of coordinates reversed.
+ |      
+ |      If the geometry is a polygon with interior rings, the interior rings are also
+ |      reversed.
+ |      
+ |      Points are unchanged.
+ |      
+ |      See also
+ |      --------
+ |      is_ccw : Checks if a geometry is clockwise.
+ |      
+ |      Examples
+ |      --------
+ |      &gt;&gt;&gt; from shapely import LineString, Polygon
+ |      &gt;&gt;&gt; LineString([(0, 0), (1, 2)]).reverse()
+ |      &lt;LINESTRING (1 2, 0 0)&gt;
+ |      &gt;&gt;&gt; Polygon([(0, 0), (1, 0), (1, 1), (0, 1), (0, 0)]).reverse()
+ |      &lt;POLYGON ((0 0, 0 1, 1 1, 1 0, 0 0))&gt;
+ |  
+ |  segmentize(self, max_segment_length)
+ |      Adds vertices to line segments based on maximum segment length.
+ |      
+ |      Additional vertices will be added to every line segment in an input geometry
+ |      so that segments are no longer than the provided maximum segment length. New
+ |      vertices will evenly subdivide each segment.
+ |      
+ |      Only linear components of input geometries are densified; other geometries
+ |      are returned unmodified.
+ |      
+ |      Parameters
+ |      ----------
+ |      max_segment_length : float or array_like
+ |          Additional vertices will be added so that all line segments are no
+ |          longer this value.  Must be greater than 0.
+ |      
+ |      Examples
+ |      --------
+ |      &gt;&gt;&gt; from shapely import LineString, Polygon
+ |      &gt;&gt;&gt; LineString([(0, 0), (0, 10)]).segmentize(max_segment_length=5)
+ |      &lt;LINESTRING (0 0, 0 5, 0 10)&gt;
+ |      &gt;&gt;&gt; Polygon([(0, 0), (10, 0), (10, 10), (0, 10), (0, 0)]).segmentize(max_segment_length=5)
+ |      &lt;POLYGON ((0 0, 5 0, 10 0, 10 5, 10 10, 5 10, 0 10, 0 5, 0 0))&gt;
+ |  
+ |  simplify(self, tolerance, preserve_topology=True)
+ |      Returns a simplified geometry produced by the Douglas-Peucker
+ |      algorithm
+ |      
+ |      Coordinates of the simplified geometry will be no more than the
+ |      tolerance distance from the original. Unless the topology preserving
+ |      option is used, the algorithm may produce self-intersecting or
+ |      otherwise invalid geometries.
+ |  
+ |  symmetric_difference(self, other, grid_size=None)
+ |      Returns the symmetric difference of the geometries.
+ |      
+ |      Refer to `shapely.symmetric_difference` for full documentation.
+ |  
+ |  touches(self, other)
+ |      Returns True if geometries touch, else False
+ |  
+ |  union(self, other, grid_size=None)
+ |      Returns the union of the geometries.
+ |      
+ |      Refer to `shapely.union` for full documentation.
+ |  
+ |  within(self, other)
+ |      Returns True if geometry is within the other, else False
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties inherited from shapely.geometry.base.BaseGeometry:
+ |  
+ |  area
+ |      Unitless area of the geometry (float)
+ |  
+ |  boundary
+ |      Returns a lower dimension geometry that bounds the object
+ |      
+ |      The boundary of a polygon is a line, the boundary of a line is a
+ |      collection of points. The boundary of a point is an empty (null)
+ |      collection.
+ |  
+ |  bounds
+ |      Returns minimum bounding region (minx, miny, maxx, maxy)
+ |  
+ |  centroid
+ |      Returns the geometric center of the object
+ |  
+ |  convex_hull
+ |      Imagine an elastic band stretched around the geometry: that&#39;s a
+ |      convex hull, more or less
+ |      
+ |      The convex hull of a three member multipoint, for example, is a
+ |      triangular polygon.
+ |  
+ |  envelope
+ |      A figure that envelopes the geometry
+ |  
+ |  geom_type
+ |      Name of the geometry&#39;s type, such as &#39;Point&#39;
+ |  
+ |  has_z
+ |      True if the geometry&#39;s coordinate sequence(s) have z values (are
+ |      3-dimensional)
+ |  
+ |  is_closed
+ |      True if the geometry is closed, else False
+ |      
+ |      Applicable only to 1-D geometries.
+ |  
+ |  is_empty
+ |      True if the set of points in this geometry is empty, else False
+ |  
+ |  is_ring
+ |      True if the geometry is a closed ring, else False
+ |  
+ |  is_simple
+ |      True if the geometry is simple, meaning that any self-intersections
+ |      are only at boundary points, else False
+ |  
+ |  is_valid
+ |      True if the geometry is valid (definition depends on sub-class),
+ |      else False
+ |  
+ |  length
+ |      Unitless length of the geometry (float)
+ |  
+ |  minimum_clearance
+ |      Unitless distance by which a node could be moved to produce an invalid geometry (float)
+ |  
+ |  minimum_rotated_rectangle
+ |      Returns the oriented envelope (minimum rotated rectangle) that
+ |      encloses the geometry.
+ |      
+ |      Unlike `envelope` this rectangle is not constrained to be parallel to the
+ |      coordinate axes. If the convex hull of the object is a degenerate (line
+ |      or point) this degenerate is returned.
+ |      
+ |      Alias of `oriented_envelope`.
+ |  
+ |  oriented_envelope
+ |      Returns the oriented envelope (minimum rotated rectangle) that
+ |      encloses the geometry.
+ |      
+ |      Unlike envelope this rectangle is not constrained to be parallel to the
+ |      coordinate axes. If the convex hull of the object is a degenerate (line
+ |      or point) this degenerate is returned.
+ |      
+ |      Alias of `minimum_rotated_rectangle`.
+ |  
+ |  type
+ |  
+ |  wkb
+ |      WKB representation of the geometry
+ |  
+ |  wkb_hex
+ |      WKB hex representation of the geometry
+ |  
+ |  wkt
+ |      WKT representation of the geometry
+ |  
+ |  xy
+ |      Separate arrays of X and Y coordinate values
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from shapely.lib.Geometry:
+ |  
+ |  __eq__(self, value, /)
+ |      Return self==value.
+ |  
+ |  __ge__(self, value, /)
+ |      Return self&gt;=value.
+ |  
+ |  __gt__(self, value, /)
+ |      Return self&gt;value.
+ |  
+ |  __hash__(self, /)
+ |      Return hash(self).
+ |  
+ |  __le__(self, value, /)
+ |      Return self&lt;=value.
+ |  
+ |  __lt__(self, value, /)
+ |      Return self&lt;value.
+ |  
+ |  __ne__(self, value, /)
+ |      Return self!=value.
+ |  
+ |  __setstate__(...)
+ |      For unpickling pre-shapely 2.0 pickles
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p> 이번에는 구멍이 있는 다각형을 만들어 보겠습니다. 외부 쉘과 구멍이 각각 어떻게 생겼는지 살펴보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 외부(Shell) 정의</span>
+<span class="n">outer</span> <span class="o">=</span> <span class="n">LinearRing</span><span class="p">([(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">90</span><span class="p">)])</span>
+<span class="n">outer</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1c4e55928e3c3e8df46a69946706ad99979281248ef64e9b0d3496f76bafefab.svg" src="../../_images/1c4e55928e3c3e8df46a69946706ad99979281248ef64e9b0d3496f76bafefab.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 구멍(Holes) 정의</span>
+<span class="n">hole</span> <span class="o">=</span> <span class="n">LinearRing</span><span class="p">([(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="mi">80</span><span class="p">)])</span>
+<span class="n">hole</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/41a3d34cbd8ea127e956b1dfe7b8aa8602186feee57479cedda8c68aa7296085.svg" src="../../_images/41a3d34cbd8ea127e956b1dfe7b8aa8602186feee57479cedda8c68aa7296085.svg" /></div>
+</div>
+<p> 외부 쉘과 하나의 구멍(<code class="docutils literal notranslate"><span class="pre">holes</span></code>는 리스트로 정의)으로 구성된 다각형을 생성합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">polygon_with_hole</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="p">[</span><span class="n">hole</span><span class="p">])</span>
+<span class="n">polygon_with_hole</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b821c3db33788157815e776ce96fe7eba73a773791a58f124df3e1d763f133a9.svg" src="../../_images/b821c3db33788157815e776ce96fe7eba73a773791a58f124df3e1d763f133a9.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">polygon_with_hole</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POLYGON ((-180 90, -180 -90, 180 -90, 180 90, -180 90), (-170 80, -100 -80, 100 -80, 170 80, -170 80))
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h3><span class="section-number">3.3.1. </span>Polygon 속성 및 메서드<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p> <code class="docutils literal notranslate"><span class="pre">shapely.geometry.Polygon</span></code>은 앞에서 다룬 점, 선처럼 공간분석 작업에 유용한 여러 속성 및 메서드를 갖고 있습니다. 속성 및 메서드에 대한 전체 목록은 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">Shapely 공식 문서</a>를 확인 바라며, 여기에서는 몇 가지 예를 사용해보도록 하겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;다각형 중심점(centroid): </span><span class="si">{</span><span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">centroid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;다각형 면적(area): </span><span class="si">{</span><span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;다각형 경계 상자(bounding box): </span><span class="si">{</span><span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">bounds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;다각형 외부 링(exterior ring): </span><span class="si">{</span><span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">exterior</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;다각형 둘레(circumference): </span><span class="si">{</span><span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>다각형 중심점(centroid): POINT (0 -13.827160493827162)
+다각형 면적(area): 21600.0
+다각형 경계 상자(bounding box): (-180.0, -90.0, 180.0, 90.0)
+다각형 외부 링(exterior ring): LINEARRING (-180 90, -180 -90, 180 -90, 180 90, -180 90)
+다각형 둘레(circumference): 1080.0
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<script src="https://utteranc.es/client.js"
+        repo="Kwan-Gu/geospatial_analysis"
+        issue-term="pathname"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script></section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\1. Shapely와 기하학적 객체"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.1.%20%EA%B3%B5%EA%B0%84%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AA%A8%EB%8D%B8.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>공간 데이터 모델</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>개요</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point">3.1. 점(Point)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.1.1. Point 속성 및 메서드</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lines">3.2. 선 (Lines)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linestring">3.2.1. LineString 속성 및 메서드</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon">3.3. 다각형 (Polygon)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.3.1. Polygon 속성 및 메서드</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 백관구(Kwan-Gu Baek), 이정택, 신지민
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
