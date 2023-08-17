@@ -5,9 +5,12 @@
 |          원문 (알파벳 순)          |       번역       |
 |:----------------------------:|:--------------:|
 | Attribute |       속성       |
+| Bounding Box | 경계 상자 |
 | Cartesian Coordinate System |    데카르트 좌표계    |
+| Collection | 컬렉션 |
 | Coordinate Reference Systems | 좌표 참조 시스템(CRS) |
 |             Data type        |     데이터 타입     |
+| Feature | 특성 |
 | Format |       포맷       |
 | Geometry |       도형       |
 | Import |      임포트       |

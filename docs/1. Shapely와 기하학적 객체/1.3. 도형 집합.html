@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2. 공간 데이터 모델 &#8212; 공간정보 분석 Ⅰ</title>
+    <title>4. 도형 컬렉션 (Geometry Collections) &#8212; 공간정보 분석 Ⅰ</title>
   
   
   
@@ -95,11 +95,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/1. Shapely와 기하학적 객체/1.1. 공간 데이터 모델';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/1. Shapely와 기하학적 객체/1.3. 도형 집합';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3. Shapely 사용하기" href="1.2.%20Shapely%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html" />
-    <link rel="prev" title="1. 개요" href="1.0.%20%EA%B0%9C%EC%9A%94.html" />
+    <link rel="next" title="1. 개요" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html" />
+    <link rel="prev" title="3. Shapely 사용하기" href="1.2.%20Shapely%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,9 +192,9 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅰ. Shapely와 기하학적 객체</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 공간 데이터 모델</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1.%20%EA%B3%B5%EA%B0%84%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AA%A8%EB%8D%B8.html">2. 공간 데이터 모델</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2.%20Shapely%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">3. Shapely 사용하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3.%20%EB%8F%84%ED%98%95%20%EC%A7%91%ED%95%A9.html">4. 도형 컬렉션 (Geometry Collections)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. 도형 컬렉션 (Geometry Collections)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅲ. 지오코딩과 공간 쿼리</span></p>
 <ul class="nav bd-sidenav">
@@ -250,7 +250,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/1. Shapely와 기하학적 객체/1.1. 공간 데이터 모델.html&body=Your%20issue%20content%20here." target="_blank"
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/1. Shapely와 기하학적 객체/1.3. 도형 집합.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button"
    title="Open an issue"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -297,9 +297,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -310,23 +308,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>공간 데이터 모델</h1>
+    <h1>도형 컬렉션 (Geometry Collections)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-tuples">2.1. 좌표 튜플(Coordinate Tuples)로 구성되는 기하학적 객체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#points">2.2. 점 (Points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linestrings-linerings">2.3. 선 (LineStrings) &amp; 선형 링 (LineRings)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygons">2.4. 다각형 (Polygons)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.5. 기하학적 객체 집합</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -336,54 +322,142 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><span class="section-number">2. </span>공간 데이터 모델<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="geometry-collections">
+<h1><span class="section-number">4. </span>도형 컬렉션 (Geometry Collections)<a class="headerlink" href="#geometry-collections" title="Permalink to this heading">#</a></h1>
 <hr class="docutils" />
-<figure class="align-default" id="id3">
-<a class="reference internal image-reference" href="../../_images/geometric_objects.svg"><img alt="../../_images/geometric_objects.svg" height="500px" src="../../_images/geometric_objects.svg" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Python에서 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a> 라이브러리를 활용해 사용할 수 있는 기본적인 기하학적 객체들 (출처: <a class="reference external" href="https://en.wikipedia.org/wiki/GeoJSON">위키피디아 GeoJSON</a>)</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p> 모든 지리공간 벡터 데이터는 기본적인 기하학적 객체의 집합으로 설명할 수 있습니다. 예를 들어 <strong>점</strong>, <strong>선</strong> 및 <strong>다각형</strong>은 공간 데이터의 기본 구성 요소입니다.</p>
-<p> Python에서 이러한 공간 객체를 활용해 다양한 기하학적 작업을 수행하기 위해 사용되는 표준 라이브러리로 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a>가 있습니다. 지리정보 데이터셋(레이어; layers)을 처리하는 geopandas(<em>Ⅱ. GeoPandas로 공간 데이터 관리</em> 참조)와 같은 라이브러리를 제대로 사용하기 위해서도 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a> 라이브러리가 어떻게 작동하는지에 대한 기본적인 이해가 가장 중요합니다.</p>
-<p> Shapely는 다른 지리공간 소프트웨어와 마찬가지로 <a class="reference external" href="https://www.ogc.org/standard/sfa/">Open Geospatial Consortium의 Simple Feature Access</a> 표준에 제시된 공간 데이터 모델을 따릅니다. 이 단원에서 사용되는 용어들도 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/">shapely</a>에서 사용될뿐만 아니라, 일반적인 개념이므로 훨씬 더 광범위하게 사용할 수도 있습니다.</p>
-<section id="coordinate-tuples">
-<h2><span class="section-number">2.1. </span>좌표 튜플(Coordinate Tuples)로 구성되는 기하학적 객체<a class="headerlink" href="#coordinate-tuples" title="Permalink to this heading">#</a></h2>
-<p> 기본적인 기하학적 객체를 구성하는 가장 작은 구성 단위는 <b>좌표 튜플(coordinate tuples)</b> 입니다. 즉, 좌표 튜플은 점, 선 및 다각형을 정의하는 데 사용됩니다. 이러한 좌표 튜플은 일반적으로 2차원 <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> 또는 3차원 <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">z)</span></code>으로 정의됩니다.</p>
-<div class="note admonition">
-<p class="admonition-title">튜플 (Tuples)</p>
-<p> <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences">튜플(Tuple)</a>은 쉼표(<code class="docutils literal notranslate"><span class="pre">,</span></code>)로 구분된 여러 값 또는 단일 값으로 구성된 Python의 기본적인 데이터 구조입니다. 위 좌표 튜플(coordinate tuples)은 튜플로 표시됩니다. 예를 들어, <code class="docutils literal notranslate"><span class="pre">(60.192059,</span> <span class="pre">24.945831)</span></code>은 두 개의 값을 가진 튜플이고, <code class="docutils literal notranslate"><span class="pre">(1,)</span></code>은 하나의 값을 가진 튜플입니다. 그리고 함수 <code class="docutils literal notranslate"><span class="pre">tuple([1,</span> <span class="pre">2,</span> <span class="pre">3])</span></code>은 리스트(<code class="docutils literal notranslate"><span class="pre">list</span></code>)인 <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>을 튜플(<code class="docutils literal notranslate"><span class="pre">tuple</span></code>) <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code>으로 변환(캐스트; casts)하는 역할을 합니다.</p>
-<p> 튜플은 Python의 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typesseq">시퀀스(sequence) 데이터 유형</a>에 속합니다. 튜플 외에 다른 시퀀스 데이터 유형은 리스트(list)와 range가 있습니다. 튜플은 리스트 및 range와 많은 유사점이 있지만 종종 다른 목적을 위해 사용됩니다. 튜플과 리스트의 가장 큰 차이점은, 튜플의 경우 변경할 수 없다(<a class="reference external" href="https://docs.python.org/3/glossary.html#term-immutable">immutable</a>)는 점입니다. 예를 들어, 리스트는 리스트에 값을 추가하거나 제거하여 변경할 수 있지만(mutable), 튜플은 불가능합니다.</p>
-</div>
-</section>
-<section id="points">
-<h2><span class="section-number">2.2. </span>점 (Points)<a class="headerlink" href="#points" title="Permalink to this heading">#</a></h2>
-<p> <b>점(Point)</b>은 2차원 또는 3차원 유클리드 공간에서 하나의 점을 가리킵니다. 따라서, 점은 단일 좌표 튜플로 정의됩니다.</p>
-</section>
-<section id="linestrings-linerings">
-<h2><span class="section-number">2.3. </span>선 (LineStrings) &amp; 선형 링 (LineRings)<a class="headerlink" href="#linestrings-linerings" title="Permalink to this heading">#</a></h2>
-<p> <b>선(LineString)</b>과 <b>선형 링(LineRing)</b>은 점의 시퀀스(sequence)로 정의된 선(lines)의 종류를 가리킵니다. 점을 순서대로 연결하면 선(LineString)이 형성되며, 만약 첫 번째 점과 마지막 점이 동일하면 선형 링(LineRing)이 됩니다. 따라서, <i>선(LineString)</i>을 정의하려면 최소 2개의 점이 필요하고, <i>선형 링(LinearRing)</i>의 경우 최소 3개가 필요합니다.</p>
-</section>
-<section id="polygons">
-<h2><span class="section-number">2.4. </span>다각형 (Polygons)<a class="headerlink" href="#polygons" title="Permalink to this heading">#</a></h2>
-<p> <b>다각형(Polygon)</b>은 영역을 나타냅니다. 다각형은 하나의 <i>선형 링(LinearRing)</i>과 공백 영역을 나타내는 여러 개의 <i>선형 링(LinearRing)</i>들로 정의됩니다. 따라서 다각형을 정의하려면 최소한 3개의 좌표 튜플들이 필요합니다.</p>
-</section>
-<section id="id2">
-<h2><span class="section-number">2.5. </span>기하학적 객체 집합<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<p> 복잡한 형태의 공간 특성을 표현하기 위해 기본적인 기하학적 객체들을 결합해 사용할 수 있습니다. 예를 들어, 불연속 지역으로 구성된 행정 구역(예. 서울특별시의 강북과 강남 지역)을 표현하는 경우가 있습니다.</p>
-<ul class="simple">
-<li><p><strong>다중 점(MultiPoint)</strong> : 점들의 집합</p></li>
-<li><p><strong>다중 선(MultiLineString)</strong> : 선들의 집합</p></li>
-<li><p><strong>다중 다각형(MultiPolygon)</strong> : 다각형들의 집합</p></li>
-<li><p><strong>기하 집합(GeometryCollection)</strong> : 점, 선, 다각형뿐만 아니라 다중 점, 다중 선, 다중 다각형의 집합</p></li>
-</ul>
-<figure class="align-default" id="id4">
+<figure class="align-default" id="id1">
 <a class="reference internal image-reference" href="../../_images/multipolygons.svg"><img alt="../../_images/multipolygons.svg" height="300px" src="../../_images/multipolygons.svg" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.4 </span><span class="caption-text"><em>Tyrol</em> (오스트리아의 연방주)은 <strong>다중 다각형(MultiPolygon)</strong> 입니다 (그림 출처: <a class="reference external" href="https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_GEM_1">Statistics Austria</a>).</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text"><i>Tyrol</i> (오스트리아의 연방주)은 다중 다각형(MultiPolygon) 입니다 (그림 출처: <a href="https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_GEM_1">Statistics Austria</a>).</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p> 분석 사례에 따라, 하나의 특성(feature)에 여러 도형(예. 여러 점 또는 다각형)을 저장하는 것이 유용합니다. 예를 들어, 위 그림과 같이 Tyrol 지역은 두 개의 다각형으로 구성된 지역입니다. 두 다각형은 동일한 속성(예. 지역 명, 인구 수 등)을 공유합니다. 따라서, 두 다각형을 각각 특성으로 저장하는 것은 의미가 없습니다. 즉, 별도의 행으로 저장할 필요없이 여러 개의 다각형으로 구성된 <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code>으로 표현하여 Tyrol 지역을 하나의 행(단일 특성)으로 나타낼 수 있습니다.</p>
+<p> Shapely에서 점(point)의 컬렉션은 <code class="docutils literal notranslate"><span class="pre">MultiPoint</span></code>, 선(line) 컬렉션은 <code class="docutils literal notranslate"><span class="pre">MultiLineString</span></code>, 다각형(polygon) 컬렉션은 <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code>으로 구현됩니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">MultiPoint</span><span class="p">,</span> <span class="n">MultiLineString</span>
+
+<span class="c1"># Point 객체 생성</span>
+<span class="n">point1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">)</span>
+<span class="n">point2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.1</span><span class="p">)</span>
+<span class="n">point3</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">9.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.456</span><span class="p">)</span>
+
+<span class="c1"># MultiPoint 객체 생성</span>
+<span class="n">multipoint</span> <span class="o">=</span> <span class="n">MultiPoint</span><span class="p">([</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">])</span>
+<span class="n">multipoint</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/64a3e1c1161899c223b29dcc9dcd28d0221725529a43b22990bb26002bc42baa.svg" src="../../_images/64a3e1c1161899c223b29dcc9dcd28d0221725529a43b22990bb26002bc42baa.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LineString 객체 생성</span>
+<span class="n">line1</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">])</span>
+<span class="n">line2</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([</span><span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">])</span>
+
+<span class="c1"># MultiLineString 객체 생성</span>
+<span class="n">multiline</span> <span class="o">=</span> <span class="n">MultiLineString</span><span class="p">([</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">])</span>
+<span class="n">multiline</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b7f7754dce831efa23299bfc20cf374e7002dcae93439de1a0fb9eddf7e29740.svg" src="../../_images/b7f7754dce831efa23299bfc20cf374e7002dcae93439de1a0fb9eddf7e29740.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">multipoint</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">multiline</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MULTIPOINT (2.2 4.2, 7.2 -25.1, 9.26 -2.456)
+MULTILINESTRING ((2.2 4.2, 7.2 -25.1), (7.2 -25.1, 9.26 -2.456))
+</pre></div>
+</div>
+</div>
+</div>
+<p> <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code>도 유사한 방식으로 구성할 수 있습니다. 먼저, 다각형 하나를 생성해 줍니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPolygon</span>
+
+<span class="n">left</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">)])</span>
+<span class="n">left</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a7c37ee861eec13a424cc5e0efdf1242b770408410103bb9c7413f43a62d4fec.svg" src="../../_images/a7c37ee861eec13a424cc5e0efdf1242b770408410103bb9c7413f43a62d4fec.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POLYGON ((-180 90, -180 -90, 0 -90, 0 90, -180 90))
+</pre></div>
+</div>
+</div>
+</div>
+<p> Shapely에는 직사각형 형태의 “상자”를 만드는 함수 <code class="docutils literal notranslate"><span class="pre">box</span></code>가 있습니다. <code class="docutils literal notranslate"><span class="pre">box</span></code> 함수는 x, y 좌표의 최소, 최대값을 사용하여 경계 상자(bounding box)를 생성합니다. 두 번째 다각형을 만드는 데 <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.box"><code class="docutils literal notranslate"><span class="pre">shapely.geometry.box()</span></code></a>를 사용해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">box</span>
+<span class="n">min_x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">max_x</span> <span class="o">=</span> <span class="mi">180</span>
+<span class="n">min_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span>
+<span class="n">max_y</span> <span class="o">=</span> <span class="mi">90</span>
+
+<span class="n">right</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">min_x</span><span class="p">,</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_x</span><span class="p">,</span> <span class="n">max_y</span><span class="p">)</span>
+<span class="n">right</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e742d35d42fe6d35eaf03500d82e3116cd5839300999de2e8a4b557f8e975f44.svg" src="../../_images/e742d35d42fe6d35eaf03500d82e3116cd5839300999de2e8a4b557f8e975f44.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POLYGON ((180 -90, 180 90, 0 90, 0 -90, 180 -90))
+</pre></div>
+</div>
+</div>
+</div>
+<p> 마지막으로, 두 다각형 <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>를 <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code>으로 결합할 수 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MultiPolygon 생성</span>
+<span class="n">multipolygon</span> <span class="o">=</span> <span class="n">MultiPolygon</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">])</span>
+<span class="n">multipolygon</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b169cc2925a763a16be88b8b279be5c0089b12f1a4b70985f57961492819e63e.svg" src="../../_images/b169cc2925a763a16be88b8b279be5c0089b12f1a4b70985f57961492819e63e.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">multipolygon</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MULTIPOLYGON (((-180 90, -180 -90, 0 -90, 0 90, -180 90)), ((180 -90, 180 90, 0 90, 0 -90, 180 -90)))
+</pre></div>
+</div>
+</div>
+</div>
 <hr class="docutils" />
 <script src="https://utteranc.es/client.js"
         repo="Kwan-Gu/geospatial_analysis"
@@ -392,7 +466,6 @@ document.write(`
         crossorigin="anonymous"
         async>
 </script></section>
-</section>
 
     <script type="text/x-thebe-config">
     {
@@ -426,20 +499,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="1.0.%20%EA%B0%9C%EC%9A%94.html"
+       href="1.2.%20Shapely%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>개요</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Shapely 사용하기</p>
       </div>
     </a>
     <a class="right-next"
-       href="1.2.%20Shapely%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html"
+       href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>Shapely 사용하기</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>개요</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -452,24 +525,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-tuples">2.1. 좌표 튜플(Coordinate Tuples)로 구성되는 기하학적 객체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#points">2.2. 점 (Points)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linestrings-linerings">2.3. 선 (LineStrings) &amp; 선형 링 (LineRings)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygons">2.4. 다각형 (Polygons)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.5. 기하학적 객체 집합</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
