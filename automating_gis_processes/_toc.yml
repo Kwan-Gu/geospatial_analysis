@@ -12,13 +12,14 @@ parts:
       - file: docs/0. 서론/0.2. 파이썬과 패키지 설치
       - file: docs/0. 서론/0.3. 파이썬 GIS 환경 생성
 
-  - caption: Ⅰ. Shapely와 기하학적 객체
+  - caption: Ⅰ. Shapely와 도형 객체
     numbered: 3
     chapters:
-      - file: docs/1. Shapely와 기하학적 객체/1.0. 개요
-      - file: docs/1. Shapely와 기하학적 객체/1.1. 공간 데이터 모델
-      - file: docs/1. Shapely와 기하학적 객체/1.2. Shapely 사용하기
-      - file: docs/1. Shapely와 기하학적 객체/1.3. 도형 집합
+      - file: docs/1. Shapely와 도형 객체/1.0. 개요
+      - file: docs/1. Shapely와 도형 객체/1.1. 공간 데이터 모델
+      - file: docs/1. Shapely와 도형 객체/1.2. Shapely 사용하기
+      - file: docs/1. Shapely와 도형 객체/1.3. 도형 집합
+      - file: docs/1. Shapely와 도형 객체/1.4. 볼록 껍질과 포락선
 
   - caption: Ⅲ. 지오코딩과 공간 쿼리
     numbered: 3

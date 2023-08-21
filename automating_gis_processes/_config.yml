@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 title: 공간정보 분석 Ⅰ
-author: 백관구(Kwan-Gu Baek), 이정택, 신지민
+author: 백관구(Kwan-Gu Baek), 이정택, 신지민(JiMin Shin)
 copyright: "2023"
 logo: "autogis-logo_300x210px.svg"
 
