@@ -15,7 +15,7 @@
 |          Geocoding           |      지오코딩      |
 |           Geometry           |       도형       |
 |            Import            |      임포트       |
-| Interactive map | 대화형 지도 |
+| Interactive map |     대화형 지도     |
 |             Join             |       조인       |
 |          JupyterLab          |      주피터랩      |
 |             Line             |       선        |
@@ -29,9 +29,9 @@
 |            Point             |       점        |
 |           Polygon            |      다각형       |
 |          Projection          |       투영       |
-|           Property           |       속성       |
+|           Property           |       특성       |
 |            Python            |      파이썬       |
-| Raster | 래스터 |
+| Raster |      래스터       |
 |        Reclassifying         |      재분류       |
 |          Static map          |     정적 지도      |
 |             Tool             |       도구       |

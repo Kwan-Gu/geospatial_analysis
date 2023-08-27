@@ -205,6 +205,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.4.%20%EA%B5%90%EC%B0%A8.html">4. 교차</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.5.%20%EA%B3%B5%EA%B0%84%20%EC%A1%B0%EC%9D%B8.html">5. 공간 조인</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅴ. 시각화：정적 지도와 대화형 지도</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5.%20%EC%8B%9C%EA%B0%81%ED%99%94_%EC%A0%95%EC%A0%81%20%EC%A7%80%EB%8F%84%EC%99%80%20%EB%8C%80%ED%99%94%ED%98%95%20%EC%A7%80%EB%8F%84/5.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">※ 부록</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../word.html">용어 : 영-한 번역</a></li>
@@ -406,65 +410,54 @@ document.write(`
 </ul>
 <section id="id4">
 <h3><span class="section-number">1.2.1. </span>단원별 학습 목표<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple" start="0">
-<li><p>서론</p>
+<p><strong>서론</strong></p>
 <ul class="simple">
-<li><p>파이썬 및 패키지 설치</p></li>
+<li><p>파이썬(Python) 및 패키지(Package) 설치</p></li>
 <li><p>공간 분석 환경 구성</p></li>
 </ul>
-</li>
-<li><p>Shapely와 기하학적 객체(점, 선, 다각형)</p>
+<p><strong>Ⅰ. Shapely와 도형 객체</strong></p>
 <ul class="simple">
-<li><p>파이썬에서 사용 가능한 GIS 패키지에 대한 정보 탐색</p></li>
-<li><p>Shapely에서 기하학적 개체가 어떻게 표현되는지 이해</p></li>
-<li><p>좌표 값을 기반으로 기하학적 객체 생성</p></li>
+<li><p>파이썬에서 사용 가능한 GIS 패키지에 대한 탐색</p></li>
+<li><p>Shapely에서 도형 객체(geometric objects)가 어떻게 표현되는지 이해</p></li>
+<li><p>좌표 값을 기반으로 도형 객체 생성</p></li>
 </ul>
-</li>
-<li><p>GeoPandas로 공간 데이터 관리(읽기, 쓰기, 투영, 조인)</p>
+<p><strong>Ⅱ. GeoPandas로 공간 데이터 관리</strong></p>
 <ul class="simple">
 <li><p>공통 파일 형식(Common file formats)에서 공간 데이터 읽기 및 쓰기</p></li>
 <li><p>공간 및 비공간 데이터셋에 대한 간단한 분석</p></li>
-<li><p>좌표계(Coordinate reference systems) 관리 및 데이터 재투영(re-project)</p></li>
+<li><p>좌표 참조 시스템(CRS; Coordinate Reference Systems) 관리 및 데이터 재투영(re-project)</p></li>
 </ul>
-</li>
-<li><p>지오코딩(Geocoding)과 공간 쿼리</p>
+<p><strong>Ⅲ. 지오코딩과 공간 쿼리</strong></p>
 <ul class="simple">
 <li><p><em>지오코딩(Geocoding)</em>, 즉 주소를 좌표로 또는 좌표를 주소로 변환</p></li>
-<li><p>Point-in-Polygon 쿼리</p></li>
+<li><p>PIP (Point-in-Polygon) 쿼리</p></li>
 <li><p>KML (Keyhole Markup Language) 파일에서 데이터 읽기</p></li>
-<li><p>공간 및 속성(attribute) 값에 대한 레이어 조인(join)</p></li>
-<li><p>점(Point) 객체 중 최근접 이웃 탐색</p></li>
+<li><p>공간 및 속성 값에 대한 레이어 조인(join)</p></li>
+<li><p>점(Point) 객체 중 최근접 이웃(nearest neighbor) 탐색</p></li>
 </ul>
-</li>
-<li><p>데이터 재분류(reclassifying)와 오버레이(overlay) 분석</p>
+<p><strong>Ⅳ. 데이터 재분류와 오버레이 분석</strong></p>
 <ul class="simple">
-<li><p>여러 기준에 따른 데이터 재분류</p></li>
-<li><p>오버레이 분석</p></li>
-<li><p>데이터 집계(aggregate) 및 기하학적 객체 병합</p></li>
-<li><p>도형 형태 단순화</p></li>
+<li><p>여러 기준에 따른 데이터 재분류(reclassifying)</p></li>
+<li><p>오버레이(Overlay) 분석</p></li>
+<li><p>데이터 집계(aggregate) 및 도형 객체 병합(merge)</p></li>
+<li><p>도형 단순화</p></li>
 </ul>
-</li>
-<li><p>시각화: 정적(static) 지도와 대화형(interactive) 지도</p>
+<p><strong>Ⅴ. 시각화: 정적 지도와 대화형 지도</strong></p>
 <ul class="simple">
-<li><p>배경(Background) 맵으로 정적 맵 이미지 생성</p></li>
-<li><p>간단한 대화형 지도 생성</p></li>
-<li><p>인터넷에 정적 또는 대화형 지도 공유</p></li>
+<li><p>정적 지도(Static map) 생성</p></li>
+<li><p>대화형 지도(Interactive map) 생성</p></li>
 </ul>
-</li>
-<li><p>OpenStreetMap 데이터(osmnx)와 네트워크 분석(networkx)</p>
+<p><strong>Ⅵ. OpenStreetMap 데이터와 네트워크 분석</strong></p>
 <ul class="simple">
 <li><p>OpenStreetMap에서 데이터 검색 및 저장</p></li>
-<li><p>간단한 도로 네트워크 속성 및 통계 추출</p></li>
+<li><p>간단한 도로 네트워크 특성 및 통계 추출</p></li>
 <li><p>최단 경로 알고리즘을 사용한 경로 최적화</p></li>
 </ul>
-</li>
-<li><p>PyQGIS와 래스터(Raster) 처리</p>
+<p><strong>Ⅶ. PyQGIS와 래스터 처리</strong></p>
 <ul class="simple">
-<li><p>래스터 데이터 처리의 기초</p></li>
+<li><p>래스터(Raster) 데이터 처리의 기초</p></li>
 <li><p>QGIS에서 파이썬 스크립트 사용</p></li>
 </ul>
-</li>
-</ol>
 </section>
 </section>
 <section id="gis">
