@@ -31,6 +31,11 @@ parts:
       - file: docs/3. 지오코딩과 공간 쿼리/3.4. 교차
       - file: docs/3. 지오코딩과 공간 쿼리/3.5. 공간 조인
 
+  - caption: Ⅴ. 시각화：정적 지도와 대화형 지도
+    numbered: 3
+    chapters:
+      - file: docs/5. 시각화_정적 지도와 대화형 지도/5.0. 개요
+
   - caption: ※ 부록
     chapters:
       - file: docs/word
