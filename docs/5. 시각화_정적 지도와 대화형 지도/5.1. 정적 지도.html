@@ -1,0 +1,1282 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>2. 정적 지도 &#8212; 공간정보 분석 Ⅰ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "Kwan-Gu/geospatial_analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/5. 시각화_정적 지도와 대화형 지도/5.1. 정적 지도';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="용어 : 영-한 번역" href="../word.html" />
+    <link rel="prev" title="1. 개요" href="5.0.%20%EA%B0%9C%EC%9A%94.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/autogis-logo_300x210px.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">서론</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.1.%20JupyterLab%20%EB%B6%84%EC%84%9D%20%ED%99%98%EA%B2%BD.html">2. JupyterLab 분석 환경</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.2.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98.html">3. 파이썬과 패키지 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../0.%20%EC%84%9C%EB%A1%A0/0.3.%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20GIS%20%ED%99%98%EA%B2%BD%20%EC%83%9D%EC%84%B1.html">4. 파이썬 GIS 환경 생성</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅰ. Shapely와 도형 객체</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1.%20Shapely%EC%99%80%20%EB%8F%84%ED%98%95%20%EA%B0%9D%EC%B2%B4/1.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.%20Shapely%EC%99%80%20%EB%8F%84%ED%98%95%20%EA%B0%9D%EC%B2%B4/1.1.%20%EA%B3%B5%EA%B0%84%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AA%A8%EB%8D%B8.html">2. 공간 데이터 모델</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.%20Shapely%EC%99%80%20%EB%8F%84%ED%98%95%20%EA%B0%9D%EC%B2%B4/1.2.%20Shapely%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">3. Shapely 사용하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.%20Shapely%EC%99%80%20%EB%8F%84%ED%98%95%20%EA%B0%9D%EC%B2%B4/1.3.%20%EB%8F%84%ED%98%95%20%EC%A7%91%ED%95%A9.html">4. 도형 컬렉션</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.%20Shapely%EC%99%80%20%EB%8F%84%ED%98%95%20%EA%B0%9D%EC%B2%B4/1.4.%20%EB%B3%BC%EB%A1%9D%20%EA%BB%8D%EC%A7%88%EA%B3%BC%20%ED%8F%AC%EB%9D%BD%EC%84%A0.html">5. 볼록 껍질과 포락선</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅲ. 지오코딩과 공간 쿼리</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.1.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">2. 지오코딩</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.3.%20Point-In-Polygon%20%EC%BF%BC%EB%A6%AC.html">3. PIP (Point-In-Polygon) 쿼리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.4.%20%EA%B5%90%EC%B0%A8.html">4. 교차</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9%EA%B3%BC%20%EA%B3%B5%EA%B0%84%20%EC%BF%BC%EB%A6%AC/3.5.%20%EA%B3%B5%EA%B0%84%20%EC%A1%B0%EC%9D%B8.html">5. 공간 조인</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ⅴ. 시각화：정적 지도와 대화형 지도</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.0.%20%EA%B0%9C%EC%9A%94.html">1. 개요</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 정적 지도</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">※ 부록</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../word.html">용어 : 영-한 번역</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Kwan-Gu/geospatial_analysis/issues/new?title=Issue%20on%20page%20%2Fdocs/5. 시각화_정적 지도와 대화형 지도/5.1. 정적 지도.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>정적 지도</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 데이터</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1.1. 노숙자 인구 데이터</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.1.2. 지하철 노선</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.1.3. 주요 도로</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.2. 다중레이어 지도 플롯</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#legend">2.3. 범례(Legend) 추가</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#base-map">2.4. 배경 지도(Base map) 추가</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">2. </span>정적 지도<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<p> 앞선 단원들에서 <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.plot.html"><code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.plot()</span></code></a>을 사용하여 간단한 정적 지도(static map)를 그리는 방법에 대해 익혔습니다. 이번 단원에서는 앞서 배운 내용들을 활용하여 좀더 복잡한 정적 지도를 그려보겠습니다. 이 지도에는 노숙자 인구, 도로, 지하철 노선이 표시되며, 세 개의 레이어가 겹쳐져 표현됩니다.</p>
+<section id="id2">
+<h2><span class="section-number">2.1. </span>데이터<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p> 여러분은 세 가지의 다른 데이터셋을 사용할 것입니다. 아래의 데이터는 <a class="reference external" href="https://egis-lacounty.hub.arcgis.com/">County of Los Angeles Enterprise GIS</a>에서 다운로드 받을 수 있습니다.</p>
+<ul class="simple">
+<li><p>로스앤젤레스 구역별 노숙자 인구</p></li>
+<li><p>로스앤젤레스 지하철 노선</p></li>
+<li><p>로스앤젤레스의 주요 도로</p></li>
+</ul>
+<section id="id3">
+<h3><span class="section-number">2.1.1. </span>노숙자 인구 데이터<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="c1"># 데이터 경로</span>
+<span class="n">NOTEBOOK_PATH</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">DATA_DIRECTORY</span> <span class="o">=</span> <span class="n">NOTEBOOK_PATH</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
+<span class="c1"># 노숙자 인구 데이터</span>
+<span class="n">homeless_grid</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="s2">&quot;Homeless_Counts_2020.geojson&quot;</span><span class="p">)</span>
+<span class="n">homeless_grid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OBJECTID</th>
+      <th>CSA_Label</th>
+      <th>Total_Unsheltered_Pop</th>
+      <th>Total_Sheltered_Pop</th>
+      <th>Total_Pop</th>
+      <th>Data_Source</th>
+      <th>Square_Miles</th>
+      <th>Density_Unsheltered</th>
+      <th>Density_Sheltered</th>
+      <th>Density_Total</th>
+      <th>Shape__Area</th>
+      <th>Shape__Length</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>City of Agoura Hills</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Los Angeles Homeless Services Authority (LAHSA)</td>
+      <td>5.427723</td>
+      <td>0.368479</td>
+      <td>0.000000</td>
+      <td>0.368479</td>
+      <td>2.058150e+07</td>
+      <td>21914.080903</td>
+      <td>POLYGON ((-118.74008 34.16798, -118.73567 34.1...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>City of Alhambra</td>
+      <td>32</td>
+      <td>14</td>
+      <td>46</td>
+      <td>Los Angeles Homeless Services Authority (LAHSA)</td>
+      <td>7.630029</td>
+      <td>4.193955</td>
+      <td>1.834855</td>
+      <td>6.028811</td>
+      <td>2.888244e+07</td>
+      <td>25368.896059</td>
+      <td>POLYGON ((-118.12182 34.10507, -118.12174 34.1...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>City of Arcadia</td>
+      <td>68</td>
+      <td>0</td>
+      <td>68</td>
+      <td>Los Angeles Homeless Services Authority (LAHSA)</td>
+      <td>10.240411</td>
+      <td>6.640358</td>
+      <td>0.000000</td>
+      <td>6.640358</td>
+      <td>3.881236e+07</td>
+      <td>35209.966257</td>
+      <td>POLYGON ((-118.01826 34.17572, -118.01843 34.1...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>City of Artesia</td>
+      <td>24</td>
+      <td>0</td>
+      <td>24</td>
+      <td>Los Angeles Homeless Services Authority (LAHSA)</td>
+      <td>1.620773</td>
+      <td>14.807752</td>
+      <td>0.000000</td>
+      <td>14.807752</td>
+      <td>6.103736e+06</td>
+      <td>15015.336550</td>
+      <td>POLYGON ((-118.07491 33.88039, -118.07485 33.8...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>City of Avalon</td>
+      <td>28</td>
+      <td>3</td>
+      <td>31</td>
+      <td>Los Angeles Homeless Services Authority (LAHSA)</td>
+      <td>1.233833</td>
+      <td>22.693504</td>
+      <td>2.431447</td>
+      <td>25.124951</td>
+      <td>4.589095e+06</td>
+      <td>12492.086289</td>
+      <td>POLYGON ((-118.33051 33.35552, -118.33047 33.3...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id4">
+<h3><span class="section-number">2.1.2. </span>지하철 노선<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 지하철 노선</span>
+<span class="n">metro</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="s2">&quot;MTA_Metro_Lines.geojson&quot;</span><span class="p">)</span>
+<span class="n">metro</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OBJECTID</th>
+      <th>NAME</th>
+      <th>STATUS</th>
+      <th>TYPE</th>
+      <th>LABEL</th>
+      <th>SHAPE_Length</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>513</td>
+      <td>Blue Line</td>
+      <td>Existing</td>
+      <td>Rail</td>
+      <td>Metro A Line (Blue)</td>
+      <td>0.332035</td>
+      <td>MULTILINESTRING ((-118.18937 33.77684, -118.18...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>515</td>
+      <td>Orange Line</td>
+      <td>Existing</td>
+      <td>Bus</td>
+      <td>Metro G Line (Orange)</td>
+      <td>0.358219</td>
+      <td>MULTILINESTRING ((-118.39873 34.16851, -118.39...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>524</td>
+      <td>K Line</td>
+      <td>Existing</td>
+      <td>Rail</td>
+      <td>Metro K Line</td>
+      <td>0.093875</td>
+      <td>MULTILINESTRING ((-118.33509 34.02253, -118.33...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>526</td>
+      <td>K Line</td>
+      <td>Construction</td>
+      <td>Rail</td>
+      <td>Metro K Line</td>
+      <td>0.034949</td>
+      <td>MULTILINESTRING ((-118.37446 33.96202, -118.37...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>528</td>
+      <td>Green Line</td>
+      <td>Existing</td>
+      <td>Rail</td>
+      <td>Metro C Line (Green)</td>
+      <td>0.336354</td>
+      <td>MULTILINESTRING ((-118.10112 33.91435, -118.10...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>530</td>
+      <td>Purple Line Ext 1</td>
+      <td>Construction</td>
+      <td>Rail</td>
+      <td>Metro D Line (Purple)</td>
+      <td>0.067698</td>
+      <td>MULTILINESTRING ((-118.37703 34.06537, -118.37...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>531</td>
+      <td>Purple Line Ext 2</td>
+      <td>Construction</td>
+      <td>Rail</td>
+      <td>Metro D Line (Purple)</td>
+      <td>0.044267</td>
+      <td>MULTILINESTRING ((-118.37703 34.06537, -118.37...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>532</td>
+      <td>Purple Line Ext 3</td>
+      <td>Construction</td>
+      <td>Rail</td>
+      <td>Metro D Line (Purple)</td>
+      <td>0.043554</td>
+      <td>MULTILINESTRING ((-118.41677 34.05807, -118.41...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>533</td>
+      <td>Gold Line</td>
+      <td>Construction</td>
+      <td>Rail</td>
+      <td>Metro L Line (Gold)</td>
+      <td>0.208126</td>
+      <td>MULTILINESTRING ((-117.69442 34.09395, -117.72...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>534</td>
+      <td>Regional Connector</td>
+      <td>Construction</td>
+      <td>Rail</td>
+      <td>Regional Connector</td>
+      <td>0.032172</td>
+      <td>MULTILINESTRING ((-118.23812 34.04897, -118.23...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>925</td>
+      <td>Expo Line</td>
+      <td>Existing</td>
+      <td>Rail</td>
+      <td>Metro E Line (Expo)</td>
+      <td>0.258328</td>
+      <td>MULTILINESTRING ((-118.28651 34.01823, -118.28...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>926</td>
+      <td>Silver Line</td>
+      <td>Existing</td>
+      <td>Bus</td>
+      <td>Metro J Line (Silver)</td>
+      <td>0.685290</td>
+      <td>MULTILINESTRING ((-118.28798 33.72698, -118.28...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>927</td>
+      <td>Gold Line</td>
+      <td>Existing</td>
+      <td>Rail</td>
+      <td>Metro L Line (Gold)</td>
+      <td>0.519101</td>
+      <td>MULTILINESTRING ((-117.88762 34.13747, -117.88...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>929</td>
+      <td>Purple Line</td>
+      <td>Existing</td>
+      <td>Rail</td>
+      <td>Metro D Line (Purple)</td>
+      <td>0.105507</td>
+      <td>MULTILINESTRING ((-118.22871 34.03723, -118.22...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>930</td>
+      <td>Red Line</td>
+      <td>Existing</td>
+      <td>Rail</td>
+      <td>Metro B Line (Red)</td>
+      <td>0.254514</td>
+      <td>MULTILINESTRING ((-118.37715 34.16906, -118.37...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id5">
+<h3><span class="section-number">2.1.3. </span>주요 도로<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 주요 도로</span>
+<span class="n">roads</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="s2">&quot;Master_Plan_of_Highways.geojson&quot;</span><span class="p">)</span>
+<span class="n">roads</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OBJECTID</th>
+      <th>LENGTH</th>
+      <th>TYPE</th>
+      <th>STRU</th>
+      <th>STAT</th>
+      <th>SURF</th>
+      <th>PREF_ALF</th>
+      <th>NAME_ALF</th>
+      <th>SUFFABV_AL</th>
+      <th>DIRSABV_AL</th>
+      <th>...</th>
+      <th>TBMCITYL_A</th>
+      <th>TBMCITYR_A</th>
+      <th>NUMBER</th>
+      <th>SYMBOL</th>
+      <th>HCODE</th>
+      <th>HCODE_NAME</th>
+      <th>dbgis_USER2_GP_DRP_HWY_PLAN_29</th>
+      <th>NO_LANES</th>
+      <th>ShapeSTLength</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>22691</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>PARKWAY - PROPOSED</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6094.916994</td>
+      <td>LINESTRING (-118.33371 33.72602, -118.33429 33...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>22692</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SECONDARY HIGHWAY - EXISTING</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>24.005160</td>
+      <td>LINESTRING (-118.31458 33.78747, -118.31458 33...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>22693</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LIMITED SECONDARY HIGHWAY - EXISTING</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>68.065228</td>
+      <td>LINESTRING (-118.53672 34.76006, -118.53649 34...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>22694</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>MAJOR HIGHWAY - EXISTING</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5349.044231</td>
+      <td>LINESTRING (-117.95205 34.66805, -117.95204 34...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>22695</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SECONDARY HIGHWAY - EXISTING</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>16045.314884</td>
+      <td>LINESTRING (-117.95170 34.61666, -117.95171 34...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 32 columns</p>
+</div></div></div>
+</div>
+<p> 서로 다른 GIS 데이터에 대해 <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.plot()</span></code>를 사용하여 하나의 지도에 나타내기 전에, 모든 GeoDataFrame이 동일한 좌표계를 갖도록 설정해주어야 합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 좌표 참조 시스템(CRS)이 동일한지 확인</span>
+<span class="k">assert</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">metro</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">roads</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="s2">&quot;Input data sets’ CRS differs&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homeless_grid</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">2.2. </span>다중레이어 지도 플롯<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p> <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.plot()</span></code>에 입력할 수 있는 옵션들을 알아두면 도움이 됩니다.</p>
+<ul class="simple">
+<li><p>다각형(Polygon) 레이어 스타일</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">scheme</span></code> : 분류 체계</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmap</span></code> : <a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">색상 맵</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code> : 레이어의 투명도 (0은 완전 투명, 1은 완전 불투명)</p></li>
+</ul>
+</li>
+<li><p>선(Line) 레이어 스타일</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code> : 선 색상</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linewidth</span></code> : 선 두께</p></li>
+</ul>
+</li>
+</ul>
+<p> 각각의 레이어가 표현하는 지도 상에서의 범위는 다양할 수 있습니다. 예를 들어, 여기서 사용할 지하철 노선 데이터 <code class="docutils literal notranslate"><span class="pre">metro</span></code>는 로스앤젤레스의 도심 지역만 표현해도 되지만, 도로 <code class="docutils literal notranslate"><span class="pre">roads</span></code>는 훨씬 넓은 영역(도심 외곽)까지 표현해야 할 수 있습니다. 이러한 경우, 축(<code class="docutils literal notranslate"><span class="pre">ax</span></code>)의 메서드인 <code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>과 <code class="docutils literal notranslate"><span class="pre">set_ylim()</span></code>을 사용하여 지도의 수평, 수직 범위를 설정할 수 있습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># 노숙자 인구 플롯</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+    
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;Total_Pop&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span>
+<span class="p">)</span>
+<span class="c1"># 지하철 노선 플롯</span>
+<span class="n">metro</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span>
+<span class="p">)</span>
+<span class="c1"># 주요 도로 플롯</span>
+<span class="n">roads</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">33.6</span><span class="p">,)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/582bcc6eee329fa856b97e1515558c37ecaacf55efc7701daa4f3bc89ecd33ad.png" src="../../_images/582bcc6eee329fa856b97e1515558c37ecaacf55efc7701daa4f3bc89ecd33ad.png" />
+</div>
+</div>
+</section>
+<section id="legend">
+<h2><span class="section-number">2.3. </span>범례(Legend) 추가<a class="headerlink" href="#legend" title="Permalink to this heading">#</a></h2>
+<p> 지도에 범례(legend)를 추가하려면 <code class="docutils literal notranslate"><span class="pre">legend=True</span></code> 파라미터를 추가해 줍니다. 분류 체계(<code class="docutils literal notranslate"><span class="pre">scheme</span></code>)가 없는 그림이라면 범례는 그라데이션 막대로 나타납니다. 범례는 <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html"><code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.colorbar.Colorbar</span></code></a>의 인스턴스이며, 범례를 스타일링 하기 위해서는 <code class="docutils literal notranslate"><span class="pre">legend_kwds</span></code>에 인수를 설정하여 다양한 스타일로 꾸밀 수 있습니다. 아래의 예시에서 <code class="docutils literal notranslate"><span class="pre">label</span></code> 인수를 사용하여 <em>범례 제목</em>을 설정하겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 연속형 범례 (분류 체계 없음)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;Total_Pop&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Homeless Counts 2020&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">33.6</span><span class="p">,)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/768badcd21f2b8d45535dbfef77471e886eb27da83754673513c49f267009281.png" src="../../_images/768badcd21f2b8d45535dbfef77471e886eb27da83754673513c49f267009281.png" />
+</div>
+</div>
+<p> 반면에 분류 체계(<code class="docutils literal notranslate"><span class="pre">scheme</span></code>)를 사용하는 그림의 경우, 범례가 <a class="reference external" href="https://matplotlib.org/stable/api/legend_api.html#matplotlib.legend.Legend"><code class="docutils literal notranslate"><span class="pre">matplotlib.legend.Legend</span></code></a> 인스턴스로 생성됩니다. 범례의 스타일을 설정하기 위해 이번에도 <code class="docutils literal notranslate"><span class="pre">legend_kwds</span></code>가 사용되지만 파라미터는 다를 수 있습니다. 예를 들어, 범례 제목을 설정하려면 <code class="docutils literal notranslate"><span class="pre">label</span></code> 대신 <code class="docutils literal notranslate"><span class="pre">title</span></code>을 사용해야 합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 분류 체계 있음</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;Total_Pop&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Homeless Counts 2020&quot;</span><span class="p">,</span> <span class="s2">&quot;loc&quot;</span><span class="p">:</span> <span class="s2">&quot;upper right&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">33.6</span><span class="p">,)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e4b16abc99b5951b229e57a92da501b048c97a2b524a4efc0615c1d6852b7002.png" src="../../_images/e4b16abc99b5951b229e57a92da501b048c97a2b524a4efc0615c1d6852b7002.png" />
+</div>
+</div>
+</section>
+<section id="base-map">
+<h2><span class="section-number">2.4. </span>배경 지도(Base map) 추가<a class="headerlink" href="#base-map" title="Permalink to this heading">#</a></h2>
+<p> 지도를 스타일링 할 때, 그림에 배경 지도(base map)를 추가하는 것이 가시성이나 정보 전달성 측면에서 좋습니다. 예를 들어, <a class="reference external" href="https://www.openstreetmap.org/">OpenStreetMap</a> 또는 <a class="reference external" href="http://maps.stamen.com/">Stamen</a>과 같은 지도 제공업체의 지도에는 거리명, 장소명, 기타 상황별 정보 등 다양한 정보들이 추가됩니다. 이러한 지도를 파이썬에서 활용하기 위해 <a class="reference external" href="https://contextily.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">contextily</span></code></a>라는 패키지를 사용하며, 이를 통해 필요한 배경 지도 타일을 다운로드하고 geopandas 플롯에 렌더링하여 배경 지도를 추가할 수 있습니다.</p>
+<div class="warning admonition">
+<p class="admonition-title">웹 메르카토르(Mercator)</p>
+<p> 온라인 지도 제공업체의 지도는 일반적으로 <a class="reference external" href="https://spatialreference.org/ref/sr-org/epsg3857-wgs84-web-mercator-auxiliary-sphere/">Web Mercator 투영법(EPSG:3857)</a>입니다. 따라서, 함께 투영할 다른 레이어들도 <code class="docutils literal notranslate"><span class="pre">EPSG:3857</span></code>로 재투영하는 것이 좋습니다.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 참조 좌표 시스템 EPSG:3857로 재투영</span>
+<span class="n">homeless_grid</span> <span class="o">=</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:3857&quot;</span><span class="p">)</span>
+<span class="n">metro</span> <span class="o">=</span> <span class="n">metro</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:3857&quot;</span><span class="p">)</span>
+<span class="n">roads</span> <span class="o">=</span> <span class="n">roads</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:3857&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p> 기존 플롯에 배경 지도를 추가하려면 <code class="docutils literal notranslate"><span class="pre">contextily.add_basemap()</span></code> 함수를 사용합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">contextily</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;Total_Pop&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Homeless Counts 2020&quot;</span><span class="p">,</span> <span class="s2">&quot;loc&quot;</span><span class="p">:</span> <span class="s2">&quot;upper right&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">3.975</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,)</span>
+<span class="n">contextily</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c69fe1a6b8fe003447bbe01f6c35d7ae89b05e776ca3f56ba4af7e0dd50c03a8.png" src="../../_images/c69fe1a6b8fe003447bbe01f6c35d7ae89b05e776ca3f56ba4af7e0dd50c03a8.png" />
+</div>
+</div>
+<p> 기본적으로 <em>contextily</em>에서는 <a class="reference external" href="http://maps.stamen.com/#terrain/">Stamen Terrain</a>을 사용하지만, 이외에 선택할 수 있는 다른 온라인 지도도 많이 있습니다. 다른 <a class="reference external" href="https://contextily.readthedocs.io/en/latest/intro_guide.html#Providers"><code class="docutils literal notranslate"><span class="pre">contextily.providers</span></code></a>를 사용하기 위해서는 <code class="docutils literal notranslate"><span class="pre">add_basemap()</span></code>의 <code class="docutils literal notranslate"><span class="pre">source</span></code> 인자를 설정합니다. 예를 들어, OpenStreetMap의 <em>Mapnik</em> 스타일을 사용해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;Total_Pop&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Homeless Counts 2020&quot;</span><span class="p">,</span> <span class="s2">&quot;loc&quot;</span><span class="p">:</span> <span class="s2">&quot;upper right&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">3.975</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,)</span>
+<span class="n">contextily</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span>
+    <span class="n">ax</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">contextily</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c6666bba86886e1e98278c24d1c846dafe05272a482dc203a08f582f124eb637.png" src="../../_images/c6666bba86886e1e98278c24d1c846dafe05272a482dc203a08f582f124eb637.png" />
+</div>
+</div>
+<p> 이 확대/축소 수준에서는 OpenStreetMap 사용으로 인한 이점(예: 지명)이 최대한 활용되지 않습니다. 축(<code class="docutils literal notranslate"><span class="pre">ax</span></code>)의 범위를 <code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>, <code class="docutils literal notranslate"><span class="pre">set_ylim()</span></code>을 사용하여 더 확대해서 살펴보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;Total_Pop&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Homeless Counts 2020&quot;</span><span class="p">,</span> <span class="s2">&quot;loc&quot;</span><span class="p">:</span> <span class="s2">&quot;upper right&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.318</span><span class="o">*</span><span class="mf">1e7</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.317</span><span class="o">*</span><span class="mf">1e7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">4.04</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,</span> <span class="mf">4.05</span><span class="o">*</span><span class="mf">1e6</span><span class="p">)</span>
+<span class="n">contextily</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span>
+    <span class="n">ax</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">contextily</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4ec214c67b38939bf465e546a90607b517e638b2c61cc0e42dc9628320078410.png" src="../../_images/4ec214c67b38939bf465e546a90607b517e638b2c61cc0e42dc9628320078410.png" />
+</div>
+</div>
+<p> 마지막으로 지도의 왼쪽 하단에 표시된 저작권 관련 속성을 수정할 수도 있습니다. 지도 제공업체의 이용 약관을 <em>항상</em> 준수해야 하며, <em>contextily</em> 패키지를 사용할 경우 자동으로 저작권 관련 속성을 지도의 왼쪽 하단에 표시합니다. 하지만 여기에서 사용한 노숙자 인구 데이터처럼 패키지에서 제공하지 않는 모든 레이어에 대한 데이터 출처도 표시해야 합니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">homeless_grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;Total_Pop&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Spectral&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Homeless Counts 2020&quot;</span><span class="p">,</span> <span class="s2">&quot;loc&quot;</span><span class="p">:</span> <span class="s2">&quot;upper right&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.318</span><span class="o">*</span><span class="mf">1e7</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.317</span><span class="o">*</span><span class="mf">1e7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">4.04</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,</span> <span class="mf">4.05</span><span class="o">*</span><span class="mf">1e6</span><span class="p">)</span>
+<span class="n">contextily</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span>
+    <span class="n">ax</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">contextily</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span><span class="p">,</span>
+    <span class="n">attribution</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;homeless counts 2020 data (c) County of Los Angeles, &quot;</span>
+        <span class="s2">&quot;map data (c) OpenStreetMap contributors&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d5e810871cb7dab6f6fdca2c072c476eb268b698faea14e17ebcd08f3e8c3411.png" src="../../_images/d5e810871cb7dab6f6fdca2c072c476eb268b698faea14e17ebcd08f3e8c3411.png" />
+</div>
+</div>
+<hr class="docutils" />
+<script src="https://utteranc.es/client.js"
+        repo="Kwan-Gu/geospatial_analysis"
+        issue-term="pathname"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\5. 시각화_정적 지도와 대화형 지도"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.0.%20%EA%B0%9C%EC%9A%94.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>개요</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../word.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">용어 : 영-한 번역</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 데이터</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1.1. 노숙자 인구 데이터</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.1.2. 지하철 노선</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.1.3. 주요 도로</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.2. 다중레이어 지도 플롯</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#legend">2.3. 범례(Legend) 추가</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#base-map">2.4. 배경 지도(Base map) 추가</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 백관구(Kwan-Gu Baek), 신지민(JiMin Shin)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+Traceback (most recent call last):
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\jupyter_core\utils\__init__.py", line 166, in wrapped
+    return loop.run_until_complete(inner)
+  File "C:\Users\BEGAS_15\AppData\Local\Programs\Python\Python39\lib\asyncio\base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import matplotlib.pyplot as plt
+# 노숙자 인구 플롯
+ax = homeless_grid.plot(
+    figsize=(12, 8),
+    
+    column="Total_Pop",
+    scheme="quantiles",
+    cmap="Spectral",
+    linewidth=0,
+    alpha=0.8
+)
+# 지하철 노선 플롯
+metro.plot(
+    ax=ax,
+    color="orange",
+    linewidth=2.5
+)
+# 주요 도로 플롯
+roads.plot(
+    ax=ax,
+    color="grey",
+    linewidth=0.8
+)
+ax.set_ylim(33.6,)
+plt.show()
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+File [1;32m~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:754[0m, in [0;36mplot_dataframe[1;34m(df, column, cmap, color, ax, cax, categorical, legend, scheme, k, vmin, vmax, markersize, figsize, legend_kwds, categories, classification_kwds, missing_kwds, aspect, **style_kwds)[0m
+[0;32m    753[0m [38;5;28;01mtry[39;00m:
+[1;32m--> 754[0m     [38;5;28;01mimport[39;00m [38;5;21;01mmapclassify[39;00m
+[0;32m    756[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m:
+
+[1;31mModuleNotFoundError[0m: No module named 'mapclassify'
+
+During handling of the above exception, another exception occurred:
+
+[1;31mImportError[0m                               Traceback (most recent call last)
+Cell [1;32mIn[6], line 3[0m
+[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[0;32m      2[0m [38;5;66;03m# 노숙자 인구 플롯[39;00m
+[1;32m----> 3[0m ax [38;5;241m=[39m [43mhomeless_grid[49m[38;5;241;43m.[39;49m[43mplot[49m[43m([49m
+[0;32m      4[0m [43m    [49m[43mfigsize[49m[38;5;241;43m=[39;49m[43m([49m[38;5;241;43m12[39;49m[43m,[49m[43m [49m[38;5;241;43m8[39;49m[43m)[49m[43m,[49m
+[0;32m      5[0m [43m    [49m
+[0;32m      6[0m [43m    [49m[43mcolumn[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mTotal_Pop[39;49m[38;5;124;43m"[39;49m[43m,[49m
+[0;32m      7[0m [43m    [49m[43mscheme[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mquantiles[39;49m[38;5;124;43m"[39;49m[43m,[49m
+[0;32m      8[0m [43m    [49m[43mcmap[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mSpectral[39;49m[38;5;124;43m"[39;49m[43m,[49m
+[0;32m      9[0m [43m    [49m[43mlinewidth[49m[38;5;241;43m=[39;49m[38;5;241;43m0[39;49m[43m,[49m
+[0;32m     10[0m [43m    [49m[43malpha[49m[38;5;241;43m=[39;49m[38;5;241;43m0.8[39;49m
+[0;32m     11[0m [43m)[49m
+[0;32m     12[0m [38;5;66;03m# 지하철 노선 플롯[39;00m
+[0;32m     13[0m metro[38;5;241m.[39mplot(
+[0;32m     14[0m     ax[38;5;241m=[39max,
+[0;32m     15[0m     color[38;5;241m=[39m[38;5;124m"[39m[38;5;124morange[39m[38;5;124m"[39m,
+[0;32m     16[0m     linewidth[38;5;241m=[39m[38;5;241m2.5[39m
+[0;32m     17[0m )
+
+File [1;32m~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:969[0m, in [0;36mGeoplotAccessor.__call__[1;34m(self, *args, **kwargs)[0m
+[0;32m    967[0m kind [38;5;241m=[39m kwargs[38;5;241m.[39mpop([38;5;124m"[39m[38;5;124mkind[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mgeo[39m[38;5;124m"[39m)
+[0;32m    968[0m [38;5;28;01mif[39;00m kind [38;5;241m==[39m [38;5;124m"[39m[38;5;124mgeo[39m[38;5;124m"[39m:
+[1;32m--> 969[0m     [38;5;28;01mreturn[39;00m plot_dataframe(data, [38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m    970[0m [38;5;28;01mif[39;00m kind [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39m_pandas_kinds:
+[0;32m    971[0m     [38;5;66;03m# Access pandas plots[39;00m
+[0;32m    972[0m     [38;5;28;01mreturn[39;00m PlotAccessor(data)(kind[38;5;241m=[39mkind, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+
+File [1;32m~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\plotting.py:757[0m, in [0;36mplot_dataframe[1;34m(df, column, cmap, color, ax, cax, categorical, legend, scheme, k, vmin, vmax, markersize, figsize, legend_kwds, categories, classification_kwds, missing_kwds, aspect, **style_kwds)[0m
+[0;32m    754[0m     [38;5;28;01mimport[39;00m [38;5;21;01mmapclassify[39;00m
+[0;32m    756[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m:
+[1;32m--> 757[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m(mc_err)
+[0;32m    759[0m [38;5;28;01mif[39;00m Version(mapclassify[38;5;241m.[39m__version__) [38;5;241m<[39m Version([38;5;124m"[39m[38;5;124m2.4.0[39m[38;5;124m"[39m):
+[0;32m    760[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m(mc_err)
+
+[1;31mImportError[0m: The 'mapclassify' package (>= 2.4.0) is required to use the 'scheme' keyword.
+
