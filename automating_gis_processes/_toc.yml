@@ -35,6 +35,7 @@ parts:
     numbered: 3
     chapters:
       - file: docs/5. 시각화_정적 지도와 대화형 지도/5.0. 개요
+      - file: docs/5. 시각화_정적 지도와 대화형 지도/5.1. 정적 지도
 
   - caption: ※ 부록
     chapters:
