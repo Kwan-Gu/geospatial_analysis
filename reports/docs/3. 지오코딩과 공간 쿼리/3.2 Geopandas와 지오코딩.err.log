@@ -1,4 +1,15 @@
 Traceback (most recent call last):
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 778, in _async_poll_for_reply
+    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\jupyter_core\utils\__init__.py", line 182, in ensure_async
+    result = await obj
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\jupyter_client\channels.py", line 315, in get_msg
+    raise Empty
+_queue.Empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
   File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
     executenb(
   File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 1305, in execute
@@ -9,12 +20,16 @@ Traceback (most recent call last):
     return future.result()
   File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 705, in async_execute
     await self.async_execute_cell(
-  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
-    await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
-    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
-nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
-------------------
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 1001, in async_execute_cell
+    exec_reply = await self.task_poll_for_reply
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 802, in _async_poll_for_reply
+    error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
+  File "C:\Users\BEGAS_15\PycharmProjects\geospatial_analysis\venv\lib\site-packages\nbclient\client.py", line 852, in _async_handle_timeout
+    raise CellTimeoutError.error_from_timeout_and_cell(
+nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
+The message was: Cell execution timed out.
+Here is a preview of the cell contents:
+-------------------
 import geopandas as gpd
 
 geocoded_addresses = gpd.tools.geocode(addresses["지점주소"], # 지오코딩할 주소
@@ -23,35 +38,5 @@ geocoded_addresses = gpd.tools.geocode(addresses["지점주소"], # 지오코딩
                                        timeout=10
                                       )
 geocoded_addresses
-------------------
-
-
-[1;31m---------------------------------------------------------------------------[0m
-[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [1;32mIn[2], line 3[0m
-[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mgeopandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mgpd[39;00m
-[1;32m----> 3[0m geocoded_addresses [38;5;241m=[39m [43mgpd[49m[38;5;241;43m.[39;49m[43mtools[49m[38;5;241;43m.[39;49m[43mgeocode[49m[43m([49m[43maddresses[49m[43m[[49m[38;5;124;43m"[39;49m[38;5;124;43m지점주소[39;49m[38;5;124;43m"[39;49m[43m][49m[43m,[49m[43m [49m[38;5;66;43;03m# 지오코딩할 주소[39;49;00m
-[0;32m      4[0m [43m                                       [49m[43mprovider[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mphoton[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;66;43;03m# 지오코더[39;49;00m
-[0;32m      5[0m [43m                                       [49m[43muser_agent[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mtest[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;66;43;03m# user-agent 설정 필수 (Nominatim)[39;49;00m
-[0;32m      6[0m [43m                                       [49m[43mtimeout[49m[38;5;241;43m=[39;49m[38;5;241;43m10[39;49m
-[0;32m      7[0m [43m                                      [49m[43m)[49m
-[0;32m      8[0m geocoded_addresses
-
-File [1;32m~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\tools\geocoding.py:65[0m, in [0;36mgeocode[1;34m(strings, provider, **kwargs)[0m
-[0;32m     63[0m [38;5;28;01mif[39;00m provider [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
-[0;32m     64[0m     provider [38;5;241m=[39m [38;5;124m"[39m[38;5;124mphoton[39m[38;5;124m"[39m
-[1;32m---> 65[0m throttle_time [38;5;241m=[39m [43m_get_throttle_time[49m[43m([49m[43mprovider[49m[43m)[49m
-[0;32m     67[0m [38;5;28;01mreturn[39;00m _query(strings, [38;5;28;01mTrue[39;00m, provider, throttle_time, [38;5;241m*[39m[38;5;241m*[39mkwargs)
-
-File [1;32m~\PycharmProjects\geospatial_analysis\venv\lib\site-packages\geopandas\tools\geocoding.py:16[0m, in [0;36m_get_throttle_time[1;34m(provider)[0m
-[0;32m     11[0m [38;5;28;01mdef[39;00m [38;5;21m_get_throttle_time[39m(provider):
-[0;32m     12[0m [38;5;250m    [39m[38;5;124;03m"""[39;00m
-[0;32m     13[0m [38;5;124;03m    Amount of time to wait between requests to a geocoding API, for providers[39;00m
-[0;32m     14[0m [38;5;124;03m    that specify rate limits in their terms of service.[39;00m
-[0;32m     15[0m [38;5;124;03m    """[39;00m
-[1;32m---> 16[0m     [38;5;28;01mimport[39;00m [38;5;21;01mgeopy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mgeocoders[39;00m
-[0;32m     18[0m     [38;5;66;03m# https://operations.osmfoundation.org/policies/nominatim/[39;00m
-[0;32m     19[0m     [38;5;28;01mif[39;00m provider [38;5;241m==[39m geopy[38;5;241m.[39mgeocoders[38;5;241m.[39mNominatim:
-
-[1;31mModuleNotFoundError[0m: No module named 'geopy'
+-------------------
 
