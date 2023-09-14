@@ -39,6 +39,7 @@
 |        Reclassifying         |      재분류       |
 |          Static Map          |     정적 지도      |
 |             Tool             |       도구       |
+| Tooltip | 툴팁 |
 |            Tuple             |       튜플       |
 
 ---
