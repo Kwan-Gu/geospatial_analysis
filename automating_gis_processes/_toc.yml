@@ -21,6 +21,11 @@ parts:
       - file: docs/1. Shapely와 도형 객체/1.3. 도형 집합
       - file: docs/1. Shapely와 도형 객체/1.4. 볼록 껍질과 포락선
 
+  - caption: Ⅱ. GeoPandas로 공간 데이터 관리
+    numbered: 3
+    chapters:
+      - file: docs/2. GeoPandas로 공간 데이터 관리/2.0. 개요
+
   - caption: Ⅲ. 지오코딩과 공간 쿼리
     numbered: 3
     chapters:
